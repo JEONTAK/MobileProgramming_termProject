@@ -9,4 +9,5 @@
     <string name="title_activity_food_category2">MainActivity</string>
     <string name="title_recipe">레시피 정보</string>
     <string name="title_bookmark">즐겨찾기 목록</string>
+    <string name="title_searchResult">검색 결과</string>
 </resources>
