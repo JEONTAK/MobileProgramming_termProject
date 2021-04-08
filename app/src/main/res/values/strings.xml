@@ -10,4 +10,6 @@
     <string name="title_recipe">레시피 정보</string>
     <string name="title_bookmark">즐겨찾기 목록</string>
     <string name="title_searchResult">검색 결과</string>
+    <string name="title_convenience_category">편의점 별 카테고리</string>
+    <string name="title_recipe_category">레시피 목록</string>
 </resources>

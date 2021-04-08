@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MobileProgramming_termProject">
-        <activity android:name=".ui.searchResult.searchResultFragment"></activity>
+        <activity android:name=".ui.recipe_category.recipe_categoryFragment"></activity>
+        <activity android:name=".ui.convenience_category.convenience_categoryFragment" />
+        <activity android:name=".ui.searchResult.searchResultFragment" />
         <activity android:name=".ui.bookmark.bookmarkFragment" />
         <activity android:name=".ui.recipe.recipePagerFragment" />
         <activity
