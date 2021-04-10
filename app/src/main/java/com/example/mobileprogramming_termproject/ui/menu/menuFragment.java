@@ -38,30 +38,48 @@ public class menuFragment extends Fragment {
         LinearLayout purpose_layout=(LinearLayout)root.findViewById(R.id.purpose_layout );
         ScrollView scrollView1=(ScrollView)root.findViewById(R.id.scroll1);
         ScrollView scrollView2=(ScrollView)root.findViewById(R.id.scroll2);
-        Button button1=(Button)root.findViewById(R.id.button1);
-        Button button2=(Button)root.findViewById(R.id.button2);
-        Button button3=(Button)root.findViewById(R.id.button3);
-        ImageButton imageButton1=(ImageButton)root.findViewById(R.id.star1);
-        ImageButton imageButton2=(ImageButton)root.findViewById(R.id.star2);
-        button1.setOnClickListener(new View.OnClickListener() {
+//음식 비용 목적으로 버튼 3개 나누기
+        ImageButton button_food=(ImageButton)root.findViewById(R.id.imageBut_food);
+        ImageButton button_cost=(ImageButton)root.findViewById(R.id.imageBut_cost);
+        ImageButton button_purpose=(ImageButton)root.findViewById(R.id.imageBut_purpose);
+//음식 카테고리
+        ImageButton imageBut_burger=(ImageButton)root.findViewById(R.id.imageBut_burger);
+        ImageButton imageBut_noodles=(ImageButton)root.findViewById(R.id.imageBut_noodles);
+        ImageButton imageBut_rice=(ImageButton)root.findViewById(R.id.imageBut_rice);
+        ImageButton imageBut_etc1=(ImageButton)root.findViewById(R.id.imageBut_etc1);
+// 비용 카테고리
+        ImageButton imageBut_under2=(ImageButton)root.findViewById(R.id.imageBut_under2);
+        ImageButton imageBut_bet2_3=(ImageButton)root.findViewById(R.id.imageBut_bet2_3);
+        ImageButton imageBut_bet3_4=(ImageButton)root.findViewById(R.id.imageBut_bet3_4);
+        ImageButton imageBut_bet4_5=(ImageButton)root.findViewById(R.id.imageBut_bet4_5);
+
+// 목적 카테고리
+
+        ImageButton imageBut_diet=(ImageButton)root.findViewById(R.id.imageBut_diet);
+        ImageButton imageBut_candy=(ImageButton)root.findViewById(R.id.imageBut_candy);
+        ImageButton imageBut_hot=(ImageButton)root.findViewById(R.id.imageBut_hot);
+        ImageButton imageBut_etc2=(ImageButton)root.findViewById(R.id.imageBut_etc2);
+
+//        음식 누르면 음식 카테고리 보이게 하기
+        button_food.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 food_layout.setVisibility(v.VISIBLE);
                 cost_layout.setVisibility(v.GONE);
                 purpose_layout.setVisibility(v.GONE);
             }
-        });
 
+        });
         scrollView1.setVisibility(View.INVISIBLE);
         scrollView2.setVisibility(View.INVISIBLE);
-        imageButton1.setOnClickListener(new View.OnClickListener() {
+        imageBut_burger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 scrollView1.setVisibility(v.VISIBLE);
                 scrollView2.setVisibility(v.GONE);
             }
         });
-        imageButton2.setOnClickListener(new View.OnClickListener() {
+        imageBut_noodles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 scrollView1.setVisibility(v.GONE);
@@ -69,7 +87,25 @@ public class menuFragment extends Fragment {
             }
         });
 
-        button2.setOnClickListener(new View.OnClickListener() {
+        imageBut_rice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollView1.setVisibility(v.GONE);
+                scrollView2.setVisibility(v.VISIBLE);
+            }
+        });
+
+        imageBut_etc1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollView1.setVisibility(v.GONE);
+                scrollView2.setVisibility(v.VISIBLE);
+            }
+        });
+
+        //비용 누르면 비용 카테고리 보이게 하기
+
+        button_cost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 food_layout.setVisibility(v.GONE);
@@ -78,7 +114,42 @@ public class menuFragment extends Fragment {
             }
         });
 
-        button3.setOnClickListener(new View.OnClickListener() {
+        scrollView1.setVisibility(View.INVISIBLE);
+        scrollView2.setVisibility(View.INVISIBLE);
+        imageBut_under2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollView1.setVisibility(v.VISIBLE);
+                scrollView2.setVisibility(v.GONE);
+            }
+        });
+        imageBut_bet2_3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollView1.setVisibility(v.GONE);
+                scrollView2.setVisibility(v.VISIBLE);
+            }
+        });
+
+        imageBut_bet3_4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollView1.setVisibility(v.GONE);
+                scrollView2.setVisibility(v.VISIBLE);
+            }
+        });
+
+        imageBut_bet4_5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollView1.setVisibility(v.GONE);
+                scrollView2.setVisibility(v.VISIBLE);
+            }
+        });
+
+        //목적 누르면 목적 카테고리 보이게 하기
+
+        button_purpose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 food_layout.setVisibility(v.GONE);
@@ -86,6 +157,39 @@ public class menuFragment extends Fragment {
                 purpose_layout.setVisibility(v.VISIBLE);
             }
         });
+
+        imageBut_diet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollView1.setVisibility(v.VISIBLE);
+                scrollView2.setVisibility(v.GONE);
+            }
+        });
+        imageBut_candy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollView1.setVisibility(v.GONE);
+                scrollView2.setVisibility(v.VISIBLE);
+            }
+        });
+
+        imageBut_hot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollView1.setVisibility(v.GONE);
+                scrollView2.setVisibility(v.VISIBLE);
+            }
+        });
+
+        imageBut_etc2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollView1.setVisibility(v.GONE);
+                scrollView2.setVisibility(v.VISIBLE);
+            }
+        });
+
+
 
 
 

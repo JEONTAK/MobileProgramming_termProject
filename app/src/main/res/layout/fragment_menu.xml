@@ -13,13 +13,24 @@
         <TableRow
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" >
+            android:layout_weight="1"
 
-            <Button
-                android:id="@+id/button1"
+            >
+
+            <ImageButton
+                android:id="@+id/imageBut_food"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="음식별" />
+                android:layout_gravity="center|center_horizontal|center_vertical"
+                android:layout_marginStart="30dp"
+                android:layout_marginLeft="30dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:maxWidth="100dp"
+                android:maxHeight="75dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/food_category" />
         </TableRow>
 
         <TableRow
@@ -27,11 +38,19 @@
             android:layout_height="match_parent"
             android:layout_weight="1" >
 
-            <Button
-                android:id="@+id/button2"
+            <ImageButton
+                android:id="@+id/imageBut_cost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="가격별" />
+                android:layout_gravity="center"
+                android:layout_marginStart="30dp"
+                android:layout_marginLeft="30dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:maxWidth="160dp"
+                android:maxHeight="160dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/cost" />
         </TableRow>
 
         <TableRow
@@ -39,108 +58,297 @@
             android:layout_height="match_parent"
             android:layout_weight="1" >
 
-            <Button
-                android:id="@+id/button3"
+            <ImageButton
+                android:id="@+id/imageBut_purpose"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="용도별" />
+                android:layout_gravity="center"
+                android:layout_marginStart="30dp"
+                android:layout_marginLeft="30dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:maxWidth="160dp"
+                android:maxHeight="160dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/purpose" />
         </TableRow>
 
     </LinearLayout>
 
+    <View
+        android:layout_width="421dp"
+        android:layout_height="5dp"
+        android:layout_centerInParent="false"
+        android:background="#9FA8DA" />
+
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:orientation="vertical">
-
+<!--음식별 카테코리-->
         <LinearLayout
             android:id="@+id/food_layout"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
-
+            android:layout_height="match_parent">
+<!--    밥 사진-->
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1" >
 
                 <ImageButton
-                    android:id="@+id/star1"
+                    android:id="@+id/imageBut_rice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@android:drawable/btn_star_big_on" />
-
-                <ImageButton
-                    android:id="@+id/star2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@android:drawable/btn_star_big_on" />
-
-                <ImageButton
-                    android:id="@+id/star3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@android:drawable/btn_star_big_on" />
-
+                    android:layout_gravity="center"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:maxWidth="160dp"
+                    android:maxHeight="160dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/rice" />
             </TableRow>
+<!--햄버거 사진 -->
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" >
 
+                <ImageButton
+                    android:id="@+id/imageBut_burger"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:maxWidth="160dp"
+                    android:maxHeight="160dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/burger" />
+            </TableRow>
+<!--라면사진-->
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
 
                 <ImageButton
-                    android:id="@+id/star6"
+                    android:id="@+id/imageBut_noodles"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@android:drawable/btn_star_big_on" />
+                    android:layout_gravity="center"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:maxWidth="160dp"
+                    android:maxHeight="160dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/noodles" />
+            </TableRow>
+<!--기타 1 -->
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
                 <ImageButton
-                    android:id="@+id/star4"
+                    android:id="@+id/imageBut_etc1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@android:drawable/btn_star_big_on" />
-
-                <ImageButton
-                    android:id="@+id/star5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@android:drawable/btn_star_big_on" />
-
-                <ImageButton
-                    android:id="@+id/star7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@android:drawable/btn_star_big_on" />
+                    android:layout_gravity="center"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:maxWidth="160dp"
+                    android:maxHeight="160dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/etc1" />
             </TableRow>
 
         </LinearLayout>
-
+<!--비용별 카테고리-->
         <LinearLayout
             android:id="@+id/cost_layout"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/textView19"
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="가격별" />
-        </LinearLayout>
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+<!--2천원 이하-->
+                <ImageButton
+                    android:id="@+id/imageBut_under2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:maxWidth="160dp"
+                    android:maxHeight="160dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/under2000" />
+            </TableRow>
+<!--2000원 ~3000원 -->
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
+                <ImageButton
+                    android:id="@+id/imageBut_bet2_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:maxWidth="160dp"
+                    android:maxHeight="160dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/between20003000" />
+            </TableRow>
+<!--3000원 ~4000원 -->
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageButton
+                    android:id="@+id/imageBut_bet3_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:maxWidth="160dp"
+                    android:maxHeight="160dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/between30004000" />
+            </TableRow>
+<!--4000원~5000원-->
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageButton
+                    android:id="@+id/imageBut_bet4_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:maxWidth="160dp"
+                    android:maxHeight="160dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/between40005000" />
+            </TableRow>
+        </LinearLayout>
+<!--목적별 카테고리-->
         <LinearLayout
             android:id="@+id/purpose_layout"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/textView20"
+            android:layout_height="match_parent" >
+<!--diet-->
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="용도별" />
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageButton
+                    android:id="@+id/imageBut_diet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:maxWidth="160dp"
+                    android:maxHeight="160dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/diet" />
+            </TableRow>
+<!--당에 따라 -->
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageButton
+                    android:id="@+id/imageBut_candy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:maxWidth="160dp"
+                    android:maxHeight="160dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/candy" />
+            </TableRow>
+<!--매운정도 -->
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageButton
+                    android:id="@+id/imageBut_hot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:maxWidth="160dp"
+                    android:maxHeight="160dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/hot" />
+            </TableRow>
+<!--기타 2 -->
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageButton
+                    android:id="@+id/imageBut_etc2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:maxWidth="160dp"
+                    android:maxHeight="160dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/etc1" />
+            </TableRow>
         </LinearLayout>
     </LinearLayout>
 
