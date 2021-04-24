@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "152866537806",
+    "project_id": "convenience-master",
+    "storage_bucket": "convenience-master.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:152866537806:android:315edb8536b612f2c61e1f",
+        "android_client_info": {
+          "package_name": "com.example.mobileprogramming_termproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "152866537806-4vjl9jtu92cr7872msrf9ns2i62lsqdt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBN4ZZy1ypBxgw5cuohktzKYHvRVO1JdeI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "152866537806-4vjl9jtu92cr7872msrf9ns2i62lsqdt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

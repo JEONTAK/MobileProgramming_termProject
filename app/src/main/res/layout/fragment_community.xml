@@ -1,27 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/default_community"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/textView12"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="추천레시피" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="510dp"
         android:orientation="vertical">
 
         <TextView
@@ -30,12 +18,156 @@
             android:layout_height="wrap_content"
             android:text="인기레시피" />
 
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="추천레시피" />
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            tools:srcCompat="@tools:sample/avatars" />
+
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/add_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addWritingBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:clickable="true"
+            app:srcCompat="@drawable/ic_baseline_post_add_24" />
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:id="@+id/writingPlace"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/goBackBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tint="@color/black"
+            app:srcCompat="@drawable/abc_vector_test" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="1">
+
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/writing_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="제    목"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/edit_writing_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:ems="10"
+                    android:hint="제 목"
+                    android:inputType="textPersonName" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/writing_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lines="5"
+                    android:text="이미지"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/edit_writing_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:ems="10"
+                    android:gravity="top"
+                    android:hint="이미지넣는곳"
+                    android:inputType="textPersonName"
+                    android:lines="5" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/writing_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lines="20"
+                    android:text="내용"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/edit_writing_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:ems="10"
+                    android:gravity="top"
+                    android:hint="내용을 입력하세요!"
+                    android:inputType="textPersonName"
+                    android:lines="20" />
+            </TableRow>
+
+        </TableLayout>
+
+        <Button
+            android:id="@+id/writing_confirmBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="글 작성"
+            android:textSize="14sp"
+            app:backgroundTint="#000000" />
+    </LinearLayout>
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
         android:background="?android:attr/windowBackground"
