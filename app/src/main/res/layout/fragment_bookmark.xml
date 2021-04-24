@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="689dp"
+        android:layout_height="904dp"
         android:orientation="vertical">
 
         <ScrollView
@@ -21,6 +21,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:layout_margin="10dp"
+                    android:text="    찜한 레시피"
+                    android:textColor="#0B0B0B"
+                    android:textSize="24sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -158,7 +167,7 @@
                         tools:src="@tools:sample/avatars" />
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="318dp"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
 
@@ -196,7 +205,7 @@
         android:id="@+id/nav_view"
 
         android:layout_width="match_parent"
-        android:layout_height="42dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
         android:background="?android:attr/windowBackground"
