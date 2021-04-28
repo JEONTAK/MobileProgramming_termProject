@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mobileprogramming_termproject">
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
@@ -10,7 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MobileProgramming_termProject">
-        <activity android:name=".ui.recipe_category.recipe_categoryFragment"></activity>
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:label="@string/title_activity_login"></activity>
+        <activity android:name=".ui.recipe_category.recipe_categoryFragment" />
         <activity android:name=".ui.convenience_category.convenience_categoryFragment" />
         <activity android:name=".ui.searchResult.searchResultFragment" />
         <activity android:name=".ui.bookmark.bookmarkFragment" />
@@ -24,9 +29,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDfLSiereLB6ofDNpEHRec8LQoXoy0INRo" />
+            android:value="AIzaSyAwtepc6PDundsOzbJOqx5SqHY8Iibw6v8" />
     </application>
 
 </manifest>
