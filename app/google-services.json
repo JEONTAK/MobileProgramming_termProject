@@ -1,33 +1,70 @@
 {
   "project_info": {
-    "project_number": "152866537806",
-    "project_id": "convenience-master",
-    "storage_bucket": "convenience-master.appspot.com"
+    "project_number": "383412683002",
+    "project_id": "mobile-term-project-34163",
+    "storage_bucket": "mobile-term-project-34163.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:152866537806:android:315edb8536b612f2c61e1f",
+        "mobilesdk_app_id": "1:383412683002:android:777c7860c6f3d022a44943",
         "android_client_info": {
-          "package_name": "com.example.mobileprogramming_termproject"
+          "package_name": "com.example.dbtest"
         }
       },
       "oauth_client": [
         {
-          "client_id": "152866537806-4vjl9jtu92cr7872msrf9ns2i62lsqdt.apps.googleusercontent.com",
+          "client_id": "383412683002-kqfp4lnarbq2iq2603gap2f7b022mef5.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBN4ZZy1ypBxgw5cuohktzKYHvRVO1JdeI"
+          "current_key": "AIzaSyDqOnN1l21DEIeLvt3jstyfFNSFyCczPJU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "152866537806-4vjl9jtu92cr7872msrf9ns2i62lsqdt.apps.googleusercontent.com",
+              "client_id": "383412683002-kqfp4lnarbq2iq2603gap2f7b022mef5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:383412683002:android:8bf0f68f515e9e04a44943",
+        "android_client_info": {
+          "package_name": "com.example.mobileprogramming_termproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "383412683002-p0th7n9857jbb3nr6tc0ca10rtnrmlkd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mobileprogramming_termproject",
+            "certificate_hash": "81d9ce354750207747a03f8846cc58099b871c2c"
+          }
+        },
+        {
+          "client_id": "383412683002-kqfp4lnarbq2iq2603gap2f7b022mef5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqOnN1l21DEIeLvt3jstyfFNSFyCczPJU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "383412683002-kqfp4lnarbq2iq2603gap2f7b022mef5.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
