@@ -22,6 +22,7 @@ public class LoginActivity extends AppCompatActivity {
 
     Button mLoginBtn;
     TextView mResigettxt;
+    TextView mPasswordResettxt;
     EditText mEmailText, mPasswordText;
     private FirebaseAuth firebaseAuth;
 
@@ -32,8 +33,9 @@ public class LoginActivity extends AppCompatActivity {
 
 
         firebaseAuth =  FirebaseAuth.getInstance();
-        //버튼 등록하기
+        //버튼 및 텍스트 등록하기
         mResigettxt = findViewById(R.id.register_t2);
+        mPasswordResettxt= findViewById(R.id.register_t3);
         mLoginBtn = findViewById(R.id.login_btn);
         mEmailText = findViewById(R.id.emailEt);
         mPasswordText = findViewById(R.id.passwordEdt);
@@ -46,6 +48,17 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //intent함수를 통해 register액티비티 함수를 호출한다.
                 startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
+
+            }
+        });
+
+        //비밀번호 재설정 버튼이 눌리면
+        mResigettxt.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                //intent함수를 통해 PasswordResetActivity 함수를 호출한다.
+                startActivity(new Intent(LoginActivity.this,PasswordResetActivity.class));
 
             }
         });

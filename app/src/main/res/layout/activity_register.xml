@@ -31,12 +31,14 @@
         android:id="@+id/passwordEdt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="textPassword"
         />
     <EditText
         android:hint="password check "
         android:id="@+id/passwordcheckEdt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="textPassword"
         />
 
     <Button
