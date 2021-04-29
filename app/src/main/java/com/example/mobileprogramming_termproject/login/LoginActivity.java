@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         //비밀번호 재설정 버튼이 눌리면
-        mResigettxt.setOnClickListener(new View.OnClickListener(){
+        mPasswordResettxt.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
@@ -70,19 +70,23 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = mEmailText.getText().toString().trim();
                 String pwd = mPasswordText.getText().toString().trim();
-                firebaseAuth.signInWithEmailAndPassword(email,pwd)
-                        .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if(task.isSuccessful()){
-                                    Intent intent = new Intent(LoginActivity.this,  MainActivity.class);
-                                    startActivity(intent);
+                if (email.length() > 0 && pwd.length() > 0 ) {
+                    firebaseAuth.signInWithEmailAndPassword(email, pwd)
+                            .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        startActivity(intent);
 
-                                }else{
-                                    Toast.makeText(LoginActivity.this,"로그인 오류",Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(LoginActivity.this, "로그인 오류", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                            }
-                        });
+                            });
+                }else{
+                    Toast.makeText(LoginActivity.this, "이메일과 비밀번호를 입력하세요", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });

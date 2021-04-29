@@ -14,6 +14,7 @@
         android:theme="@style/Theme.MobileProgramming_termProject">
         <activity android:name=".login.RegisterActivity"/>
         <activity android:name=".login.LoginActivity" />
+        <activity android:name=".login.PasswordResetActivity" />
         <activity android:name=".ui.recipe_category.recipe_categoryFragment" />
         <activity android:name=".ui.convenience_category.convenience_categoryFragment" />
         <activity android:name=".ui.searchResult.searchResultFragment" />
