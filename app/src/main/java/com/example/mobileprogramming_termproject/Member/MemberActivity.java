@@ -1,4 +1,4 @@
-package com.example.mobileprogramming_termproject.ui.myPage;
+package com.example.mobileprogramming_termproject.Member;
 
 import android.Manifest;
 import android.app.Activity;
@@ -9,23 +9,22 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
+
 
 import com.example.mobileprogramming_termproject.Camera.CameraActivity;
 import com.example.mobileprogramming_termproject.Gallery.GalleryActivity;
-import com.example.mobileprogramming_termproject.Member.MemberInfo;
 import com.example.mobileprogramming_termproject.R;
+import com.example.mobileprogramming_termproject.ui.myPage.myPageFragment;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -43,9 +42,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-public class myPageFragment extends Fragment {
-
-    private myPageViewModel myPageViewModel;
+public class MemberActivity extends AppCompatActivity {
     private static final String TAG = "MemberInitActivity";
     private ImageView profileImageVIew;
     private String profilePath;
@@ -53,30 +50,29 @@ public class myPageFragment extends Fragment {
     myPageFragment mypageFragment;
 
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        myPageViewModel =
-                new ViewModelProvider(this).get(myPageViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_mypage, container, false);
-//        final TextView textView = root.findViewById(R.id.text_notifications);
-//        myPageViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
-
-         return root;
-    }
     @Override
-    public void onStart() {
-        super.onStart();
-        profileImageVIew= getActivity().findViewById(R.id.profileImageVIew);
-        getActivity().findViewById(R.id.checkButton).setOnClickListener(onClickListener);
-        getActivity().findViewById(R.id.getProfileButton).setOnClickListener(onClickListener);
-        getActivity().findViewById(R.id.galleryButton).setOnClickListener(onClickListener);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_mypage);
 
+        mypageFragment=new myPageFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, mypageFragment).commit();
+
+
+        profileImageVIew.setOnClickListener(onClickListener);
+
+        findViewById(R.id.checkButton).setOnClickListener(onClickListener);
+        findViewById(R.id.getProfileButton).setOnClickListener(onClickListener);
+        findViewById(R.id.galleryButton).setOnClickListener(onClickListener);
     }
+
+    //뒤로가기 버튼을 누르면 앱 바로 종료
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -113,10 +109,20 @@ public class myPageFragment extends Fragment {
                     myStartActivity(CameraActivity.class);
                     break;
                 case R.id.galleryButton:
-                    if (ContextCompat.checkSelfPermission(getContext(),
+                    if (ContextCompat.checkSelfPermission(com.example.mobileprogramming_termproject.Member.MemberActivity.this,
                             Manifest.permission.READ_EXTERNAL_STORAGE)
                             != PackageManager.PERMISSION_GRANTED) {//권한 설정을 아직 완료하지않았다면,
-                            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+                        if (ActivityCompat.shouldShowRequestPermissionRationale(com.example.mobileprogramming_termproject.Member.MemberActivity.this,
+                                Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                            ActivityCompat.requestPermissions(com.example.mobileprogramming_termproject.Member.MemberActivity.this,
+                                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                    1);
+                        } else {
+                            ActivityCompat.requestPermissions(com.example.mobileprogramming_termproject.Member.MemberActivity.this,
+                                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                    1);
+                            startToast("권한을 허용해 주세요");
+                        }
                     }else{//이미 권한을 허용해 주었다면
                         myStartActivity(GalleryActivity.class);
                     }
@@ -124,6 +130,7 @@ public class myPageFragment extends Fragment {
             }
         }
     };
+
 
     //갤러리 버튼 눌렀을 때 권한 허용
     @Override
@@ -141,7 +148,7 @@ public class myPageFragment extends Fragment {
 
     //회원정보 업데이트
     private void profileUpdate() {
-        final String name = ((EditText) getActivity().findViewById(R.id.nameEditText)).getText().toString();
+        final String name = ((EditText) findViewById(R.id.nameEditText)).getText().toString();
 
         if (name.length() > 0 ) {
             FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -194,6 +201,7 @@ public class myPageFragment extends Fragment {
                     @Override
                     public void onSuccess(Void aVoid) {
                         startToast("회원정보 등록을 성공하였습니다.");
+                        finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -207,14 +215,15 @@ public class myPageFragment extends Fragment {
 
     //토스트 띄우는 함수
     private void startToast(String msg) {
-        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
     //화면 전환 함수
     private void myStartActivity(Class c) {
-        Intent intent = new Intent(getActivity(), c);
+        Intent intent = new Intent(this, c);
         startActivityForResult(intent, 0);
     }
 
+    }
 
-}
+

@@ -43,6 +43,7 @@ public class menuFragment extends Fragment {
         Button button3=(Button)root.findViewById(R.id.button3);
         ImageButton imageButton1=(ImageButton)root.findViewById(R.id.star1);
         ImageButton imageButton2=(ImageButton)root.findViewById(R.id.star2);
+
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
