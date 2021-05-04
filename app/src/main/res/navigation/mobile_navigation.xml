@@ -18,10 +18,10 @@
         tools:layout="@layout/fragment_mypage" />
 
     <fragment
-        android:id="@+id/navigation_community"
+        android:id="@+id/navigation_alarm"
         android:name="com.example.mobileprogramming_termproject.ui.community.communityFragment"
         android:label="@string/title_community"
-        tools:layout="@layout/fragment_community" />
+        tools:layout="@layout/fragment_alarm" />
 
     <fragment
         android:id="@+id/navigation_map"
@@ -29,10 +29,6 @@
         android:label="@string/title_map"
         tools:layout="@layout/fragment_map" />
 
-    <fragment
-        android:id="@+id/navigation_menu"
-        android:name="com.example.mobileprogramming_termproject.ui.menu.menuFragment"
-        android:label="@string/title_menu"
-        tools:layout="@layout/fragment_menu" />
+
 
 </navigation>

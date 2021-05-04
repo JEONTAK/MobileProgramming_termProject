@@ -98,7 +98,7 @@ public class MapActivity extends AppCompatActivity
 
         previous_marker = new ArrayList<Marker>();
 
-        Button button = (Button)findViewById(R.id.button);
+        Button button = (Button)findViewById(R.id.button_map);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

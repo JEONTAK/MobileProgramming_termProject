@@ -3,6 +3,7 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_home">Home</string>
     <string name="title_community">Community</string>
+    <string name="title_alarm">Alarm</string>
     <string name="title_map">Map</string>
     <string name="title_mypage">MyPage</string>
     <string name="title_menu">Menu</string>

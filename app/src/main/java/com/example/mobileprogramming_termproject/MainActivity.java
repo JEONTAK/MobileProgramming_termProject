@@ -2,11 +2,9 @@ package com.example.mobileprogramming_termproject;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-
-import com.example.mobileprogramming_termproject.ui.community.communityFragment;
+import  com.example.mobileprogramming_termproject.ui.alarm.alarmFragment;
 import com.example.mobileprogramming_termproject.ui.home.HomeFragment;
 import com.example.mobileprogramming_termproject.ui.map.mapFragment;
-import com.example.mobileprogramming_termproject.ui.menu.menuFragment;
 import com.example.mobileprogramming_termproject.ui.myPage.myPageFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -23,10 +21,8 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private HomeFragment homeFragment = new HomeFragment();
     private mapFragment MapFragment = new mapFragment();
-    private menuFragment MenuFragment = new menuFragment();
     private myPageFragment MyPageFragment = new myPageFragment();
-    private communityFragment CommunityFragment = new communityFragment();
-
+    private alarmFragment AlarmFragment=new alarmFragment();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,12 +48,10 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_home:
                     transaction.replace(R.id.nav_host_fragment, homeFragment).commitAllowingStateLoss();
                     break;
-                case R.id.navigation_menu:
-                    transaction.replace(R.id.nav_host_fragment, MenuFragment).commitAllowingStateLoss();
+                case R.id.navigation_alarm:
+                    transaction.replace(R.id.nav_host_fragment,AlarmFragment).commitAllowingStateLoss();
                     break;
-                case R.id.navigation_community:
-                    transaction.replace(R.id.nav_host_fragment, CommunityFragment).commitAllowingStateLoss();
-                    break;
+
                 case R.id.navigation_mypage:
                     transaction.replace(R.id.nav_host_fragment, MyPageFragment).commitAllowingStateLoss();
                     break;
