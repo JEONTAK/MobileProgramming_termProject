@@ -98,14 +98,14 @@ public class MapActivity extends AppCompatActivity
 
         previous_marker = new ArrayList<Marker>();
 
-        Button button = (Button)findViewById(R.id.button);
+     /* //  Button button = (Button)findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showPlaceInformation(currentPosition);
             }
         });
-
+*/
         mLayout = findViewById(R.id.layout_map);
 
         locationRequest = new LocationRequest()
@@ -123,9 +123,9 @@ public class MapActivity extends AppCompatActivity
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.googlemap);
-        mapFragment.getMapAsync(this);
+      //  SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+       //         .findFragmentById(R.id.googlemap);
+      //  mapFragment.getMapAsync(this);
     }
 
     @Override
