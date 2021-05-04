@@ -4,6 +4,11 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
 
     <application
         android:allowBackup="false"
@@ -12,6 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MobileProgramming_termProject">
+
         <activity android:name=".login.RegisterActivity"/>
         <activity android:name=".login.LoginActivity" />
         <activity android:name=".login.PasswordResetActivity" />
@@ -22,6 +28,14 @@
         <activity android:name=".ui.recipe.recipePagerFragment"/>
         <activity android:name=".Camera.CameraActivity"/>
         <activity android:name=".Gallery.GalleryActivity"/>
+
+        <activity android:name=".community.freeCommunityActivity"/>
+        <activity android:name=".community.freeInformationActivity"/>
+        <activity android:name=".community.recipeCommunityActivity"/>
+        <activity android:name=".community.recipeInformationActivity"/>
+        <activity android:name=".writingContent.writingFreePostActivity"/>
+        <activity android:name=".writingContent.writingRecipePostActivity"/>
+
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main" />

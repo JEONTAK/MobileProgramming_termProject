@@ -42,16 +42,16 @@ public class HomeFragment extends Fragment   {
 
         ImageView but_food=(ImageView)root.findViewById(R.id.imageViewFood);
 
-        getActivity().findViewById(R.id.buttonRecipe).setOnClickListener(onClickListener);
-        getActivity().findViewById(R.id.buttonFree).setOnClickListener(onClickListener);
+        root.findViewById(R.id.buttonRecipe).setOnClickListener(onClickListener);
+        root.findViewById(R.id.buttonFree).setOnClickListener(onClickListener);
 
 
-        HotPost = (RecyclerView)getActivity().findViewById(R.id.hot_Post);
+        HotPost = (RecyclerView)root.findViewById(R.id.hot_Post);
         HotPost.setHasFixedSize(true);
         HotPost.setLayoutManager(new GridLayoutManager(getActivity(),numberOfColumns));
 
 
-        FreePost = (RecyclerView)getActivity().findViewById(R.id.free_Post);
+        FreePost = (RecyclerView)root.findViewById(R.id.free_Post);
         FreePost.setHasFixedSize(true);
         FreePost.setLayoutManager(new GridLayoutManager(getActivity(),numberOfColumns));
 

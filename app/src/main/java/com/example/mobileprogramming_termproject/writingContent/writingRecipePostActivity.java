@@ -251,6 +251,7 @@ public class writingRecipePostActivity extends AppCompatActivity {
 
             String[] titleArray = titleImagePath.split("\\.");
             final StorageReference titleImagesRef = storageRef.child("recipePost/" + documentReference.getId() + "/title" +titleArray[titleArray.length - 1]);
+
             try{
                 InputStream stream = new FileInputStream(new File(titleImagePath));
                 StorageMetadata metadata = new StorageMetadata.Builder().setCustomMetadata("title", "" + titleImagePath).build();
@@ -258,6 +259,7 @@ public class writingRecipePostActivity extends AppCompatActivity {
                 uploadTask.addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        Log.d("로그 : " , "실패 " + titleImagePath);
 
                     }
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -267,6 +269,8 @@ public class writingRecipePostActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess(Uri uri) {
                                 titleImagePath = uri.toString();
+                                Log.d("로그 : " , "titleImagePath " + titleImagePath);
+
                             }
                         });
                     }
@@ -274,6 +278,9 @@ public class writingRecipePostActivity extends AppCompatActivity {
             } catch (FileNotFoundException e) {
                 Log.e("로그","에러:" + e.toString());
             }
+
+
+            Log.d("로그 : " , "titleImagePath " + titleImagePath);
 
 
             for(int i = 0 ;  i < parent.getChildCount() ; i++){
@@ -287,8 +294,12 @@ public class writingRecipePostActivity extends AppCompatActivity {
                         }
                     }else{
                         contentsList.add(pathList.get(pathCount));
+                        Log.d("로그 : " , "이미지 " + pathList.get(pathCount));
+
                         String[] pathArray = pathList.get(pathCount).split("\\.");
                         final StorageReference mountainImagesRef = storageRef.child("recipePost/" + documentReference.getId() + "/" + pathCount + pathArray[pathArray.length - 1]);
+                        Log.d("로그 : " , "mountainImagesRef " + pathList.get(pathCount));
+
                         try{
                             InputStream stream = new FileInputStream(new File(pathList.get(pathCount)));
                             StorageMetadata metadata = new StorageMetadata.Builder().setCustomMetadata("index", ""+ (contentsList.size() - 1)).build();
