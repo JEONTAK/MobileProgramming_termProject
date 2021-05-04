@@ -27,4 +27,19 @@
     <string name="request_permission">This sample needs camera permission.</string>
     <string name="camera_error">This device doesn\'t support Camera2 API.</string>
     //
+
+    //카테고리 이름 저장
+    <string-array name="foodCategorySpinner">
+        <item>기타류</item>
+        <item>식사류</item>
+        <item>음료류</item>
+        <item>디저트류</item>
+    </string-array>
+    <string-array name="tagCategorySpinner">
+        <item>없음</item>
+        <item>다이어트</item>
+        <item>벌크업</item>
+        <item>당충전</item>
+        <item>스트레스,HOT</item>
+    </string-array>
 </resources>

@@ -6,8 +6,7 @@ plugins {
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
-    dataBinding {
-        enabled = true }
+
     defaultConfig {
         applicationId "com.example.mobileprogramming_termproject"
         minSdkVersion 21
@@ -30,11 +29,9 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
-
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.android.application'
 dependencies {
-    implementation 'com.google.android.material:material:1.1.0'
     implementation 'com.android.support:multidex:1.0.3'
     implementation platform('com.google.firebase:firebase-bom:27.1.0')
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
@@ -57,17 +54,11 @@ dependencies {
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
     implementation 'androidx.annotation:annotation:1.2.0'
     implementation 'com.google.firebase:firebase-auth:20.0.4'
+    implementation 'com.google.firebase:firebase-firestore:22.1.2'
+    implementation 'com.google.firebase:firebase-storage:19.2.2'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-
-    // Declare the dependency for the Cloud Storage library
-    implementation 'com.google.firebase:firebase-storage'
-    //Declare the dependency for the firebase-firestore library
-    implementation 'com.google.firebase:firebase-firestore'
-    //glide부분 library
-    implementation 'com.github.bumptech.glide:glide:4.11.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
-
-    //
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 }

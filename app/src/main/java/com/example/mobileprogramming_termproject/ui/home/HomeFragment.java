@@ -1,5 +1,6 @@
 package com.example.mobileprogramming_termproject.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +13,21 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobileprogramming_termproject.R;
+import com.example.mobileprogramming_termproject.community.freeCommunityActivity;
+import com.example.mobileprogramming_termproject.community.recipeCommunityActivity;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class HomeFragment extends Fragment   {
+
+    private FirebaseFirestore firebaseFirestore;
+    private RecyclerView HotPost;
+    private RecyclerView FreePost;
+    final int numberOfColumns = 2;
+
     private final int priceFragment = 1;
     private final int tagFragment = 2;
     private final int foodFragment = 3;
@@ -30,6 +42,19 @@ public class HomeFragment extends Fragment   {
 
         ImageView but_food=(ImageView)root.findViewById(R.id.imageViewFood);
 
+        getActivity().findViewById(R.id.buttonRecipe).setOnClickListener(onClickListener);
+        getActivity().findViewById(R.id.buttonFree).setOnClickListener(onClickListener);
+
+
+        HotPost = (RecyclerView)getActivity().findViewById(R.id.hot_Post);
+        HotPost.setHasFixedSize(true);
+        HotPost.setLayoutManager(new GridLayoutManager(getActivity(),numberOfColumns));
+
+
+        FreePost = (RecyclerView)getActivity().findViewById(R.id.free_Post);
+        FreePost.setHasFixedSize(true);
+        FreePost.setLayoutManager(new GridLayoutManager(getActivity(),numberOfColumns));
+
         but_food.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,9 +62,6 @@ public class HomeFragment extends Fragment   {
 
             }
         });
-
-
-
 
         //        final TextView textView = root.findViewById(R.id.);
 //        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -63,5 +85,25 @@ public class HomeFragment extends Fragment   {
     }
 
 
+
+    View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.buttonRecipe:
+                    myStartActivity(recipeCommunityActivity.class);
+                    break;
+                case R.id.buttonFree:
+                    myStartActivity(freeCommunityActivity.class);
+                    break;
+            }
+        }
+    };
+
+    private void myStartActivity(Class c){
+        Intent intent=new Intent(getActivity(), c);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
 
 }

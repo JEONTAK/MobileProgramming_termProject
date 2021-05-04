@@ -1,21 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mobileprogramming_termproject">
-    <uses-permission-sdk-23 android:name="android.permission.UPDATE_DEVICE_STATS"/>
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET"/> //인터넷접근 관한 허용
-
-    //카메라 권한 허용
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus" />
-    //
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> //갤러리 읽기 허용
-
 
     <application
-        android:usesCleartextTraffic="true"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -29,7 +19,9 @@
         <activity android:name=".ui.convenience_category.convenience_categoryFragment" />
         <activity android:name=".ui.searchResult.searchResultFragment" />
         <activity android:name=".ui.bookmark.bookmarkFragment" />
-        <activity android:name=".ui.recipe.recipePagerFragment" />
+        <activity android:name=".ui.recipe.recipePagerFragment"/>
+        <activity android:name=".Camera.CameraActivity"/>
+        <activity android:name=".Gallery.GalleryActivity"/>
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main" />
@@ -40,10 +32,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Camera.CameraActivity">
-        </activity>
-        <activity android:name=".Gallery.GalleryActivity">
-        </activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBi_UIEjrM--fHeI6SAu6Z8vk4_TF6O2V0" />

@@ -139,7 +139,9 @@
         android:scrollbarThumbHorizontal="@color/ic_launcher_background"
         app:layout_constraintEnd_toStartOf="@+id/imageView15"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_turned_in_not_24" />
+        app:srcCompat="@drawable/ic_baseline_turned_in_not_24"
+        android:layout_marginRight="4dp"
+        tools:ignore="VectorDrawableCompat" />
 
     <View
         android:id="@+id/divider3"

@@ -112,7 +112,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/hot_Post"
         android:layout_width="411dp"
         android:layout_height="134dp"
         android:layout_marginTop="4dp"
@@ -134,11 +134,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+        app:layout_constraintTop_toBottomOf="@+id/hot_Post" />
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView5"
+        android:id="@+id/free_Post"
         android:layout_width="409dp"
         android:layout_height="141dp"
         android:layout_marginStart="4dp"
@@ -146,7 +146,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
     <Button
-        android:id="@+id/buttonRacipe"
+        android:id="@+id/buttonRecipe"
         android:layout_width="wrap_content"
         android:layout_height="34dp"
         android:layout_marginEnd="16dp"
@@ -157,13 +157,13 @@
         app:layout_constraintTop_toTopOf="@+id/textviewPopluar" />
 
     <Button
-        android:id="@+id/buttonfree"
+        android:id="@+id/buttonFree"
         android:layout_width="wrap_content"
         android:layout_height="34dp"
         android:layout_marginEnd="16dp"
         android:text="자유게시판"
         android:textSize="10sp"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView5"
+        app:layout_constraintBottom_toTopOf="@+id/free_Post"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView15" />
 
