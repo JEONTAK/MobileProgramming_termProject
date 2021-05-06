@@ -5,13 +5,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,10 +15,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mobileprogramming_termproject.R;
 import com.example.mobileprogramming_termproject.community.freeCommunityActivity;
 import com.example.mobileprogramming_termproject.community.recipeCommunityActivity;
+import com.example.mobileprogramming_termproject.menu.cost.category_cost_activity;
+import com.example.mobileprogramming_termproject.menu.food.category_food_activity;
+import com.example.mobileprogramming_termproject.menu.priceFragment;
+import com.example.mobileprogramming_termproject.menu.tag.category_tag_activity;
+import com.example.mobileprogramming_termproject.menu.tagFragment;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class HomeFragment extends Fragment   {
-
+//    private com.example.mobileprogramming_termproject.menu.foodFragment FoodFragment=new foodFragment();
+     private com.example.mobileprogramming_termproject.menu.tagFragment TagFragment=new tagFragment();
+     private com.example.mobileprogramming_termproject.menu.priceFragment PriceFragment=new priceFragment();
     private FirebaseFirestore firebaseFirestore;
     private RecyclerView HotPost;
     private RecyclerView FreePost;
@@ -33,17 +36,36 @@ public class HomeFragment extends Fragment   {
     private final int foodFragment = 3;
 
     private com.example.mobileprogramming_termproject.ui.home.HomeViewModel homeViewModel;
-
+    public static HomeFragment newInstane(){
+        return new HomeFragment();
+    }
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
                 new ViewModelProvider(this).get(com.example.mobileprogramming_termproject.ui.home.HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        ImageView but_food=(ImageView)root.findViewById(R.id.imageViewFood);
+
 
         root.findViewById(R.id.buttonRecipe).setOnClickListener(onClickListener);
         root.findViewById(R.id.buttonFree).setOnClickListener(onClickListener);
+        root.findViewById(R.id.imageViewFood).setOnClickListener(onClickListener);
+        root.findViewById(R.id.imageViewTag).setOnClickListener(onClickListener);
+        root.findViewById(R.id.imageViewCost).setOnClickListener(onClickListener);
+
+
+//        ImageView tag_but=(ImageView)root.findViewById(R.id.imageViewTag);
+//        ImageView food_but=(ImageView)root.findViewById(R.id.imageViewFood);
+//        ImageView cost_but=(ImageView)root.findViewById(R.id.imageViewCost);
+
+//        tag_but.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ((MainActivity)getActivity()).replaceFragment(TagFragment.newInstance());
+//
+//
+//            }
+//        });
 
 
         HotPost = (RecyclerView)root.findViewById(R.id.hot_Post);
@@ -55,13 +77,7 @@ public class HomeFragment extends Fragment   {
         FreePost.setHasFixedSize(true);
         FreePost.setLayoutManager(new GridLayoutManager(getActivity(),numberOfColumns));
 
-        but_food.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                HomeFragment homeFragment=new HomeFragment();
 
-            }
-        });
 
         //        final TextView textView = root.findViewById(R.id.);
 //        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -96,6 +112,22 @@ public class HomeFragment extends Fragment   {
                 case R.id.buttonFree:
                     myStartActivity(freeCommunityActivity.class);
                     break;
+                case R.id.imageViewFood:
+                    myStartActivity(category_food_activity.class);
+                    break;
+                case R.id.imageViewCost:
+                    myStartActivity(category_cost_activity.class);
+                    break;
+                case R.id.imageViewTag:
+                    myStartActivity(category_tag_activity.class);
+                    break;
+//                case R.id.imageViewTag:
+//                    ((MainActivity)getActivity()).replaceFragment(TagFragment.newInstance());
+//                    break;
+//                case R.id.imageViewCost:
+//                    ((MainActivity)getActivity()).replaceFragment(PriceFragment.newInstance());
+//                    break;
+
             }
         }
     };
@@ -105,5 +137,6 @@ public class HomeFragment extends Fragment   {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
+
 
 }

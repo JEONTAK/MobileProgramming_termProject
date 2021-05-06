@@ -15,14 +15,16 @@ import com.example.mobileprogramming_termproject.R;
 
 
 public class tagFragment extends Fragment {
-
+    public static tagFragment newInstance() {
+        return new tagFragment();
+    }
 
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_tag_category, container, false);
+        View root = inflater.inflate(R.layout.activity_category_tag, container, false);
 
 
         return root;

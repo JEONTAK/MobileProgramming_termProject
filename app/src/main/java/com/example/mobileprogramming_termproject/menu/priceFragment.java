@@ -15,14 +15,16 @@ import com.example.mobileprogramming_termproject.R;
 
 
 public class priceFragment extends Fragment {
-
+    public static priceFragment newInstance() {
+        return new priceFragment();
+    }
 
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_price_category, container, false);
+        View root = inflater.inflate(R.layout.activity_category_price, container, false);
 
 
         return root;
