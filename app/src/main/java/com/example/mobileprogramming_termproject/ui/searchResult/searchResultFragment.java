@@ -48,11 +48,21 @@ public class searchResultFragment extends Fragment {
     private ArrayList<RecipePostInfo> arrayList;
     private FirebaseFirestore database;
     private  CollectionReference collectionReference ;
+    private String search_content;
+
+
 
     private View view;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Bundle bundle = getArguments();
+
+
+        if (bundle != null) {
+            search_content = bundle.getString("search_content");
+        }
+
         view = inflater.inflate(R.layout.fragment_search_result, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.searchRecyclerView);
         recyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화
@@ -62,8 +72,10 @@ public class searchResultFragment extends Fragment {
 
         database = FirebaseFirestore.getInstance(); //데이터베이스 선언 // 파이어베이스 데이터베이스 연동
         collectionReference = database.collection("recipePost"); // DB 테이블 연결
+
         collectionReference
-                .orderBy("createdAt", Query.Direction.DESCENDING)
+                .orderBy("title").startAt(search_content).endAt(search_content+"\uf8ff")
+                //.orderBy("createdAt", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
