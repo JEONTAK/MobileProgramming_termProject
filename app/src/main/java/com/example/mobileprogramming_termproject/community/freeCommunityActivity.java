@@ -25,7 +25,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class freeCommunityActivity extends AppCompatActivity {
+    private static final String TAG ="자유게시판 화면";
+    //데이터베이스 선언
     private FirebaseFirestore firebaseFirestore;
+    //리사이클러 뷰 선언
     private RecyclerView freeRecyclerView;
 
     @Override
@@ -33,19 +36,23 @@ public class freeCommunityActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_free_bulletin);
         findViewById(R.id.freePostBtn).setOnClickListener(onClickListener);
-        firebaseFirestore= FirebaseFirestore.getInstance();//데이터베이스 선언
+        //파이어베이스에서 데이터베이스를 가져옴.
+        firebaseFirestore= FirebaseFirestore.getInstance();
 
         freeRecyclerView = findViewById(R.id.post1);
         freeRecyclerView.setHasFixedSize(true);
         freeRecyclerView.setLayoutManager(new LinearLayoutManager(freeCommunityActivity.this));
     }
 
+    //자유게시판에 내용이 추가가 될 경우 바로바로 업데이트 해주기 위해 resume함수에 넣어 관리.
     @Override
     protected void onResume(){
         super.onResume();
 
+        //freePost에 있는 data를 가져오기 위함.
         CollectionReference collectionReference = firebaseFirestore.collection("freePost");
         collectionReference
+                //작성일자 내림차순을 정렬
                 .orderBy("createdAt", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -54,6 +61,7 @@ public class freeCommunityActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             ArrayList<FreePostInfo> free_postList = new ArrayList<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
+                                //각 게시글의 정보를 가져와 arrayList에 저장.
                                 Log.d("로그: ", document.getId() + " => " + document.getData());
                                 free_postList.add(new FreePostInfo(
                                         document.getData().get("title").toString(),
@@ -68,6 +76,7 @@ public class freeCommunityActivity extends AppCompatActivity {
                                         ));
                             }
 
+                            //freeAdapter를 이용하여 리사이클러 뷰로 내용 띄움.
                             RecyclerView.Adapter mAdapter1 = new freeAdapter(freeCommunityActivity.this, free_postList);
                             freeRecyclerView.setAdapter(mAdapter1);
                         } else {
@@ -81,6 +90,7 @@ public class freeCommunityActivity extends AppCompatActivity {
     }
 
 
+    //만약 게시글 작성 버튼을 누르면 작성 화면으로 넘어가게 하기 위한 리스너
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -92,6 +102,7 @@ public class freeCommunityActivity extends AppCompatActivity {
         }
     };
 
+    //activity를 실행하기 위한 함수.
     private void myStartActivity(Class c){
         Intent intent=new Intent( this, c);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -35,9 +35,13 @@ import static com.example.mobileprogramming_termproject.Util.showToast;
 
 public class writingFreePostActivity extends AppCompatActivity {
 
-    private static final String TAG =" freePostActivity";
+    private static final String TAG ="writingFreePostActivity";
+    //유저 선언
     private FirebaseUser user;
+    //로딩창 선언
     private RelativeLayout loaderLayout;
+    //Firebase 선언
+    private FirebaseFirestore firebaseFirestore;
 
     private int pathCount , successCount;
     //dbUploader
@@ -48,20 +52,25 @@ public class writingFreePostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_free_post);
 
         loaderLayout = findViewById(R.id.loaderLayout);
-        
+
+        //파이어베이스 가져옴
+        firebaseFirestore = FirebaseFirestore.getInstance();
         findViewById(R.id.confirmBtn).setOnClickListener(onClickListener);
         findViewById(R.id.goBackBtn).setOnClickListener(onClickListener);
 
 
     }
 
+    //클릭시 발생하는 리스너
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
+                    //뒤로가기 버튼
                 case R.id.goBackBtn:
                     myStartActivity(HomeFragment.class);
                     break;
+                    //게시글 입력 버튼
                 case R.id.confirmBtn:
                     bulletinUpload();
                     break;
@@ -70,52 +79,27 @@ public class writingFreePostActivity extends AppCompatActivity {
 
     };
 
+    //게시글 FireBase에 업로드 하기위함
     private void bulletinUpload(){
+        //제목값 받아옴
         final String title = ((EditText)findViewById(R.id.editTitle_Free)).getText().toString();
+        //내용 받아옴
         final String content = ((TextView)findViewById(R.id.editContent_Free)).getText().toString();
+
+        //나중에 댓글 삽입 위해서 arrayList 선언
         final ArrayList<String> comment = new ArrayList<>();
 
+        //만약 제목 또는 내용이 공백아닐경우
         if(title.length() > 0 && content.length()> 0){
+            //데이터가 firebase에 업로드 될때까지 로딩창 띄움
             loaderLayout.setVisibility(View.VISIBLE);
-            Log.d("로그: ", " " );
-            FirebaseStorage storage = FirebaseStorage.getInstance();
-            StorageReference storageRef = storage.getReference();
-            FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+            Log.d(TAG, "게시글 업로드 중" );
 
-            user = FirebaseAuth.getInstance().getCurrentUser();
-            ArrayList<MemberInfo> userInfo = new ArrayList<>();
-            String name = "";
-            DocumentReference docRef = firebaseFirestore.collection("users").document(user.getUid());
-            Log.d(TAG, "다큐먼트 선언");
-            docRef.get()
-                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    Log.d(TAG, "다큐먼트 실행");
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        if (document.exists()) {
-                            userInfo.add(new MemberInfo(
-                                    document.getData().get("name").toString(),
-                                    document.getData().get("phoneNumber").toString(),
-                                    document.getData().get("adress").toString(),
-                                    document.getData().get("date").toString(),
-                                    document.getData().get("userId").toString()
-                            ));
+            ArrayList<MemberInfo> userInfo = getUserName();
 
-                            Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+            String name = userInfo.get(0).getName();
+            Log.d(TAG, "유저 아이디 : " + user.getUid());
 
-                        } else {
-                            Log.d(TAG, "No such document");
-                        }
-                    } else {
-                        Log.d(TAG, "get failed with ", task.getException());
-                    }
-                }
-            });
-
-            Log.d(TAG, "다큐먼트 종료");
-            name = userInfo.get(0).getName();
             ArrayList<String> recomUser = new ArrayList<>();
             final DocumentReference documentReference = firebaseFirestore.collection("freePost").document();
             FreePostInfo freePostInfo = new FreePostInfo(title, content, user.getUid(), name, new Date(), 0, comment, documentReference.getId(), recomUser);
@@ -125,6 +109,7 @@ public class writingFreePostActivity extends AppCompatActivity {
             showToast(writingFreePostActivity.this ,"내용을 정확히 입력해주세요!");
         }
     }
+
 
     private void dbUploader(DocumentReference documentReference , FreePostInfo freePostInfo){
         documentReference.set(freePostInfo)
@@ -146,6 +131,38 @@ public class writingFreePostActivity extends AppCompatActivity {
         });
     }
 
+    private ArrayList<MemberInfo> getUserName(){
+        //현재의 User data 받아옴.
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        ArrayList<MemberInfo> userInfo = new ArrayList<>();
+        firebaseFirestore.collection("users").document(user.getUid()).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        Log.d(TAG, "다큐먼트 실행");
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                userInfo.add(new MemberInfo(
+                                        document.getData().get("name").toString(),
+                                        document.getData().get("phoneNumber").toString(),
+                                        document.getData().get("adress").toString(),
+                                        document.getData().get("date").toString(),
+                                        document.getData().get("photoUrl").toString()
+                                ));
+
+                                Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+
+                            } else {
+                                Log.d(TAG, "No such document");
+                            }
+                        } else {
+                            Log.d(TAG, "get failed with ", task.getException());
+                        }
+                    }
+        });
+        return userInfo;
+    }
 
     private void myStartActivity(Class c){
         Intent intent=new Intent( this, c);

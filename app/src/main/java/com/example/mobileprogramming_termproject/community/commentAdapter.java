@@ -16,7 +16,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
+//자유게시판에서 댓글을 가져오기 위한 어댑터
 public class commentAdapter extends RecyclerView.Adapter<commentAdapter.commentViewHolder> {
+    //게시글의 댓글을 저장하기 위한 arraylist
     private ArrayList<String> mDataset;
     private Activity activity;
 
@@ -35,6 +37,7 @@ public class commentAdapter extends RecyclerView.Adapter<commentAdapter.commentV
     }
 
 
+    //카드뷰를 생성하여 그곳에 데이터를 집어넣어 완성시킴
     @NotNull
     @Override
     public commentAdapter.commentViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType){
@@ -48,6 +51,8 @@ public class commentAdapter extends RecyclerView.Adapter<commentAdapter.commentV
         return commentViewHolder;
     }
 
+    //카드뷰 안에 들어갈 목록
+    //댓글 카드뷰에는 댓글 내용과 작성자가 들어감.
     @Override
     public void onBindViewHolder(@NotNull final commentAdapter.commentViewHolder holder, int position){
 

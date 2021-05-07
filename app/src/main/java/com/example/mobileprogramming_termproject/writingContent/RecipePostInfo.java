@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
+//레시피 글을 저장하기위한 형식
+//타이틀 이미지, 제목, 재료, 설명, 작성자, 작성일자, 추천수, 레시피글 id, 추천 유저, 가격, 음식카테고리, 태그카테고리를 저장.
 public class RecipePostInfo implements Serializable {
     private String titleImage;
     private String title;

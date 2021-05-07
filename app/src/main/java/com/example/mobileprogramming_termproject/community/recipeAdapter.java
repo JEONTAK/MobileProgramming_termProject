@@ -24,8 +24,9 @@ import java.util.Locale;
 
 import static com.example.mobileprogramming_termproject.Util.isStorageUrl;
 
-
+//레시피 게시판의 글을 카드뷰로 보여주기 위한 어댑터
 public class recipeAdapter extends RecyclerView.Adapter<recipeAdapter.recipeViewHolder> {
+    //레시피게시판 글 데이터
     private ArrayList<RecipePostInfo> mDataset;
     private Activity activity;
 
@@ -48,11 +49,13 @@ public class recipeAdapter extends RecyclerView.Adapter<recipeAdapter.recipeView
         return position;
     }
 
+    //카드뷰를 생성하여 그곳에 데이터를 집어넣어 완성시킴
     @NotNull
     @Override
     public recipeAdapter.recipeViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType){
         CardView cardView =(CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recipe_post, parent,false);
         final recipeViewHolder recipeViewHolder = new recipeViewHolder(activity, cardView, mDataset.get(viewType));
+        //카드뷰를 클릭할경우, 그 게시글로 activity가 넘어감.
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,6 +68,8 @@ public class recipeAdapter extends RecyclerView.Adapter<recipeAdapter.recipeView
         return recipeViewHolder;
     }
 
+    //카드뷰 안에 들어갈 목록
+    //레시피게시판 게시글 카드뷰에는 제목, 타이틀 이미지 , 작성자, 작성 날짜, 추천수가 저장되어 띄워짐.
     @Override
     public void onBindViewHolder(@NotNull final recipeViewHolder holder, int position){
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
