@@ -1,10 +1,13 @@
 package com.example.mobileprogramming_termproject.ui.home;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -12,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mobileprogramming_termproject.MainActivity;
 import com.example.mobileprogramming_termproject.R;
 import com.example.mobileprogramming_termproject.community.freeCommunityActivity;
 import com.example.mobileprogramming_termproject.community.recipeCommunityActivity;
@@ -20,15 +24,35 @@ import com.example.mobileprogramming_termproject.menu.food.category_food_activit
 import com.example.mobileprogramming_termproject.menu.priceFragment;
 import com.example.mobileprogramming_termproject.menu.tag.category_tag_activity;
 import com.example.mobileprogramming_termproject.menu.tagFragment;
+import com.example.mobileprogramming_termproject.ui.searchResult.searchResultFragment;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class HomeFragment extends Fragment   {
+
+    MainActivity activity;
+
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+        activity=(MainActivity)getActivity();
+
+    }
+    @Override
+    public void onDetach(){
+        super.onDetach();
+        activity=null;
+    }
 //    private com.example.mobileprogramming_termproject.menu.foodFragment FoodFragment=new foodFragment();
      private com.example.mobileprogramming_termproject.menu.tagFragment TagFragment=new tagFragment();
      private com.example.mobileprogramming_termproject.menu.priceFragment PriceFragment=new priceFragment();
     private FirebaseFirestore firebaseFirestore;
     private RecyclerView HotPost;
     private RecyclerView FreePost;
+    private SearchView mSearchView;
+    private searchResultFragment SearchResultFragment=new searchResultFragment();
+
+
+
     final int numberOfColumns = 2;
 
     private final int priceFragment = 1;
@@ -52,6 +76,26 @@ public class HomeFragment extends Fragment   {
         root.findViewById(R.id.imageViewFood).setOnClickListener(onClickListener);
         root.findViewById(R.id.imageViewTag).setOnClickListener(onClickListener);
         root.findViewById(R.id.imageViewCost).setOnClickListener(onClickListener);
+        mSearchView=root.findViewById(R.id.searchView);
+
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                activity.onFragmentChange(1,query);
+
+
+//               Bundle bundle = new Bundle();
+//                bundle.putString("search_content", query);
+//                Intent intent = new
+//                SearchResultFragment.setArguments(bundle);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return true;
+            }
+        });
 
 
 //        ImageView tag_but=(ImageView)root.findViewById(R.id.imageViewTag);
