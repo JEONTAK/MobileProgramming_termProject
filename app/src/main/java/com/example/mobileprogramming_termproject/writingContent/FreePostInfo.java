@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
+//자유게시글 정보 를 저장하기 위한 유형
+//제목, 내용, 작성자, 유저이름, 작성일자, 추천수, 댓글, 작성글 id, 추천유저 id값을 저장.
 public class FreePostInfo implements Serializable {
     private String title;
     private String content;

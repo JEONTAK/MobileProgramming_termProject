@@ -24,8 +24,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,9 +33,13 @@ import static com.example.mobileprogramming_termproject.Util.showToast;
 
 public class writingFreePostActivity extends AppCompatActivity {
 
-    private static final String TAG =" freePostActivity";
+    private static final String TAG ="writingFreePostActivity";
+    //유저 선언
     private FirebaseUser user;
+    //로딩창 선언
     private RelativeLayout loaderLayout;
+    //Firebase 선언
+    private FirebaseFirestore firebaseFirestore;
 
     private int pathCount , successCount;
     //dbUploader
@@ -45,23 +47,29 @@ public class writingFreePostActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_free_post);
+        setContentView(R.layout.activity_writing_free_post);
 
         loaderLayout = findViewById(R.id.loaderLayout);
-        
+        //현재의 User data 받아옴.
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        //파이어베이스 가져옴
+        firebaseFirestore = FirebaseFirestore.getInstance();
         findViewById(R.id.confirmBtn).setOnClickListener(onClickListener);
         findViewById(R.id.goBackBtn).setOnClickListener(onClickListener);
 
 
     }
 
+    //클릭시 발생하는 리스너
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
+                    //뒤로가기 버튼
                 case R.id.goBackBtn:
                     myStartActivity(HomeFragment.class);
                     break;
+                    //게시글 입력 버튼
                 case R.id.confirmBtn:
                     bulletinUpload();
                     break;
@@ -70,62 +78,61 @@ public class writingFreePostActivity extends AppCompatActivity {
 
     };
 
+    //게시글 FireBase에 업로드 하기위함
     private void bulletinUpload(){
+        //제목값 받아옴
         final String title = ((EditText)findViewById(R.id.editTitle_Free)).getText().toString();
+        //내용 받아옴
         final String content = ((TextView)findViewById(R.id.editContent_Free)).getText().toString();
+
+        //나중에 댓글 삽입 위해서 arrayList 선언
         final ArrayList<String> comment = new ArrayList<>();
 
+        //만약 제목 또는 내용이 공백아닐경우
         if(title.length() > 0 && content.length()> 0){
+            //데이터가 firebase에 업로드 될때까지 로딩창 띄움
             loaderLayout.setVisibility(View.VISIBLE);
-            Log.d("로그: ", " " );
-            FirebaseStorage storage = FirebaseStorage.getInstance();
-            StorageReference storageRef = storage.getReference();
-            FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-
-            user = FirebaseAuth.getInstance().getCurrentUser();
-            ArrayList<MemberInfo> userInfo = new ArrayList<>();
-            String name = "";
-            DocumentReference docRef = firebaseFirestore.collection("users").document(user.getUid());
-            Log.d(TAG, "다큐먼트 선언");
-            docRef.get()
-                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    Log.d(TAG, "다큐먼트 실행");
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        if (document.exists()) {
-                            userInfo.add(new MemberInfo(
-                                    document.getData().get("name").toString(),
-                                    document.getData().get("phoneNumber").toString(),
-                                    document.getData().get("adress").toString(),
-                                    document.getData().get("date").toString(),
-                                    document.getData().get("userId").toString()
-                            ));
-
-                            Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-
-                        } else {
-                            Log.d(TAG, "No such document");
-                        }
-                    } else {
-                        Log.d(TAG, "get failed with ", task.getException());
-                    }
-                }
-            });
-
-            Log.d(TAG, "다큐먼트 종료");
-            name = userInfo.get(0).getName();
+            Log.d(TAG, "게시글 업로드 중" );
+            
             ArrayList<String> recomUser = new ArrayList<>();
-            final DocumentReference documentReference = firebaseFirestore.collection("freePost").document();
-            FreePostInfo freePostInfo = new FreePostInfo(title, content, user.getUid(), name, new Date(), 0, comment, documentReference.getId(), recomUser);
-            dbUploader(documentReference, freePostInfo);
+            
+            //유저 이름을 받아오기 위하여 데이터베이스에 연결하여 유저 아이디 이용 검색
+            firebaseFirestore.collection("users").document(user.getUid()).get()
+                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            Log.d(TAG, "다큐먼트 실행");
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                if (document.exists()) {
+                                    MemberInfo userInfo = new MemberInfo(
+                                            document.getData().get("name").toString(),
+                                            document.getData().get("phoneNumber").toString(),
+                                            document.getData().get("adress").toString(),
+                                            document.getData().get("date").toString(),
+                                            document.getData().get("photoUrl").toString()
+                                    );
+                                    Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                                    //검색하여 얻은 유저 이름을 이용하여 freePost 데이터 베이스에 게시글 저장.
+                                    DocumentReference documentReference = firebaseFirestore.collection("freePost").document();
+                                    //freepostInfo 형식으로 저장.
+                                    FreePostInfo freePostInfo = new FreePostInfo(title, content, user.getUid(), userInfo.getName(), new Date(), 0, comment, documentReference.getId(), recomUser);
+                                    dbUploader(documentReference, freePostInfo);
+                                } else {
+                                    Log.d(TAG, "No such document");
+                                }
+                            } else {
+                                Log.d(TAG, "get failed with ", task.getException());
+                            }
+                        }
+                    });
         }
         else{
             showToast(writingFreePostActivity.this ,"내용을 정확히 입력해주세요!");
         }
     }
 
+    //게시글 등록
     private void dbUploader(DocumentReference documentReference , FreePostInfo freePostInfo){
         documentReference.set(freePostInfo)
             .addOnSuccessListener(new OnSuccessListener<Void>() {

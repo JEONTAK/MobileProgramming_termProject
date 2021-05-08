@@ -1,7 +1,6 @@
 package com.example.mobileprogramming_termproject.Member;
 
 //회원 정보 저장
-
 public class MemberInfo {
 
     private String name;
@@ -34,6 +33,7 @@ public class MemberInfo {
     {
         this.name=name;
     }
+
 
     public String getName(){
         return this.name;

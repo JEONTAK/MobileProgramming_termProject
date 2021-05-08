@@ -44,15 +44,19 @@ import static com.example.mobileprogramming_termproject.Util.showToast;
 
 public class recipeInformationActivity extends AppCompatActivity {
     private final String TAG = "레시피 정보";
+    //데이터베이스 선언
     private FirebaseFirestore firebaseFirestore;
+    //리사이클러 뷰 선언
     private RecyclerView recom_recipe;
+    //게시글 정보 가져오기 위함
     private RecipePostInfo recipePostInfo;
+    //추천 버튼
+
     private ImageButton RecomBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_information);
-
 
     }
 
@@ -102,29 +106,38 @@ public class recipeInformationActivity extends AppCompatActivity {
         }
     };
 
+    //게시글에 추천수가 증가했거나 감소했을경우, 또는 게시글이 작성되었을 경우 바로바로 업데이트 해주기 위해 resume함수에 넣어 관리.
+
     @Override
     protected void onResume() {
         super.onResume();
+        //유저가 이미 추천을 했는지 하지않았는지 알려주기 위함.
+
         TextView isRecom = findViewById(R.id.isRecomText);
         RecomBtn = findViewById(R.id.recipeRecomBtn);
         RecomBtn.setOnClickListener(onClickListener);
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser(); //파이어베이스 유저 선언
         String user = firebaseUser.getUid();
+        //게시글 data 가져옴
         recipePostInfo = (RecipePostInfo) getIntent().getSerializableExtra("recipePostInfo");
-
+        //추천한 유저 명단
         ArrayList<String> recomUser = recipePostInfo.getRecomUserId();
+        //만약 현재 유저가 게시글에 이미 추천을 눌렀다면
         if(recomUser.contains(user))
         {
             RecomBtn.setImageTintList(ColorStateList.valueOf(Color.RED));
             isRecom.setText("이미 추천한 레시피에요!");
 
         }
+        //누르지 않았다면
         else{
             RecomBtn.setImageTintList(ColorStateList.valueOf(Color.BLACK));
             isRecom.setText("이 레시피가 좋다면 추천을 눌러주세요!");
 
         }
 
+        //게시글 정보 띄우기 위한 코드
+        //시작
         String id = getIntent().getStringExtra("id");
         Log.d("로그: ", "" + getIntent().getStringExtra("id"));
 
@@ -181,7 +194,10 @@ public class recipeInformationActivity extends AppCompatActivity {
             }
         }
 
+        //끝
 
+        //다른 추천레시피 띄우기 위한 코드
+        //시작
         firebaseFirestore= FirebaseFirestore.getInstance();//데이터베이스 선언
 
         recom_recipe = findViewById(R.id.recom_recipe);
@@ -204,6 +220,7 @@ public class recipeInformationActivity extends AppCompatActivity {
                                         document.getData().get("ingredient").toString(),
                                         (ArrayList<String>) document.getData().get("content"),
                                         document.getData().get("publisher").toString(),
+                                        document.getData().get("userName").toString(),
                                         new Date(document.getDate("createdAt").getTime()),
                                         (Long) document.getData().get("recom"),
                                         document.getData().get("recipeId").toString(),
@@ -223,11 +240,12 @@ public class recipeInformationActivity extends AppCompatActivity {
                     }
                 });
 
-
+        //끝
     }
-
+    //추천, 추천 취소시 바로바로 데이터베이스에 업로드하여 반영해줌.
         private void dbUploader(DocumentReference documentReference , RecipePostInfo recipePostInfo, int requestCode){
-        if(requestCode == 0){
+            //추천취소 하는 경우
+            if(requestCode == 0){
             documentReference.set(recipePostInfo)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
@@ -243,7 +261,9 @@ public class recipeInformationActivity extends AppCompatActivity {
                     Log.w(TAG,"Error writing document", e);
                 }
             });
-        }else{
+        }
+            //추천할 경우
+            else{
             documentReference.set(recipePostInfo)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override

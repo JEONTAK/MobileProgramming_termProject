@@ -2,6 +2,7 @@ package com.example.mobileprogramming_termproject;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.mobileprogramming_termproject.menu.priceFragment;
 import com.example.mobileprogramming_termproject.menu.tagFragment;
@@ -9,6 +10,7 @@ import  com.example.mobileprogramming_termproject.ui.alarm.alarmFragment;
 import com.example.mobileprogramming_termproject.ui.home.HomeFragment;
 import com.example.mobileprogramming_termproject.ui.map.mapFragment;
 import com.example.mobileprogramming_termproject.ui.myPage.myPageFragment;
+import com.example.mobileprogramming_termproject.ui.searchResult.searchResultFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private mapFragment MapFragment = new mapFragment();
     private myPageFragment MyPageFragment = new myPageFragment();
     private alarmFragment AlarmFragment=new alarmFragment();
+    private searchResultFragment SearchResultFragment=new searchResultFragment();
     Fragment PriceFragment;
     Fragment TagFragment;
     @Override
@@ -110,6 +113,20 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.nav_host_fragment,fragment);
         fragmentTransaction.commit();
+    }
+    public void onFragmentChange(int index,String query){
+        if(index==0){
+
+        }
+        else if(index==1){
+            getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,SearchResultFragment).commit();
+            Toast.makeText(this, "검색어 : "+query, Toast.LENGTH_LONG).show();
+            searchResultFragment myFragment = new searchResultFragment();
+
+            Bundle bundle = new Bundle(1); // 파라미터의 숫자는 전달하려는 값의 갯수
+            bundle.putString("search_content", query);
+            myFragment.setArguments(bundle);
+        }
     }
 
 }

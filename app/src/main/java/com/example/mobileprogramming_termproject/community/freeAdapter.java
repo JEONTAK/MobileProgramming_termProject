@@ -20,10 +20,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
+//자유게시판의 글을 카드뷰로 보여주기 위한 어댑터
 public class freeAdapter extends RecyclerView.Adapter<freeAdapter.freeViewHolder> {
+    //자유게시판 글 데이터
     private ArrayList<FreePostInfo> mDataset;
     private Activity activity;
-    private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();//데이터베이스 선언
 
     static class freeViewHolder extends RecyclerView.ViewHolder{
         public CardView cardView;
@@ -38,12 +39,13 @@ public class freeAdapter extends RecyclerView.Adapter<freeAdapter.freeViewHolder
         this.activity = activity;
     }
 
-
+    //카드뷰를 생성하여 그곳에 데이터를 집어넣어 완성시킴
     @NotNull
     @Override
     public freeAdapter.freeViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType){
         CardView cardView =(CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.item_free_post, parent,false);
         final freeViewHolder freeViewHolder = new freeViewHolder(activity, cardView, mDataset.get(viewType));
+        //카드뷰를 클릭할경우, 그 게시글로 activity가 넘어감.
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,6 +57,8 @@ public class freeAdapter extends RecyclerView.Adapter<freeAdapter.freeViewHolder
         return freeViewHolder;
     }
 
+    //카드뷰 안에 들어갈 목록
+    //자유게시판 게시글 카드뷰에는 제목, 작성자, 작성 날짜, 추천수가 저장되어 띄워짐.
     @Override
     public void onBindViewHolder(@NotNull final freeViewHolder holder, int position){
 

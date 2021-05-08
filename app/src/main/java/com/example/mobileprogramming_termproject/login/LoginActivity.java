@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView mPasswordResettxt;
     EditText mEmailText, mPasswordText;
     private FirebaseAuth firebaseAuth;
+    private RelativeLayout loaderLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         mLoginBtn = findViewById(R.id.login_btn);
         mEmailText = findViewById(R.id.emailEt);
         mPasswordText = findViewById(R.id.passwordEdt);
-
+        loaderLayout = findViewById(R.id.loaderLayout);
 
         //가입 버튼이 눌리면
         mResigettxt.setOnClickListener(new View.OnClickListener(){
@@ -68,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+                loaderLayout.setVisibility(View.VISIBLE);
                 String email = mEmailText.getText().toString().trim();
                 String pwd = mPasswordText.getText().toString().trim();
                 if (email.length() > 0 && pwd.length() > 0 ) {
@@ -76,9 +79,9 @@ public class LoginActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
+                                        loaderLayout.setVisibility(View.GONE);
                                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                         startActivity(intent);
-
                                     } else {
                                         Toast.makeText(LoginActivity.this, "로그인 오류", Toast.LENGTH_SHORT).show();
                                     }

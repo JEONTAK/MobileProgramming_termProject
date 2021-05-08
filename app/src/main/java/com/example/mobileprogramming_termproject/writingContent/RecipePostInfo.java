@@ -4,12 +4,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
+//레시피 글을 저장하기위한 형식
+//타이틀 이미지, 제목, 재료, 설명, 작성자, 작성자이름,  작성일자, 추천수, 레시피글 id, 추천 유저, 가격, 음식카테고리, 태그카테고리를 저장.
 public class RecipePostInfo implements Serializable {
     private String titleImage;
     private String title;
     private String ingredient;
     private ArrayList<String> content;
     private String publisher;
+    private String userName;
     private Date createdAt;
     private long recom;
     private String recipeId;
@@ -19,7 +22,7 @@ public class RecipePostInfo implements Serializable {
     private String tagCategory;
 
 
-    public RecipePostInfo(String titleImage, String title, String ingredient, ArrayList<String> content, String publisher,
+    public RecipePostInfo(String titleImage, String title, String ingredient, ArrayList<String> content, String publisher, String userName,
                           Date createdAt , long recom, String recipeId, ArrayList<String> recomUserId,
                           long price, String foodCategory, String tagCategory) {
         this.titleImage = titleImage;
@@ -27,6 +30,7 @@ public class RecipePostInfo implements Serializable {
         this.ingredient = ingredient;
         this.content = content;
         this.publisher = publisher;
+        this.userName = userName;
         this.createdAt = createdAt;
         this.recom = recom;
         this.recipeId = recipeId;
@@ -51,6 +55,8 @@ public class RecipePostInfo implements Serializable {
     public void setContent(ArrayList<String> content){this.content = content;}
     public String getPublisher(){return this.publisher;}
     public void setPublisher(String publisher){this.publisher = publisher;}
+    public String getUserName(){return this.userName;}
+    public void setUserName(String userName){this.userName = userName;}
     public Date getCreatedAt(){return this.createdAt;}
     public void setCreatedAt(Date publisher){this.createdAt = createdAt;}
     public long getRecom(){ return this.recom;}
