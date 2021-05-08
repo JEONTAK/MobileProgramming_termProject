@@ -36,9 +36,9 @@ public class category_cost_activity extends AppCompatActivity {
     }
 
     private void setupViewPager(ViewPager vp) {
-        adapter.addFragment(new riceFragment(), "5000원 이하");
-        adapter.addFragment(new dessertFragment(), "5000원~10000원");
-        adapter.addFragment(new drinkFragment(), "10000원이상 ");
+        adapter.addFragment(new under5000Fragment(), "5000원 이하");
+        adapter.addFragment(new between5000_10000Fragment(), "5000원~10000원");
+        adapter.addFragment(new over10000Fragment(), "10000원이상 ");
         vp.setAdapter(adapter);
     }
 

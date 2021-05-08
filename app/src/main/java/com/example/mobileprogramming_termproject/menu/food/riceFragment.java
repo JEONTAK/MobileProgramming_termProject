@@ -14,6 +14,7 @@ import com.example.mobileprogramming_termproject.R;
 
 
 public class riceFragment extends Fragment {
+
     View view;
     public riceFragment(){
 
