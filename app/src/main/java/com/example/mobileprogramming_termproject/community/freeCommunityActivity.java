@@ -34,7 +34,7 @@ public class freeCommunityActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_free_bulletin);
+        setContentView(R.layout.activity_free_community);
         findViewById(R.id.freePostBtn).setOnClickListener(onClickListener);
         //파이어베이스에서 데이터베이스를 가져옴.
         firebaseFirestore= FirebaseFirestore.getInstance();

@@ -35,7 +35,7 @@ public class recipeCommunityActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_bulletin);
+        setContentView(R.layout.activity_recipe_community);
         findViewById(R.id.recipePostBtn).setOnClickListener(onClickListener);
 
         //파이어베이스에서 데이터베이스 가져옴

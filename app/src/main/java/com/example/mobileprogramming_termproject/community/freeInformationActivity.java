@@ -33,6 +33,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 
 import static com.example.mobileprogramming_termproject.Util.showToast;
@@ -117,22 +118,42 @@ public class freeInformationActivity extends AppCompatActivity {
                     }
                     //게시글에 댓글 작성 버튼
                 case R.id.writingFreePost:
-                    ArrayList<MemberInfo> userInfo = new ArrayList<MemberInfo>();
-                    DocumentReference docRef = firebaseFirestore.collection("users").document(user);
-                    docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    loaderLayout.setVisibility(View.VISIBLE);
+                    firebaseFirestore.collection("users").document(user)
+                    .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()) {
                                 DocumentSnapshot document = task.getResult();
                                 if (document.exists()) {
-                                    userInfo.add(new MemberInfo(
+                                    MemberInfo userInfo = new MemberInfo(
                                             document.getData().get("name").toString(),
                                             document.getData().get("phoneNumber").toString(),
                                             document.getData().get("adress").toString(),
                                             document.getData().get("date").toString(),
-                                            document.getData().get("userId").toString()
-                                    ));
+                                            document.getData().get("photoUrl").toString()
+                                    );
                                     Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+
+                                    id = freePostInfo.getPostId();
+                                    String comment = ((EditText)findViewById(R.id.editComment)).getText().toString();
+                                    ArrayList<String> newComment = new ArrayList<>();
+                                    newComment = freePostInfo.getComment();
+                                    String commentAndUser = comment + "//" + user + "//" + userInfo.getName();
+                                    newComment.add(commentAndUser);
+                                    freePostInfo.setComment(newComment);
+
+                                    DocumentReference dr;
+
+                                    if(id == null){
+                                        dr = firebaseFirestore.collection("freePost").document();
+
+                                    }else{
+                                        dr =firebaseFirestore.collection("freePost").document(id);
+                                    }
+                                    //freepostInfo 형식으로 저장.
+                                    dbUploader(dr, freePostInfo, 2);
+
                                 } else {
                                     Log.d(TAG, "No such document");
                                 }
@@ -141,23 +162,6 @@ public class freeInformationActivity extends AppCompatActivity {
                             }
                         }
                     });
-                    String name = userInfo.get(0).getName();
-                    loaderLayout.setVisibility(View.VISIBLE);
-                    id = freePostInfo.getPostId();
-                    String comment = ((EditText)findViewById(R.id.editComment)).getText().toString();
-                    ArrayList<String> newComment = new ArrayList<>();
-                    newComment = freePostInfo.getComment();
-                    String commentAndUser = comment + "//" + user + "//" + name;
-                    newComment.add(commentAndUser);
-                    freePostInfo.setComment(newComment);
-
-                    if(id == null){
-                        dr = firebaseFirestore.collection("freePost").document();
-
-                    }else{
-                        dr =firebaseFirestore.collection("freePost").document(id);
-                    }
-                    dbUploader(dr, freePostInfo, 2);
                     break;
             }
         }

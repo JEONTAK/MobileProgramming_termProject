@@ -85,7 +85,7 @@ public class writingRecipePostActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_post);
+        setContentView(R.layout.activity_writing_recipe_post);
 
         backBtnLayout = findViewById(R.id.backBtnLayout);
         parent = findViewById(R.id.contentsLayout);
