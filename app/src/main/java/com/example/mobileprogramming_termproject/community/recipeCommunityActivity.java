@@ -74,6 +74,7 @@ public class recipeCommunityActivity extends AppCompatActivity {
                                         document.getData().get("ingredient").toString(),
                                         (ArrayList<String>) document.getData().get("content"),
                                         document.getData().get("publisher").toString(),
+                                        document.getData().get("userName").toString(),
                                         new Date(document.getDate("createdAt").getTime()),
                                         (Long) document.getData().get("recom"),
                                         document.getData().get("recipeId").toString(),

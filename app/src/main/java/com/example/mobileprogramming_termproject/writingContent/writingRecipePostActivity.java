@@ -22,13 +22,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 
 import com.example.mobileprogramming_termproject.Gallery.GalleryActivity;
+import com.example.mobileprogramming_termproject.Member.MemberInfo;
 import com.example.mobileprogramming_termproject.R;
 import com.example.mobileprogramming_termproject.ui.home.HomeFragment;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageMetadata;
@@ -144,19 +148,27 @@ public class writingRecipePostActivity extends AppCompatActivity {
         super.onActivityResult(requestCode,resultCode,data);
         switch (requestCode){
             case 0:
+                //이미지 추가 버튼 눌렀을 때
                 if(resultCode == Activity.RESULT_OK){
-                    //
+                    //이미지 경로 string으로 저장.
                     String profilePath = data.getStringExtra("profilePath");
+                    //설명 List에 추가
                     pathList.add(profilePath);
-
+                    
+                    //레이아웃을 꽉차게 하기 위하여 미리 설정
                     ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
+                    //새 리니어 레이아웃 생성(여기에 이미지, 설명 edittext를 집어넣은후 기존 parent에 삽입할 예정)
                     LinearLayout linearLayout = new LinearLayout(writingRecipePostActivity.this);
                     linearLayout.setLayoutParams(layoutParams);
                     linearLayout.setOrientation(LinearLayout.VERTICAL);
+
+                    //만약 parent(설명을 포함하는 가장 큰 레이아웃)이 0이면 바로 집어넣음.
                     if(parent.getChildCount() == 0){
                         parent.addView(linearLayout);
-                    }else{
+                    }
+                    //이미 parent에 child 레이아웃이 있을경우, 위치를 유저가 선택한 위치로 가 집어넣음.
+                    else{
                         for(int i = 0 ; i < parent.getChildCount() ; i++){
                             if(parent.getChildAt(i) == selectedEditText.getParent()){
                                 parent.addView(linearLayout, i + 1);
@@ -164,8 +176,11 @@ public class writingRecipePostActivity extends AppCompatActivity {
                             }
                         }
                     }
+                    
+                    //이미지 뷰도 이와 같이 생성하여 선택한 곳에 집어넣음
                     ImageView imageView = new ImageView(writingRecipePostActivity.this);
                     imageView.setLayoutParams(layoutParams);
+                    //이미지 클릭시, 수정 삭제 버튼이 나와 다른 이미지로 바꾸거나, 이미지를 삭제 할 수 있음.
                     imageView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -173,9 +188,12 @@ public class writingRecipePostActivity extends AppCompatActivity {
                             selectedImageView = (ImageView) v;
                         }
                     });
+                    
+                    //이미지 출력
                     Glide.with(this).load(profilePath).override(1000).into(imageView);
+                    //이미지 추가
                     linearLayout.addView(imageView);
-
+                    //이미지에 대한 설명 추가
                     EditText editText = new EditText(writingRecipePostActivity.this);
                     editText.setLayoutParams(layoutParams);
                     editText.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE | InputType.TYPE_CLASS_TEXT);
@@ -187,13 +205,17 @@ public class writingRecipePostActivity extends AppCompatActivity {
                 }
                 break;
             case 1:
+                //타이틀 이미지 버튼 눌렀을때
                 if(resultCode == Activity.RESULT_OK){
+                    //타이틀 이미지 관련 코드
+                    //타이틀 이미지를 이미지 버튼에 출력
                     String profilePath = data.getStringExtra("profilePath");
                     titleImagePath = profilePath;
                     Glide.with(this).load(profilePath).override(1000).into(titleImage);
                 }
                 break;
             case 2:
+                //이미지 수정 버튼 눌렀을때
                 if(resultCode == Activity.RESULT_OK){
                     String profilePath = data.getStringExtra("profilePath");
                     Glide.with(this).load(profilePath).override(1000).into(selectedImageView);
@@ -365,13 +387,39 @@ public class writingRecipePostActivity extends AppCompatActivity {
                                             //만약 설명 전체를 다 올렷다면, 값을 recipepostinfo 형식으로 저장하여 파이어베이스에 데이터 업로드
                                             if(pathList.size() == successCount){
                                                 ArrayList<String> recomUser = new ArrayList<>();
-                                                //recipepostinfo 형식으로 저장.
-                                                RecipePostInfo recipePostInfo = new RecipePostInfo(titleImagePath, title, recipe_ingredient ,contentsList,
-                                                        user.getUid(), new Date(), 0, documentReference.getId(), recomUser, recipePrice, foodCategory, tagCategory);
-                                                //업로드 실행
-                                                dbUploader(documentReference, recipePostInfo);
+                                                //유저 아이디를 통해 데이터베이스에 접근하여 이름을 가져옴.
+                                                firebaseFirestore.collection("users").document(user.getUid()).get()
+                                                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                                Log.d(TAG, "다큐먼트 실행");
+                                                                if (task.isSuccessful()) {
+                                                                    DocumentSnapshot document = task.getResult();
+                                                                    if (document.exists()) {
+                                                                        MemberInfo userInfo = new MemberInfo(
+                                                                                document.getData().get("name").toString(),
+                                                                                document.getData().get("phoneNumber").toString(),
+                                                                                document.getData().get("adress").toString(),
+                                                                                document.getData().get("date").toString(),
+                                                                                document.getData().get("photoUrl").toString()
+                                                                        );
+                                                                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                                                                        DocumentReference documentReference = firebaseFirestore.collection("recipePost").document();
+                                                                        //recipepostinfo 형식으로 저장.
+                                                                        RecipePostInfo recipePostInfo = new RecipePostInfo(titleImagePath, title, recipe_ingredient ,contentsList,
+                                                                                user.getUid(), userInfo.getName(), new Date(), 0, documentReference.getId(), recomUser, recipePrice, foodCategory, tagCategory);
+                                                                        //업로드 실행
+                                                                        dbUploader(documentReference, recipePostInfo);
+                                                                    } else {
+                                                                        Log.d(TAG, "No such document");
+                                                                    }
+                                                                } else {
+                                                                    Log.d(TAG, "get failed with ", task.getException());
+                                                                }
+                                                            }
+                                                        });
                                                 for(int a = 0 ; a < contentsList.size(); a++){
-                                                    Log.e("로그: ", "콘텐츠: " +contentsList.get(a));
+                                                    Log.e(TAG + "로그: ", "콘텐츠: " +contentsList.get(a));
                                                 }
                                             }
                                         }

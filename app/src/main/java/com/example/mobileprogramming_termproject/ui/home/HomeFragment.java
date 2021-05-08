@@ -3,6 +3,7 @@ package com.example.mobileprogramming_termproject.ui.home;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobileprogramming_termproject.MainActivity;
 import com.example.mobileprogramming_termproject.R;
+import com.example.mobileprogramming_termproject.community.freeAdapter;
 import com.example.mobileprogramming_termproject.community.freeCommunityActivity;
+import com.example.mobileprogramming_termproject.community.recipeAdapter;
 import com.example.mobileprogramming_termproject.community.recipeCommunityActivity;
 import com.example.mobileprogramming_termproject.menu.cost.category_cost_activity;
 import com.example.mobileprogramming_termproject.menu.food.category_food_activity;
@@ -25,7 +28,18 @@ import com.example.mobileprogramming_termproject.menu.priceFragment;
 import com.example.mobileprogramming_termproject.menu.tag.category_tag_activity;
 import com.example.mobileprogramming_termproject.menu.tagFragment;
 import com.example.mobileprogramming_termproject.ui.searchResult.searchResultFragment;
+import com.example.mobileprogramming_termproject.writingContent.FreePostInfo;
+import com.example.mobileprogramming_termproject.writingContent.RecipePostInfo;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 public class HomeFragment extends Fragment   {
 
@@ -69,8 +83,6 @@ public class HomeFragment extends Fragment   {
                 new ViewModelProvider(this).get(com.example.mobileprogramming_termproject.ui.home.HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-
-
         root.findViewById(R.id.buttonRecipe).setOnClickListener(onClickListener);
         root.findViewById(R.id.buttonFree).setOnClickListener(onClickListener);
         root.findViewById(R.id.imageViewFood).setOnClickListener(onClickListener);
@@ -111,6 +123,9 @@ public class HomeFragment extends Fragment   {
 //            }
 //        });
 
+        firebaseFirestore= FirebaseFirestore.getInstance();//데이터베이스 선언
+
+
 
         HotPost = (RecyclerView)root.findViewById(R.id.hot_Post);
         HotPost.setHasFixedSize(true);
@@ -120,9 +135,6 @@ public class HomeFragment extends Fragment   {
         FreePost = (RecyclerView)root.findViewById(R.id.free_Post);
         FreePost.setHasFixedSize(true);
         FreePost.setLayoutManager(new GridLayoutManager(getActivity(),numberOfColumns));
-
-
-
         //        final TextView textView = root.findViewById(R.id.);
 //        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
 //            @Override
@@ -144,8 +156,88 @@ public class HomeFragment extends Fragment   {
         return root;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        //인기 레시피에 리사이클러 뷰를 이용하여 레시피를 추천순으로 6개만 보여지게 함.
+        CollectionReference recipeReference = firebaseFirestore.collection("recipePost");
+        recipeReference
+                .orderBy("recom", Query.Direction.DESCENDING).limit(6)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            ArrayList<RecipePostInfo> hot_postList = new ArrayList<>();
+                            for(QueryDocumentSnapshot document : task.getResult()){
+                                Log.d("로그: ", document.getId() + " => " + document.getData());
+                                hot_postList.add(new RecipePostInfo(
+                                        document.getData().get("titleImage").toString(),
+                                        document.getData().get("title").toString(),
+                                        document.getData().get("ingredient").toString(),
+                                        (ArrayList<String>) document.getData().get("content"),
+                                        document.getData().get("publisher").toString(),
+                                        document.getData().get("userName").toString(),
+                                        new Date(document.getDate("createdAt").getTime()),
+                                        (Long) document.getData().get("recom"),
+                                        document.getData().get("recipeId").toString(),
+                                        (ArrayList<String>) document.getData().get("recomUserId"),
+                                        (Long) document.getData().get("price"),
+                                        document.getData().get("foodCategory").toString(),
+                                        document.getData().get("tagCategory").toString()
+                                ));
+                            }
+
+                            //리사이클러 뷰를 사용하여 카드뷰로 추가
+                            RecyclerView.Adapter mAdapter1 = new recipeAdapter(getActivity(), hot_postList);
+                            HotPost.setAdapter(mAdapter1);
+                        }
+                        else{
+                            Log.d("로그: ", "Error getting documents: " , task.getException());
+
+                        }
+                    }
+                });
+
+        //자유 게시판에 리사이클러 뷰를 이용하여 게시글을 작성일자 최신순으로 8개만 출력.
+        CollectionReference freePostReference = firebaseFirestore.collection("freePost");
+        freePostReference
+                .orderBy("createdAt", Query.Direction.DESCENDING).limit(8)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            ArrayList<FreePostInfo> free_postList = new ArrayList<>();
+                            for(QueryDocumentSnapshot document : task.getResult()){
+                                Log.d("로그: ", document.getId() + " => " + document.getData());
+                                free_postList.add(new FreePostInfo(
+                                        document.getData().get("title").toString(),
+                                        document.getData().get("content").toString(),
+                                        document.getData().get("publisher").toString(),
+                                        document.getData().get("userName").toString(),
+                                        new Date(document.getDate("createdAt").getTime()),
+                                        (Long) document.getData().get("recom"),
+                                        (ArrayList<String>) document.getData().get("comment"),
+                                        document.getData().get("postId").toString(),
+                                        (ArrayList<String>) document.getData().get("recomUserId")
+                                ));
+                            }
+
+                            //리사이클러 뷰를 사용하여 카드뷰로 추가
+                            RecyclerView.Adapter mAdapter2 = new freeAdapter(getActivity(), free_postList);
+                            FreePost.setAdapter(mAdapter2);
+                        }
+                        else{
+                            Log.d("로그: ", "Error getting documents: " , task.getException());
+
+                        }
+                    }
+                });
 
 
+    }
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
