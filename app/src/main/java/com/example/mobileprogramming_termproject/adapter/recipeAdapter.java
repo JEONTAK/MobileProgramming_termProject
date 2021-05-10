@@ -1,4 +1,4 @@
-package com.example.mobileprogramming_termproject.community;
+package com.example.mobileprogramming_termproject.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.mobileprogramming_termproject.R;
+import com.example.mobileprogramming_termproject.community.recipeInformationActivity;
 import com.example.mobileprogramming_termproject.writingContent.RecipePostInfo;
 
 

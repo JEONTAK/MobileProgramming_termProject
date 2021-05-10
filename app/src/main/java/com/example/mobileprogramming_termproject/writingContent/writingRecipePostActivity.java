@@ -302,15 +302,15 @@ public class writingRecipePostActivity extends AppCompatActivity {
             //저장할 위치 선언
             final DocumentReference documentReference = firebaseFirestore.collection("recipePost").document();
 
-            //이미지 경로 저장.
+            //타이틀이미지 경로 저장.
             String[] titleArray = titleImagePath.split("\\.");
             
             final StorageReference titleImagesRef = storageRef.child("recipePost/" + documentReference.getId() + "/title" +titleArray[titleArray.length - 1]);
 
             try{
-                //이미지를 storage에 저장함
+                //타이틀 이미지를 storage에 저장함
                 InputStream stream = new FileInputStream(new File(titleImagePath));
-                StorageMetadata metadata = new StorageMetadata.Builder().setCustomMetadata("title", "" + titleImagePath).build();
+                StorageMetadata metadata = new StorageMetadata.Builder().setCustomMetadata("title", "title").build();
                 UploadTask uploadTask = titleImagesRef.putStream(stream,metadata);
                 uploadTask.addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -328,6 +328,103 @@ public class writingRecipePostActivity extends AppCompatActivity {
                                 titleImagePath = uri.toString();
                                 Log.d("로그 : " , "titleImagePath " + titleImagePath);
 
+                                Log.d("로그 : " , "titleImagePath " + titleImagePath);
+
+                                //레시피 설명을 arraylist에 저장하기 위함.
+                                //이미지의 수만큼 for문 실행
+                                for(int i = 0 ;  i < parent.getChildCount() ; i++){
+                                    //설명이 담겨있는 레이아웃에서 현재 레이아웃만 따로 가져옴.
+                                    LinearLayout linearLayout = (LinearLayout)parent.getChildAt(i);
+                                    //가져온 레이아웃에는 이미지, 글내용 2개가 들어있거나, 이미지만 들어있음.
+                                    for(int ii = 0 ; ii < linearLayout.getChildCount(); ii++){
+                                        View view = linearLayout.getChildAt(ii);
+                                        //만약 가져온 것이 글이라면, 바로 넣어줌.
+                                        if(view instanceof EditText){
+                                            String text = ((EditText)view).getText().toString();
+                                            if(text.length() > 0){
+                                                contentsList.add(text);
+                                            }
+                                        }
+                                        //만약 가져온 값이 이미지라면, arraylist에 이미지를 넣어주고, 그 이미지를 storage에 저장함.
+                                        else{
+                                            contentsList.add(pathList.get(pathCount));
+                                            Log.d("로그 : " , "이미지 " + pathList.get(pathCount));
+
+                                            //이미지를 storage에 저장하기 위한 코드
+                                            String[] pathArray = pathList.get(pathCount).split("\\.");
+                                            final StorageReference mountainImagesRef = storageRef.child("recipePost/" + documentReference.getId() + "/" + pathCount + pathArray[pathArray.length - 1]);
+                                            Log.d("로그 : " , "mountainImagesRef " + pathList.get(pathCount));
+
+                                            try{
+                                                InputStream stream = new FileInputStream(new File(pathList.get(pathCount)));
+                                                StorageMetadata metadata = new StorageMetadata.Builder().setCustomMetadata("index", ""+ (contentsList.size() - 1)).build();
+                                                UploadTask uploadTask = mountainImagesRef.putStream(stream,metadata);
+                                                uploadTask.addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+
+                                                    }
+                                                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                                    @Override
+                                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                                        final int index = Integer.parseInt(taskSnapshot.getMetadata().getCustomMetadata("index"));
+                                                        mountainImagesRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                            @Override
+                                                            public void onSuccess(Uri uri) {
+                                                                contentsList.set(index, uri.toString());
+                                                                //업로드 성공횟수를 증가시킴
+                                                                successCount++;
+                                                                Log.e("로그","" +successCount);
+                                                                //만약 설명 전체를 다 올렷다면, 값을 recipepostinfo 형식으로 저장하여 파이어베이스에 데이터 업로드
+                                                                if(pathList.size() == successCount){
+                                                                    ArrayList<String> recomUser = new ArrayList<>();
+                                                                    //유저 아이디를 통해 데이터베이스에 접근하여 이름을 가져옴.
+                                                                    firebaseFirestore.collection("users").document(user.getUid()).get()
+                                                                            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                                                @Override
+                                                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                                                    Log.d(TAG, "다큐먼트 실행");
+                                                                                    if (task.isSuccessful()) {
+                                                                                        DocumentSnapshot document = task.getResult();
+                                                                                        if (document.exists()) {
+                                                                                            MemberInfo userInfo = new MemberInfo(
+                                                                                                    document.getData().get("name").toString(),
+                                                                                                    document.getData().get("phoneNumber").toString(),
+                                                                                                    document.getData().get("adress").toString(),
+                                                                                                    document.getData().get("date").toString(),
+                                                                                                    document.getData().get("photoUrl").toString()
+                                                                                            );
+                                                                                            Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                                                                                            DocumentReference documentReference = firebaseFirestore.collection("recipePost").document();
+                                                                                            //recipepostinfo 형식으로 저장.
+                                                                                            RecipePostInfo recipePostInfo = new RecipePostInfo(titleImagePath, title, recipe_ingredient ,contentsList,
+                                                                                                    user.getUid(), userInfo.getName(), new Date(), 0, documentReference.getId(), recomUser, recipePrice, foodCategory, tagCategory);
+                                                                                            //업로드 실행
+                                                                                            dbUploader(documentReference, recipePostInfo);
+                                                                                        } else {
+                                                                                            Log.d(TAG, "No such document");
+                                                                                        }
+                                                                                    } else {
+                                                                                        Log.d(TAG, "get failed with ", task.getException());
+                                                                                    }
+                                                                                }
+                                                                            });
+                                                                    for(int a = 0 ; a < contentsList.size(); a++){
+                                                                        Log.e(TAG + "로그: ", "콘텐츠: " +contentsList.get(a));
+                                                                    }
+                                                                }
+                                                            }
+                                                        });
+                                                    }
+                                                });
+                                            } catch (FileNotFoundException e) {
+                                                Log.e("로그","에러:" + e.toString());
+                                            }
+                                            pathCount++;
+                                        }
+                                    }
+
+                                }
                             }
                         });
                     }
@@ -337,103 +434,7 @@ public class writingRecipePostActivity extends AppCompatActivity {
             }
 
 
-            Log.d("로그 : " , "titleImagePath " + titleImagePath);
 
-            //레시피 설명을 arraylist에 저장하기 위함.
-            //이미지의 수만큼 for문 실행
-            for(int i = 0 ;  i < parent.getChildCount() ; i++){
-                //설명이 담겨있는 레이아웃에서 현재 레이아웃만 따로 가져옴.
-                LinearLayout linearLayout = (LinearLayout)parent.getChildAt(i);
-                //가져온 레이아웃에는 이미지, 글내용 2개가 들어있거나, 이미지만 들어있음.
-                for(int ii = 0 ; ii < linearLayout.getChildCount(); ii++){
-                    View view = linearLayout.getChildAt(ii);
-                    //만약 가져온 것이 글이라면, 바로 넣어줌.
-                    if(view instanceof EditText){
-                        String text = ((EditText)view).getText().toString();
-                        if(text.length() > 0){
-                            contentsList.add(text);
-                        }
-                    }
-                    //만약 가져온 값이 이미지라면, arraylist에 이미지를 넣어주고, 그 이미지를 storage에 저장함.
-                    else{
-                        contentsList.add(pathList.get(pathCount));
-                        Log.d("로그 : " , "이미지 " + pathList.get(pathCount));
-                        
-                        //이미지를 storage에 저장하기 위한 코드
-                        String[] pathArray = pathList.get(pathCount).split("\\.");
-                        final StorageReference mountainImagesRef = storageRef.child("recipePost/" + documentReference.getId() + "/" + pathCount + pathArray[pathArray.length - 1]);
-                        Log.d("로그 : " , "mountainImagesRef " + pathList.get(pathCount));
-
-                        try{
-                            InputStream stream = new FileInputStream(new File(pathList.get(pathCount)));
-                            StorageMetadata metadata = new StorageMetadata.Builder().setCustomMetadata("index", ""+ (contentsList.size() - 1)).build();
-                            UploadTask uploadTask = mountainImagesRef.putStream(stream,metadata);
-                            uploadTask.addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-
-                                }
-                            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                    final int index = Integer.parseInt(taskSnapshot.getMetadata().getCustomMetadata("index"));
-                                    mountainImagesRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                        @Override
-                                        public void onSuccess(Uri uri) {
-                                            contentsList.set(index, uri.toString());
-                                            //업로드 성공횟수를 증가시킴
-                                            successCount++;
-                                            Log.e("로그","" +successCount);
-                                            //만약 설명 전체를 다 올렷다면, 값을 recipepostinfo 형식으로 저장하여 파이어베이스에 데이터 업로드
-                                            if(pathList.size() == successCount){
-                                                ArrayList<String> recomUser = new ArrayList<>();
-                                                //유저 아이디를 통해 데이터베이스에 접근하여 이름을 가져옴.
-                                                firebaseFirestore.collection("users").document(user.getUid()).get()
-                                                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                                            @Override
-                                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                                                Log.d(TAG, "다큐먼트 실행");
-                                                                if (task.isSuccessful()) {
-                                                                    DocumentSnapshot document = task.getResult();
-                                                                    if (document.exists()) {
-                                                                        MemberInfo userInfo = new MemberInfo(
-                                                                                document.getData().get("name").toString(),
-                                                                                document.getData().get("phoneNumber").toString(),
-                                                                                document.getData().get("adress").toString(),
-                                                                                document.getData().get("date").toString(),
-                                                                                document.getData().get("photoUrl").toString()
-                                                                        );
-                                                                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                                                                        DocumentReference documentReference = firebaseFirestore.collection("recipePost").document();
-                                                                        //recipepostinfo 형식으로 저장.
-                                                                        RecipePostInfo recipePostInfo = new RecipePostInfo(titleImagePath, title, recipe_ingredient ,contentsList,
-                                                                                user.getUid(), userInfo.getName(), new Date(), 0, documentReference.getId(), recomUser, recipePrice, foodCategory, tagCategory);
-                                                                        //업로드 실행
-                                                                        dbUploader(documentReference, recipePostInfo);
-                                                                    } else {
-                                                                        Log.d(TAG, "No such document");
-                                                                    }
-                                                                } else {
-                                                                    Log.d(TAG, "get failed with ", task.getException());
-                                                                }
-                                                            }
-                                                        });
-                                                for(int a = 0 ; a < contentsList.size(); a++){
-                                                    Log.e(TAG + "로그: ", "콘텐츠: " +contentsList.get(a));
-                                                }
-                                            }
-                                        }
-                                    });
-                                }
-                            });
-                        } catch (FileNotFoundException e) {
-                            Log.e("로그","에러:" + e.toString());
-                        }
-                        pathCount++;
-                    }
-                }
-
-            }
         }
         //만약 레시피의 제목, 내용 재료 가격중 하나라도 공백일경우 실행 X
         else{

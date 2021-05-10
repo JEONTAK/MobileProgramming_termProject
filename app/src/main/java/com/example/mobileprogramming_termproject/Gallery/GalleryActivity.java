@@ -83,12 +83,15 @@ public class GalleryActivity extends AppCompatActivity {
         int column_index_data, column_index_folder_name;
         String PathOfImage = null;
         uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+        
+        //갤러리의 이미지를 최신순으로 하기위한 코드
+        String orderBy = MediaStore.Images.ImageColumns.DATE_TAKEN + " DESC";
 
         String[] projection = { MediaStore.MediaColumns.DATA,
-                MediaStore.Images.Media.BUCKET_DISPLAY_NAME };
+                MediaStore.Images.Media.BUCKET_DISPLAY_NAME};
 
         cursor = activity.getContentResolver().query(uri, projection, null,
-                null, null);
+                null, orderBy);
 
         column_index_data = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
         column_index_folder_name = cursor

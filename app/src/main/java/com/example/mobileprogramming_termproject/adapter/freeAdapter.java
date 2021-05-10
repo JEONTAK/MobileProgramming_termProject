@@ -1,4 +1,4 @@
-package com.example.mobileprogramming_termproject.community;
+package com.example.mobileprogramming_termproject.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,8 +11,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobileprogramming_termproject.R;
+import com.example.mobileprogramming_termproject.community.freeInformationActivity;
 import com.example.mobileprogramming_termproject.writingContent.FreePostInfo;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.jetbrains.annotations.NotNull;
 

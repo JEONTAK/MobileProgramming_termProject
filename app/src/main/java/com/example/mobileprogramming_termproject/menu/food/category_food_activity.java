@@ -6,6 +6,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
 
 import com.example.mobileprogramming_termproject.R;
+import com.example.mobileprogramming_termproject.adapter.FragmentAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 public class category_food_activity extends AppCompatActivity {
@@ -19,10 +20,8 @@ public class category_food_activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_food);
 
-        vp=(ViewPager)findViewById(R.id.container);
+        vp=(ViewPager)findViewById(R.id.food_container);
         setupViewPager(vp);
-
-//
 
         TabLayout tab=findViewById(R.id.tab_food);
         tab.setupWithViewPager(vp);
@@ -30,9 +29,10 @@ public class category_food_activity extends AppCompatActivity {
     }
 
     private void setupViewPager(ViewPager vp) {
-        adapter.addFragment(new riceFragment(), "밥");
+        adapter.addFragment(new mealFragment(), "식사");
         adapter.addFragment(new dessertFragment(), "디저트");
         adapter.addFragment(new drinkFragment(), "음료");
+        adapter.addFragment(new otherFoodFragment(), "기타");
         vp.setAdapter(adapter);
     }
 

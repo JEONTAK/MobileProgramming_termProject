@@ -2,39 +2,22 @@ package com.example.mobileprogramming_termproject.ui.searchResult;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SearchView;
 
 import com.example.mobileprogramming_termproject.R;
-import com.example.mobileprogramming_termproject.community.freeAdapter;
-import com.example.mobileprogramming_termproject.community.freeCommunityActivity;
-import com.example.mobileprogramming_termproject.community.recipeAdapter;
-import com.example.mobileprogramming_termproject.community.recipeCommunityActivity;
-import com.example.mobileprogramming_termproject.ui.alarm.alarmViewModel;
-import com.example.mobileprogramming_termproject.writingContent.FreePostInfo;
 import com.example.mobileprogramming_termproject.writingContent.RecipePostInfo;
-import com.example.mobileprogramming_termproject.writingContent.writingFreePostActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 

@@ -92,7 +92,7 @@ public class CameraActivity extends AppCompatActivity {
             camera2BasicFragment = new Camera2BasicFragment();
             camera2BasicFragment.setOnImageAvailableListener(mOnImageAvailableListener);
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, camera2BasicFragment)
+                    .replace(R.id.food_container, camera2BasicFragment)
                     .commit();
         }
     }
