@@ -119,13 +119,15 @@ public class MainActivity extends AppCompatActivity {
 
         }
         else if(index==1){
-            getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,SearchResultFragment).commit();
+
             Toast.makeText(this, "검색어 : "+query, Toast.LENGTH_LONG).show();
             searchResultFragment myFragment = new searchResultFragment();
 
             Bundle bundle = new Bundle(1); // 파라미터의 숫자는 전달하려는 값의 갯수
             bundle.putString("search_content", query);
             myFragment.setArguments(bundle);
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,myFragment).commit();
         }
     }
 

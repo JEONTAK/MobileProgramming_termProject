@@ -11,7 +11,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
+import com.example.mobileprogramming_termproject.MainActivity;
 import com.example.mobileprogramming_termproject.R;
 import com.example.mobileprogramming_termproject.writingContent.RecipePostInfo;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class searchResultFragment extends Fragment {
+
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -97,8 +100,12 @@ public class searchResultFragment extends Fragment {
         adapter = new CustomAdapter(arrayList, getContext());
         recyclerView.setAdapter(adapter); // 리사이클러뷰에 어댑터 연결
 
+
+
         return view;
     }
+
+
 
 
 
