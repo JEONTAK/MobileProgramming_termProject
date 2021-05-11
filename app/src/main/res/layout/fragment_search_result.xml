@@ -7,13 +7,12 @@
     tools:context=".ui.searchResult.searchResultFragment"
     android:orientation="vertical">
 
-<!--    코드짜기 귀찮으면 recylceview로 바꾸기-->
-    <SearchView
-        android:id="@+id/searchView2"
-        android:layout_width="match_parent"
-        android:layout_height="67dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <SearchView-->
+<!--        android:id="@+id/sub_searchView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="67dp"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
 
         <androidx.recyclerview.widget.RecyclerView
