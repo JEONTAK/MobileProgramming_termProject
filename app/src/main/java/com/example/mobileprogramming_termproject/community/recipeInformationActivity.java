@@ -235,6 +235,7 @@ public class recipeInformationActivity extends AppCompatActivity {
                                         document.getData().get("date").toString(),
                                         document.getData().get("photoUrl").toString(),
                                         (ArrayList<String>) document.getData().get("bookmarkRecipe")
+
                                 );
                                 Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                                 //만약 즐겨찾기를 해놓은 상태이면
