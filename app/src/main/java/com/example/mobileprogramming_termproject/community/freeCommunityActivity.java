@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobileprogramming_termproject.R;
+import com.example.mobileprogramming_termproject.adapter.freeAdapter;
 import com.example.mobileprogramming_termproject.writingContent.FreePostInfo;
 import com.example.mobileprogramming_termproject.writingContent.writingFreePostActivity;
 import com.google.android.gms.tasks.OnCompleteListener;

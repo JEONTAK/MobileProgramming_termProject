@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobileprogramming_termproject.Member.MemberInfo;
 import com.example.mobileprogramming_termproject.R;
+import com.example.mobileprogramming_termproject.adapter.commentAdapter;
 import com.example.mobileprogramming_termproject.writingContent.FreePostInfo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -33,7 +34,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Locale;
 
 import static com.example.mobileprogramming_termproject.Util.showToast;
@@ -131,7 +131,9 @@ public class freeInformationActivity extends AppCompatActivity {
                                             document.getData().get("phoneNumber").toString(),
                                             document.getData().get("adress").toString(),
                                             document.getData().get("date").toString(),
-                                            document.getData().get("photoUrl").toString()
+                                            document.getData().get("photoUrl").toString(),
+                                            (ArrayList<String>) document.getData().get("bookmarkRecipe")
+
                                     );
                                     Log.d(TAG, "DocumentSnapshot data: " + document.getData());
 

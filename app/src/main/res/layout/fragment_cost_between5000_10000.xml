@@ -1,152 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scrollbars="none"
-    tools:visibility="visible"
-    >
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/linearLayout_cardview"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/price_5to10_recipe"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center"
-        tools:context=".CardViewActivity">
-
-
-
-        <androidx.cardview.widget.CardView
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/cardview1"
-            android:layout_margin="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            card_view:cardCornerRadius="20dp"
-            card_view:cardUseCompatPadding="true">
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/imageview_main_image1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                app:riv_corner_radius="20dp"
-                android:src="@drawable/ic_launcher_background"
-                app:riv_border_color="#333333"
-                app:riv_mutate_background="true"
-                app:riv_oval="false" />
-        </androidx.cardview.widget.CardView>
-
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardview2"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_margin="20dp"
-            app:cardCornerRadius="20dp"
-            app:cardUseCompatPadding="true">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/imageview_main_image2"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="0.8"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ex_mark"
-                    app:riv_border_color="#333333"
-                    app:riv_corner_radius_top_left="20dp"
-                    app:riv_corner_radius_top_right="20dp"
-                    app:riv_mutate_background="true"
-                    app:riv_oval="false" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_margin="20dp"
-                    android:layout_weight="0.2"
-                    android:text="마크 정식 " />
-
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardview3"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_margin="20dp"
-            app:cardCornerRadius="20dp"
-            app:cardUseCompatPadding="true">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/imageview_main_image3"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="0.8"
-                    android:scaleType="centerCrop"
-                    android:src="@mipmap/ic_burger"
-                    app:riv_border_color="#333333"
-                    app:riv_corner_radius_top_left="20dp"
-                    app:riv_corner_radius_top_right="20dp"
-                    app:riv_mutate_background="true"
-                    app:riv_oval="false" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_margin="20dp"
-                    android:layout_weight="0.2"
-                    android:text="RoundedImageView + CardView 예제" />
-
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardview4"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_margin="20dp"
-            app:cardCornerRadius="20dp"
-            app:cardUseCompatPadding="true">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/imageview_main_image4"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="0.8"
-                    android:scaleType="centerCrop"
-                    android:src="@mipmap/ic_launcher"
-                    app:riv_border_color="#333333"
-                    app:riv_corner_radius_top_left="20dp"
-                    app:riv_corner_radius_top_right="20dp"
-                    app:riv_mutate_background="true"
-                    app:riv_oval="false" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_margin="20dp"
-                    android:layout_weight="0.2"
-                    android:text="RoundedImageView + CardView 예제" />
-
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
-
-</ScrollView>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

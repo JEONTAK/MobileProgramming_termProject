@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -56,7 +55,7 @@ public class MemberActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mypage);
 
         mypageFragment=new myPageFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, mypageFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.food_container, mypageFragment).commit();
 
 
         profileImageVIew.setOnClickListener(onClickListener);

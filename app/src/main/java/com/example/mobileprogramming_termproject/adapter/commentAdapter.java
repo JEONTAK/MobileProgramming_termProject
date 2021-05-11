@@ -1,4 +1,4 @@
-package com.example.mobileprogramming_termproject.community;
+package com.example.mobileprogramming_termproject.adapter;
 
 import android.app.Activity;
 import android.view.LayoutInflater;

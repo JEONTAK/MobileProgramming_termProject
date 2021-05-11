@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -18,9 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobileprogramming_termproject.MainActivity;
 import com.example.mobileprogramming_termproject.R;
-import com.example.mobileprogramming_termproject.community.freeAdapter;
+import com.example.mobileprogramming_termproject.adapter.freeAdapter;
 import com.example.mobileprogramming_termproject.community.freeCommunityActivity;
-import com.example.mobileprogramming_termproject.community.recipeAdapter;
+import com.example.mobileprogramming_termproject.adapter.recipeAdapter;
 import com.example.mobileprogramming_termproject.community.recipeCommunityActivity;
 import com.example.mobileprogramming_termproject.menu.cost.category_cost_activity;
 import com.example.mobileprogramming_termproject.menu.food.category_food_activity;
@@ -96,10 +95,10 @@ public class HomeFragment extends Fragment   {
                 activity.onFragmentChange(1,query);
 
 
-//               Bundle bundle = new Bundle();
-//                bundle.putString("search_content", query);
-//                Intent intent = new
-//                SearchResultFragment.setArguments(bundle);
+               /* Bundle bundle = new Bundle();
+                bundle.putString("search_content", query);
+                Intent intent = new
+                SearchResultFragment.setArguments(bundle);*/
                 return true;
             }
 

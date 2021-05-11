@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobileprogramming_termproject.R;
+import com.example.mobileprogramming_termproject.adapter.recipeAdapter;
 import com.example.mobileprogramming_termproject.writingContent.RecipePostInfo;
 import com.example.mobileprogramming_termproject.writingContent.writingRecipePostActivity;
 import com.google.android.gms.tasks.OnCompleteListener;

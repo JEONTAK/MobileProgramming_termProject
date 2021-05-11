@@ -30,38 +30,37 @@
         app:tabTextColor="@color/black"
         tools:layout_editor_absoluteX="0dp">
 
-<!--        <com.google.android.material.tabs.TabItem-->
-<!--            android:id="@+id/tab_Item1"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="식사류" />-->
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_Item1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="식사류" />
 
-<!--        <com.google.android.material.tabs.TabItem-->
-<!--            android:id="@+id/tab_Item2"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="디저트류" />-->
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_Item2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="디저트류" />
 
-<!--        <com.google.android.material.tabs.TabItem-->
-<!--            android:id="@+id/tab_Item3"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="음료" />-->
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_Item3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="음료" />
 
-<!--        <com.google.android.material.tabs.TabItem-->
-<!--            android:id="@+id/tab_Item4"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="기타" />-->
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_Item4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="기타" />
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/container"
+        android:id="@+id/food_container"
         android:layout_width="match_parent"
-        android:layout_height="600dp"
-        android:layout_below="@+id/tab_food"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tab_food">
 

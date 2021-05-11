@@ -18,7 +18,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import com.example.mobileprogramming_termproject.Member.MemberInfo;
 import com.example.mobileprogramming_termproject.R;
+import com.example.mobileprogramming_termproject.adapter.recipeAdapter;
+import com.example.mobileprogramming_termproject.writingContent.FreePostInfo;
 import com.example.mobileprogramming_termproject.writingContent.RecipePostInfo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -28,11 +31,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.lang.reflect.Member;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,12 +56,24 @@ public class recipeInformationActivity extends AppCompatActivity {
     //게시글 정보 가져오기 위함
     private RecipePostInfo recipePostInfo;
     //추천 버튼
-
     private ImageButton RecomBtn;
+    //북마크 버튼
+    private ImageButton BookmarkBtn;
+    //
+    private DocumentReference dr;
+
+
+    //파이어베이스에서 유저 정보 가져오기위해 선언.
+    FirebaseUser firebaseUser;
+    //유저 아이디
+    String user;
+    //레시피 아이디
+    String id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_information);
+
 
     }
 
@@ -65,11 +82,11 @@ public class recipeInformationActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.recipeRecomBtn:
-                    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser(); //파이어베이스 유저 선언
-                    String user = firebaseUser.getUid();
-                    String id = recipePostInfo.getRecipeId();
+
                     ArrayList<String> newRecomUserId = new ArrayList<>();
-                    DocumentReference dr;
+                    firebaseUser = FirebaseAuth.getInstance().getCurrentUser(); //파이어베이스 유저 선언
+                    user = firebaseUser.getUid();
+                    id = recipePostInfo.getRecipeId();
                     if(recipePostInfo.getRecomUserId().contains(user))
                     {
                         recipePostInfo.setRecom(recipePostInfo.getRecom() - 1);
@@ -101,7 +118,67 @@ public class recipeInformationActivity extends AppCompatActivity {
                         dbUploader(dr, recipePostInfo, 1);
                         break;
                     }
+                case R.id.bookMarkBtn:
+                    firebaseUser = FirebaseAuth.getInstance().getCurrentUser(); //파이어베이스 유저 선언
+                    user = firebaseUser.getUid();
+                    id = recipePostInfo.getRecipeId();
+                    firebaseFirestore.collection("users").document(user).get()
+                            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    Log.d(TAG, "다큐먼트 실행");
+                                    if (task.isSuccessful()) {
+                                        ArrayList<String> bookmarkRecipe = new ArrayList<>();
+                                        DocumentSnapshot document = task.getResult();
+                                        if (document.exists()) {
+                                            MemberInfo userInfo = new MemberInfo(
+                                                    document.getData().get("name").toString(),
+                                                    document.getData().get("phoneNumber").toString(),
+                                                    document.getData().get("adress").toString(),
+                                                    document.getData().get("date").toString(),
+                                                    document.getData().get("photoUrl").toString(),
+                                                    (ArrayList<String>) document.getData().get("bookmarkRecipe")
+                                            );
+                                            Log.d(TAG, "DocumentSnapshot data: " + document.getData());
 
+                                            if(userInfo.getBookmarkRecipe().contains(id))
+                                            {
+                                                bookmarkRecipe = userInfo.getBookmarkRecipe();
+                                                bookmarkRecipe.remove(id);
+                                                userInfo.setBookmarkRecipe(bookmarkRecipe);
+                                                if(user == null){
+                                                    dr = firebaseFirestore.collection("users").document();
+
+                                                }else{
+                                                    dr =firebaseFirestore.collection("users").document(user);
+
+                                                }
+                                                Log.d(TAG, "유저 아이디 : " + user);
+                                                dbUploader(dr, userInfo, 0);
+                                            }
+                                            else{
+                                                bookmarkRecipe = userInfo.getBookmarkRecipe();
+                                                bookmarkRecipe.add(id);
+                                                userInfo.setBookmarkRecipe(bookmarkRecipe);
+                                                if(user == null){
+                                                    dr = firebaseFirestore.collection("users").document();
+
+                                                }else{
+                                                    dr =firebaseFirestore.collection("users").document(user);
+
+                                                }
+                                                Log.d(TAG, "유저 아이디 : " + user);
+                                                dbUploader(dr, userInfo, 1);
+                                            }
+                                        } else {
+                                            Log.d(TAG, "No such document");
+                                        }
+                                    } else {
+                                        Log.d(TAG, "get failed with ", task.getException());
+                                    }
+                                }
+                            });
+                    break;
             }
         }
     };
@@ -111,13 +188,18 @@ public class recipeInformationActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        //유저가 이미 추천을 했는지 하지않았는지 알려주기 위함.
 
+        firebaseFirestore= FirebaseFirestore.getInstance();//데이터베이스 선언
+
+        //유저가 이미 추천을 했는지 하지않았는지 알려주기 위함.
         TextView isRecom = findViewById(R.id.isRecomText);
         RecomBtn = findViewById(R.id.recipeRecomBtn);
         RecomBtn.setOnClickListener(onClickListener);
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser(); //파이어베이스 유저 선언
-        String user = firebaseUser.getUid();
+        BookmarkBtn = findViewById(R.id.bookMarkBtn);
+        BookmarkBtn.setOnClickListener(onClickListener);
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser(); //파이어베이스 유저 선언
+        user = firebaseUser.getUid();
+
         //게시글 data 가져옴
         recipePostInfo = (RecipePostInfo) getIntent().getSerializableExtra("recipePostInfo");
         //추천한 유저 명단
@@ -135,6 +217,46 @@ public class recipeInformationActivity extends AppCompatActivity {
             isRecom.setText("이 레시피가 좋다면 추천을 눌러주세요!");
 
         }
+
+        //현재 어플리케이션 실행중인 유저가 즐겨찾기를 했는지 하지않았는지 확인하기 위함.
+        //파이어베이스를통하여 값을 받아옴.
+        firebaseFirestore.collection("users").document(user).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        Log.d(TAG, "다큐먼트 실행");
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                MemberInfo userInfo = new MemberInfo(
+                                        document.getData().get("name").toString(),
+                                        document.getData().get("phoneNumber").toString(),
+                                        document.getData().get("adress").toString(),
+                                        document.getData().get("date").toString(),
+                                        document.getData().get("photoUrl").toString(),
+                                        (ArrayList<String>) document.getData().get("bookmarkRecipe")
+
+                                );
+                                Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                                //만약 즐겨찾기를 해놓은 상태이면
+                                if(userInfo.getBookmarkRecipe().contains(recipePostInfo.getRecipeId())){
+                                    BookmarkBtn.setImageTintList(ColorStateList.valueOf(Color.WHITE));
+                                    BookmarkBtn.setBackgroundTintList(ColorStateList.valueOf(Color.BLACK));
+                                }
+                                //만약 즐겨찾기를 하지않은 상태이면
+                                else{
+                                    BookmarkBtn.setImageTintList(ColorStateList.valueOf(Color.BLACK));
+                                    BookmarkBtn.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
+                                }
+                            } else {
+                                Log.d(TAG, "No such document");
+                            }
+                        } else {
+                            Log.d(TAG, "get failed with ", task.getException());
+                        }
+                    }
+                });
+
 
         //게시글 정보 띄우기 위한 코드
         //시작
@@ -198,7 +320,6 @@ public class recipeInformationActivity extends AppCompatActivity {
 
         //다른 추천레시피 띄우기 위한 코드
         //시작
-        firebaseFirestore= FirebaseFirestore.getInstance();//데이터베이스 선언
 
         recom_recipe = findViewById(R.id.recom_recipe);
         recom_recipe.setHasFixedSize(true);
@@ -276,6 +397,47 @@ public class recipeInformationActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     showToast(recipeInformationActivity.this ,"레시피 추천에 실패했어요!");
+                    Log.w(TAG,"Error writing document", e);
+                }
+            });
+        }
+
+    }
+
+    //즐겨찾기, 즐겨찾기 취소시 바로바로 데이터베이스에 업로드하여 반영해줌.
+    private void dbUploader(DocumentReference documentReference , MemberInfo memberInfo, int requestCode){
+        //즐겨찾기 취소 하는 경우
+        if(requestCode == 0){
+            documentReference.set(memberInfo)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            showToast(recipeInformationActivity.this ,"즐겨찾기를 삭제했어요!");
+                            Log.w(TAG,"Success writing document" + documentReference.getId());
+                            onResume();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    showToast(recipeInformationActivity.this ,"즐겨찾기를 취소에 실패했어요!");
+                    Log.w(TAG,"Error writing document", e);
+                }
+            });
+        }
+        //즐겨찾기할 경우
+        else{
+            documentReference.set(memberInfo)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            showToast(recipeInformationActivity.this ,"이 레시피을 즐겨찾기했어요!");
+                            Log.w(TAG,"Success writing document" + documentReference.getId());
+                            onResume();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    showToast(recipeInformationActivity.this ,"즐겨찾기에 실패했어요!");
                     Log.w(TAG,"Error writing document", e);
                 }
             });

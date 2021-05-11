@@ -1,76 +1,85 @@
-package com.example.mobileprogramming_termproject.ui.searchResult;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+package com.example.mobileprogramming_termproject.menu.tag;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SearchView;
 
-import com.example.mobileprogramming_termproject.MainActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.mobileprogramming_termproject.R;
+import com.example.mobileprogramming_termproject.adapter.recipeAdapter;
 import com.example.mobileprogramming_termproject.writingContent.RecipePostInfo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-public class searchResultFragment extends Fragment {
 
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
-    private RecyclerView.LayoutManager layoutManager;
-    private ArrayList<RecipePostInfo> arrayList;
-    private FirebaseFirestore database;
-    private  CollectionReference collectionReference ;
-    private String search_content;
+public class dietFragment extends Fragment {
+    //파이어베이스 선언
+    private FirebaseFirestore firebaseFirestore;
+    //레시피 글을 카드뷰로 띄워주기 위한 리사이클러 뷰 선언
+    private RecyclerView dietRecipe;
+    //카드뷰를 행마다 2개씩 나오게 하기위함.
+    final int numberOfColumns = 2;
 
+    View view;
+    public static dietFragment newInstance(){
+        dietFragment mealFragment =new dietFragment();
+        return mealFragment;
+    }
 
-
-    private View view;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Bundle bundle = getArguments();
+        view = inflater.inflate(R.layout.fragment_tag_diet,container,false);
+
+        firebaseFirestore= FirebaseFirestore.getInstance();
+
+        //리사이클러뷰 작성
+        dietRecipe = view.findViewById(R.id.diet_recipe);
+        dietRecipe.setHasFixedSize(true);
+        dietRecipe.setLayoutManager(new GridLayoutManager(getActivity(),numberOfColumns));
+
+        return view;
 
 
-        if (bundle != null) {
-            search_content = bundle.getString("search_content");
-        }
+    }
 
-        view = inflater.inflate(R.layout.fragment_search_result, container, false);
-        recyclerView = (RecyclerView) view.findViewById(R.id.searchRecyclerView);
-        recyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화
-        layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        arrayList = new ArrayList<>(); // User 객체를 담을 어레이 리스트 (어댑터쪽으로)
+    //다이어트 카테고리에 내용이 추가가 될 경우 바로바로 업데이트 해주기 위해 resume함수에 넣어 관리.
+    @Override
+    public void onResume(){
+        super.onResume();
 
-        database = FirebaseFirestore.getInstance(); //데이터베이스 선언 // 파이어베이스 데이터베이스 연동
-        collectionReference = database.collection("recipePost"); // DB 테이블 연결
-
+        //recipePost에 있는 data를 가져오기 위함.
+        CollectionReference collectionReference = firebaseFirestore.collection("recipePost");
         collectionReference
-                .orderBy("title").startAt(search_content).endAt(search_content+"\uf8ff")
-                //.orderBy("createdAt", Query.Direction.DESCENDING)
+                //레시피 중 다이어트 카테고리만 가져오기 위함.
+                .whereEqualTo("tagCategory", "다이어트")
+                //작성일자 내림차순을 정렬
+                .orderBy("recom", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-
+                            //각 게시글의 정보를 가져와 arrayList에 저장.
+                            ArrayList<RecipePostInfo> recipe_postList = new ArrayList<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d("로그: ", document.getId() + " => " + document.getData());
-                                arrayList.add(new RecipePostInfo(
+                                recipe_postList.add(new RecipePostInfo(
                                         document.getData().get("titleImage").toString(),
                                         document.getData().get("title").toString(),
                                         document.getData().get("ingredient").toString(),
@@ -87,27 +96,14 @@ public class searchResultFragment extends Fragment {
                                 ));
                             }
 
+                            //recipeAdapter를 이용하여 리사이클러 뷰로 내용 띄움.
+                            RecyclerView.Adapter mAdapter = new recipeAdapter(getActivity(), recipe_postList);
+                            dietRecipe.setAdapter(mAdapter);
                         } else {
                             Log.d("로그: ", "Error getting documents: ", task.getException());
 
                         }
                     }
                 });
-
-
-
-
-        adapter = new CustomAdapter(getActivity(),arrayList);
-        recyclerView.setAdapter(adapter); // 리사이클러뷰에 어댑터 연결
-
-
-
-        return view;
     }
-
-
-
-
-
-
 }
