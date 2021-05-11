@@ -110,8 +110,9 @@ public class writingFreePostActivity extends AppCompatActivity {
                                             document.getData().get("phoneNumber").toString(),
                                             document.getData().get("adress").toString(),
                                             document.getData().get("date").toString(),
-                                            document.getData().get("photoUrl").toString()
-                                    );
+                                            document.getData().get("photoUrl").toString(),
+                                            (ArrayList<String>) document.getData().get("bookmarkRecipe")
+                                            );
                                     Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                                     //검색하여 얻은 유저 이름을 이용하여 freePost 데이터 베이스에 게시글 저장.
                                     DocumentReference documentReference = firebaseFirestore.collection("freePost").document();

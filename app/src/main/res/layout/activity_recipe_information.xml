@@ -19,6 +19,15 @@
             android:orientation="vertical">
 
 
+            <ImageButton
+                android:id="@+id/bookMarkBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:backgroundTint="@color/white"
+                android:tint="@color/black"
+                app:srcCompat="@drawable/ic_baseline_turned_in_not_24" />
+
             <ImageView
                 android:id="@+id/titleImage"
                 android:layout_width="wrap_content"

@@ -131,7 +131,9 @@ public class freeInformationActivity extends AppCompatActivity {
                                             document.getData().get("phoneNumber").toString(),
                                             document.getData().get("adress").toString(),
                                             document.getData().get("date").toString(),
-                                            document.getData().get("photoUrl").toString()
+                                            document.getData().get("photoUrl").toString(),
+                                            (ArrayList<String>) document.getData().get("bookmarkRecipe")
+
                                     );
                                     Log.d(TAG, "DocumentSnapshot data: " + document.getData());
 
