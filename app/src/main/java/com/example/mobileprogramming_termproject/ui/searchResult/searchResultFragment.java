@@ -97,7 +97,7 @@ public class searchResultFragment extends Fragment {
 
 
 
-        adapter = new CustomAdapter(arrayList, getContext());
+        adapter = new CustomAdapter(getActivity(),arrayList);
         recyclerView.setAdapter(adapter); // 리사이클러뷰에 어댑터 연결
 
 
