@@ -48,6 +48,7 @@ public class GalleryActivity extends AppCompatActivity {
         }else{
             recyclerInit();
         }
+
     }
 
     private void recyclerInit(){

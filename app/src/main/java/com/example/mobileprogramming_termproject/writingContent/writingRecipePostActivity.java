@@ -113,7 +113,7 @@ public class writingRecipePostActivity extends AppCompatActivity {
 
             }
         });
-        
+
         //태그 카테고리 스피너에서 값을 얻어옴
         tagSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -154,7 +154,7 @@ public class writingRecipePostActivity extends AppCompatActivity {
                     String profilePath = data.getStringExtra("profilePath");
                     //설명 List에 추가
                     pathList.add(profilePath);
-                    
+
                     //레이아웃을 꽉차게 하기 위하여 미리 설정
                     ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
@@ -176,7 +176,7 @@ public class writingRecipePostActivity extends AppCompatActivity {
                             }
                         }
                     }
-                    
+
                     //이미지 뷰도 이와 같이 생성하여 선택한 곳에 집어넣음
                     ImageView imageView = new ImageView(writingRecipePostActivity.this);
                     imageView.setLayoutParams(layoutParams);
@@ -188,7 +188,7 @@ public class writingRecipePostActivity extends AppCompatActivity {
                             selectedImageView = (ImageView) v;
                         }
                     });
-                    
+
                     //이미지 출력
                     Glide.with(this).load(profilePath).override(1000).into(imageView);
                     //이미지 추가
@@ -233,25 +233,25 @@ public class writingRecipePostActivity extends AppCompatActivity {
                 case R.id.goBackBtn:
                     myStartActivity(HomeFragment.class);
                     break;
-                    //작성 버튼 -> 파이어베이스에 업로드
+                //작성 버튼 -> 파이어베이스에 업로드
                 case R.id.confirmBtn:
                     bulletinUpload();
                     break;
-                    //이미지 추가 버튼 -> 갤러리 액티비티로 넘어감.
+                //이미지 추가 버튼 -> 갤러리 액티비티로 넘어감.
                 case R.id.addImageBtn:
                     myStartActivity(GalleryActivity.class,"image", 0);
                     break;
-                    //타이틀 이미지 추가 버튼 -> 갤러리 액티비티로 넘어감.
+                //타이틀 이미지 추가 버튼 -> 갤러리 액티비티로 넘어감.
                 case R.id.addTitleImageBtn:
                     myStartActivity(GalleryActivity.class,"image", 1);
                     break;
-                    //이미지 수정, 삭제 레이아웃 -> 레이아웃이 클릭 전에 보일경우, 보이지 않게 바꿔줌.
+                //이미지 수정, 삭제 레이아웃 -> 레이아웃이 클릭 전에 보일경우, 보이지 않게 바꿔줌.
                 case R.id.backBtnLayout:
                     if(backBtnLayout.getVisibility() == View.VISIBLE){
                         backBtnLayout.setVisibility(View.GONE);
                     }
                     break;
-                    //이미지 수정 버튼 -> 갤러리 액티비티로 감. 레이아웃 보이지 않게 바꿈.
+                //이미지 수정 버튼 -> 갤러리 액티비티로 감. 레이아웃 보이지 않게 바꿈.
                 case R.id.imageModify:
                     myStartActivity(GalleryActivity.class,"image", 2);
                     backBtnLayout.setVisibility(View.GONE);
@@ -304,7 +304,7 @@ public class writingRecipePostActivity extends AppCompatActivity {
 
             //타이틀이미지 경로 저장.
             String[] titleArray = titleImagePath.split("\\.");
-            
+
             final StorageReference titleImagesRef = storageRef.child("recipePost/" + documentReference.getId() + "/title" +titleArray[titleArray.length - 1]);
 
             try{
@@ -393,6 +393,7 @@ public class writingRecipePostActivity extends AppCompatActivity {
                                                                                                     document.getData().get("adress").toString(),
                                                                                                     document.getData().get("date").toString(),
                                                                                                     document.getData().get("photoUrl").toString(),
+                                                                                                    document.getData().get("nickname").toString(),
                                                                                                     (ArrayList<String>) document.getData().get("bookmarkRecipe")
                                                                                             );
                                                                                             Log.d(TAG, "DocumentSnapshot data: " + document.getData());
@@ -447,22 +448,22 @@ public class writingRecipePostActivity extends AppCompatActivity {
     //레시피를 파이어베이스에 업로드 하기 위함.
     private void dbUploader(DocumentReference documentReference , RecipePostInfo recipePostInfo){
         documentReference.set(recipePostInfo)
-            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    //등록이 끝나면 로딩창 보이지 않게 함.
-                    loaderLayout.setVisibility(View.GONE);
-                    showToast(writingRecipePostActivity.this ,"게시글 등록 성공!");
-                    Log.w(TAG,"Success writing document" + documentReference.getId());
-                    finish();
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-        @Override
-        public void onFailure(@NonNull Exception e) {
-            loaderLayout.setVisibility(View.GONE);
-            showToast(writingRecipePostActivity.this ,"게시글 등록 실패.");
-            Log.w(TAG,"Error writing document", e);
-        }
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        //등록이 끝나면 로딩창 보이지 않게 함.
+                        loaderLayout.setVisibility(View.GONE);
+                        showToast(writingRecipePostActivity.this ,"게시글 등록 성공!");
+                        Log.w(TAG,"Success writing document" + documentReference.getId());
+                        finish();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                loaderLayout.setVisibility(View.GONE);
+                showToast(writingRecipePostActivity.this ,"게시글 등록 실패.");
+                Log.w(TAG,"Error writing document", e);
+            }
         });
     }
 
@@ -480,4 +481,3 @@ public class writingRecipePostActivity extends AppCompatActivity {
     }
 
 }
-

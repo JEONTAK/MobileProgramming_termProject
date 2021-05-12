@@ -1,5 +1,4 @@
 package com.example.mobileprogramming_termproject.writingContent;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.mobileprogramming_termproject.Member.MemberInfo;
 import com.example.mobileprogramming_termproject.R;
 import com.example.mobileprogramming_termproject.ui.home.HomeFragment;
+import com.example.mobileprogramming_termproject.writingContent.FreePostInfo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -65,11 +65,11 @@ public class writingFreePostActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                    //뒤로가기 버튼
+                //뒤로가기 버튼
                 case R.id.goBackBtn:
                     myStartActivity(HomeFragment.class);
                     break;
-                    //게시글 입력 버튼
+                //게시글 입력 버튼
                 case R.id.confirmBtn:
                     bulletinUpload();
                     break;
@@ -93,9 +93,9 @@ public class writingFreePostActivity extends AppCompatActivity {
             //데이터가 firebase에 업로드 될때까지 로딩창 띄움
             loaderLayout.setVisibility(View.VISIBLE);
             Log.d(TAG, "게시글 업로드 중" );
-            
+
             ArrayList<String> recomUser = new ArrayList<>();
-            
+
             //유저 이름을 받아오기 위하여 데이터베이스에 연결하여 유저 아이디 이용 검색
             firebaseFirestore.collection("users").document(user.getUid()).get()
                     .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -111,8 +111,9 @@ public class writingFreePostActivity extends AppCompatActivity {
                                             document.getData().get("adress").toString(),
                                             document.getData().get("date").toString(),
                                             document.getData().get("photoUrl").toString(),
+                                            document.getData().get("nickname").toString(),
                                             (ArrayList<String>) document.getData().get("bookmarkRecipe")
-                                            );
+                                    );
                                     Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                                     //검색하여 얻은 유저 이름을 이용하여 freePost 데이터 베이스에 게시글 저장.
                                     DocumentReference documentReference = firebaseFirestore.collection("freePost").document();
@@ -136,21 +137,21 @@ public class writingFreePostActivity extends AppCompatActivity {
     //게시글 등록
     private void dbUploader(DocumentReference documentReference , FreePostInfo freePostInfo){
         documentReference.set(freePostInfo)
-            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    loaderLayout.setVisibility(View.GONE);
-                    showToast(writingFreePostActivity.this ,"게시글 등록 성공!");
-                    Log.w(TAG,"Success writing document" + documentReference.getId());
-                    finish();
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-        @Override
-        public void onFailure(@NonNull Exception e) {
-            loaderLayout.setVisibility(View.GONE);
-            showToast(writingFreePostActivity.this ,"게시글 등록 실패.");
-            Log.w(TAG,"Error writing document", e);
-        }
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        loaderLayout.setVisibility(View.GONE);
+                        showToast(writingFreePostActivity.this ,"게시글 등록 성공!");
+                        Log.w(TAG,"Success writing document" + documentReference.getId());
+                        finish();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                loaderLayout.setVisibility(View.GONE);
+                showToast(writingFreePostActivity.this ,"게시글 등록 실패.");
+                Log.w(TAG,"Error writing document", e);
+            }
         });
     }
 
@@ -163,4 +164,3 @@ public class writingFreePostActivity extends AppCompatActivity {
 
 
 }
-

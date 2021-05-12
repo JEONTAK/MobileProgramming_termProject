@@ -137,11 +137,24 @@ public class recipeInformationActivity extends AppCompatActivity {
                                                     document.getData().get("adress").toString(),
                                                     document.getData().get("date").toString(),
                                                     document.getData().get("photoUrl").toString(),
+                                                    document.getData().get("nickname").toString(),
                                                     (ArrayList<String>) document.getData().get("bookmarkRecipe")
                                             );
                                             Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                                            if(userInfo.getBookmarkRecipe()==null){
+                                                bookmarkRecipe.add(id);
+                                                userInfo.setBookmarkRecipe(bookmarkRecipe);
+                                                if(user == null){
+                                                    dr = firebaseFirestore.collection("users").document();
 
-                                            if(userInfo.getBookmarkRecipe().contains(id))
+                                                }else{
+                                                    dr =firebaseFirestore.collection("users").document(user);
+                                                }
+                                                Log.d(TAG, "유저 아이디 : " + user);
+                                                dbUploader(dr, bookmarkRecipe, 0);
+                                            }
+
+                                            else if(userInfo.getBookmarkRecipe().contains(id))
                                             {
                                                 bookmarkRecipe = userInfo.getBookmarkRecipe();
                                                 bookmarkRecipe.remove(id);
@@ -154,7 +167,7 @@ public class recipeInformationActivity extends AppCompatActivity {
 
                                                 }
                                                 Log.d(TAG, "유저 아이디 : " + user);
-                                                dbUploader(dr, userInfo, 0);
+                                                dbUploader(dr, bookmarkRecipe, 0);
                                             }
                                             else{
                                                 bookmarkRecipe = userInfo.getBookmarkRecipe();
@@ -168,7 +181,7 @@ public class recipeInformationActivity extends AppCompatActivity {
 
                                                 }
                                                 Log.d(TAG, "유저 아이디 : " + user);
-                                                dbUploader(dr, userInfo, 1);
+                                                dbUploader(dr, bookmarkRecipe, 1);
                                             }
                                         } else {
                                             Log.d(TAG, "No such document");
@@ -234,12 +247,17 @@ public class recipeInformationActivity extends AppCompatActivity {
                                         document.getData().get("adress").toString(),
                                         document.getData().get("date").toString(),
                                         document.getData().get("photoUrl").toString(),
+                                        document.getData().get("nickname").toString(),
                                         (ArrayList<String>) document.getData().get("bookmarkRecipe")
 
                                 );
                                 Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                                if(userInfo.getBookmarkRecipe()==null)
+                                {
+
+                                }
                                 //만약 즐겨찾기를 해놓은 상태이면
-                                if(userInfo.getBookmarkRecipe().contains(recipePostInfo.getRecipeId())){
+                                else if(userInfo.getBookmarkRecipe().contains(recipePostInfo.getRecipeId())){
                                     BookmarkBtn.setImageTintList(ColorStateList.valueOf(Color.WHITE));
                                     BookmarkBtn.setBackgroundTintList(ColorStateList.valueOf(Color.BLACK));
                                 }
@@ -405,10 +423,10 @@ public class recipeInformationActivity extends AppCompatActivity {
     }
 
     //즐겨찾기, 즐겨찾기 취소시 바로바로 데이터베이스에 업로드하여 반영해줌.
-    private void dbUploader(DocumentReference documentReference , MemberInfo memberInfo, int requestCode){
+    private void dbUploader(DocumentReference documentReference , ArrayList<String> bookmarkReceipe, int requestCode){
         //즐겨찾기 취소 하는 경우
         if(requestCode == 0){
-            documentReference.set(memberInfo)
+            documentReference.update("bookmarkRecipe",bookmarkReceipe)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -426,7 +444,7 @@ public class recipeInformationActivity extends AppCompatActivity {
         }
         //즐겨찾기할 경우
         else{
-            documentReference.set(memberInfo)
+            documentReference.update("bookmarkRecipe",bookmarkReceipe)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {

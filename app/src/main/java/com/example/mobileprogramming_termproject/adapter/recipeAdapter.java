@@ -63,7 +63,6 @@ public class recipeAdapter extends RecyclerView.Adapter<recipeAdapter.recipeView
                 Intent intent= new Intent(activity, recipeInformationActivity.class);
                 intent.putExtra("recipePostInfo", mDataset.get(recipeViewHolder.getAdapterPosition()));
                 activity.startActivity(intent);
-
             }
         });
         return recipeViewHolder;
