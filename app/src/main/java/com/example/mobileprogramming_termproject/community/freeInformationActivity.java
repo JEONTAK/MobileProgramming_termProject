@@ -50,6 +50,7 @@ public class freeInformationActivity extends AppCompatActivity {
     private String id;
     private RecyclerView comment_view;
     private RelativeLayout loaderLayout;
+    private DocumentReference dr;
     String name;
     DocumentReference docRef;
 
@@ -73,7 +74,6 @@ public class freeInformationActivity extends AppCompatActivity {
                 case R.id.freeRecomBtn:
                     id = freePostInfo.getPostId();
                     ArrayList<String> newRecomUserId = new ArrayList<>();
-                    DocumentReference dr;
                     if (freePostInfo.getRecomUserId().contains(user)) {
                         freePostInfo.setRecom(freePostInfo.getRecom() - 1);
                         newRecomUserId = freePostInfo.getRecomUserId();
@@ -103,7 +103,7 @@ public class freeInformationActivity extends AppCompatActivity {
                         dbUploader(dr, freePostInfo, 1);
                         break;
                     }
-
+                    //댓글기능
                 case R.id.writingFreePost:
                     docRef = firebaseFirestore.collection("users").document(user);
                     docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -132,6 +132,13 @@ public class freeInformationActivity extends AppCompatActivity {
                                     newComment.add(commentAndUser);
                                     freePostInfo.setComment(newComment);
 
+                                    if (id == null) {
+                                        dr = firebaseFirestore.collection("freePost").document();
+
+                                    } else {
+                                        dr = firebaseFirestore.collection("freePost").document(id);
+                                    }
+                                    dbUploader(dr, freePostInfo, 2);
                                 } else {
                                     Log.d(TAG, "No such document");
                                 }
@@ -141,13 +148,6 @@ public class freeInformationActivity extends AppCompatActivity {
                         }
                     });
 
-                    if (id == null) {
-                        dr = firebaseFirestore.collection("freePost").document();
-
-                    } else {
-                        dr = firebaseFirestore.collection("freePost").document(id);
-                    }
-                    dbUploader(dr, freePostInfo, 2);
                     break;
                 }
             }
