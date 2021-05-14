@@ -19,34 +19,37 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/nameEt"
-
-        android:layout_width="121dp"
-        android:layout_height="57dp"
-        android:layout_marginTop="48dp"
-        android:hint="name"
+    <Button
+        android:id="@+id/register2_btn"
+        android:layout_width="386dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="150dp"
+        android:backgroundTint="#070707"
+        android:text="회원가입"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView27" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordcheckEdt"
+        app:layout_constraintVertical_bias="0.18" />
 
     <EditText
         android:id="@+id/emailEt"
         android:layout_width="414dp"
         android:layout_height="55dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="164dp"
         android:hint="email"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameEt" />
+        app:layout_constraintTop_toBottomOf="@+id/textView27" />
 
     <EditText
         android:id="@+id/passwordEdt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:hint="password"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,27 +61,13 @@
         android:id="@+id/passwordcheckEdt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:hint="password check "
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordEdt" />
-
-    <Button
-        android:id="@+id/register2_btn"
-        android:layout_width="386dp"
-        android:layout_height="66dp"
-        android:layout_marginTop="44dp"
-        android:backgroundTint="#070707"
-        android:text="회원가입"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.36"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordcheckEdt"
-        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

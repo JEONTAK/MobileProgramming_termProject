@@ -47,7 +47,6 @@ public class recipeCommunityActivity extends AppCompatActivity {
         recipeRecyclerView.setHasFixedSize(true);
         recipeRecyclerView.setLayoutManager(new GridLayoutManager(recipeCommunityActivity.this,numberOfColumns));
 
-
     }
 
     //레시피게시판에 내용이 추가가 될 경우 바로바로 업데이트 해주기 위해 resume함수에 넣어 관리.

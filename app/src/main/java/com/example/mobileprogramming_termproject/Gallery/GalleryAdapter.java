@@ -48,10 +48,12 @@ public class GalleryAdapter extends RecyclerView.Adapter<com.example.mobileprogr
             @Override
             public void onClick(View v) {
                 //사진 경로를 memberactivity로 보내고 꺼짐
+
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("profilePath",mDataset.get(holder.getAdapterPosition()));
                 activty.setResult(Activity.RESULT_OK, resultIntent);
                 activty.finish();
+
             }
         });
 

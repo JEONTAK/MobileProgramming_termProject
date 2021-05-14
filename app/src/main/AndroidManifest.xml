@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
@@ -26,7 +27,6 @@
         <activity android:name=".login.PasswordResetActivity" />
         <activity android:name=".ui.recipe_category.recipe_categoryFragment" />
         <activity android:name=".ui.convenience_category.convenience_categoryFragment" />
-        <activity android:name=".ui.searchResult.searchResultFragment" />
         <activity android:name=".ui.bookmark.bookmarkFragment" />
         <activity android:name=".ui.recipe.recipePagerFragment" />
         <activity android:name=".Camera.CameraActivity" />
@@ -37,6 +37,7 @@
         <activity android:name=".community.recipeInformationActivity" />
         <activity android:name=".writingContent.writingFreePostActivity" />
         <activity android:name=".writingContent.writingRecipePostActivity" />
+        <activity android:name=".Member.MemberInitActivity"/>
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main" />
