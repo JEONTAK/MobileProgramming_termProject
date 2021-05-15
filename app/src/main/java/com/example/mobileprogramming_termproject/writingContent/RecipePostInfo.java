@@ -22,6 +22,7 @@ public class RecipePostInfo implements Serializable {
     private String tagCategory;
 
 
+    public RecipePostInfo(){}
     public RecipePostInfo(String titleImage, String title, String ingredient, ArrayList<String> content, String publisher, String userName,
                           Date createdAt , long recom, String recipeId, ArrayList<String> recomUserId,
                           long price, String foodCategory, String tagCategory) {

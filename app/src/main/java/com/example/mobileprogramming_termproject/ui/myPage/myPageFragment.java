@@ -5,16 +5,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,13 +23,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.loader.content.CursorLoader;
 
 import com.bumptech.glide.Glide;
-import com.example.mobileprogramming_termproject.Camera.CameraActivity;
 import com.example.mobileprogramming_termproject.Gallery.GalleryActivity;
 import com.example.mobileprogramming_termproject.Member.MemberInfo;
 import com.example.mobileprogramming_termproject.R;
@@ -46,30 +37,17 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.google.firestore.v1.WriteResult;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-
-import okio.Utf8;
 
 public class myPageFragment extends Fragment {
 
@@ -104,15 +82,19 @@ public class myPageFragment extends Fragment {
                 String strText = (String) parent.getItemAtPosition(position);
                 switch (strText){
                     case"스크랩": {
+                        myStartActivity2(bookmarkActivity.class);
                         break;
                     }
                     case"내가 쓴 글": {
+                        myStartActivity2(myPostActivity.class);
                         break;
                     }
                     case"내가 쓴 레시피": {
+                        myStartActivity2(myRecipeActivity.class);
                         break;
                     }
                     case"내가 쓴 댓글": {
+                        myStartActivity2(myCommentActivity.class);
                         break;
                     }
 
@@ -139,7 +121,7 @@ public class myPageFragment extends Fragment {
                 MemberInfo memberInfo = documentSnapshot.toObject(MemberInfo.class);
                 original_nickname=memberInfo.getNickname();
                 orignal_url=memberInfo.getPhotoUrl();
-                Glide.with(getActivity()).load(orignal_url).into(profileImageVIew);
+                Glide.with(getActivity()).load(orignal_url).override(1000).thumbnail(0.1f).into(profileImageVIew);
                 nickname.setText(original_nickname);
                 Log.v("이런",orignal_url+original_nickname);
 
@@ -160,7 +142,7 @@ public class myPageFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 //        File tempFile = new File(getActivity().getFilesDir().getAbsolutePath(), "temp_image");
         switch (requestCode) {
-            case 0: {
+            case 3: {
                 if (resultCode == Activity.RESULT_OK) {
                     profilePath = data.getStringExtra("profilePath");
                     Bitmap bmp = BitmapFactory.decodeFile(profilePath);
@@ -250,7 +232,7 @@ public class myPageFragment extends Fragment {
                     public void onComplete(@NonNull Task<Uri> task) {
                         if (task.isSuccessful()) {
                             Uri downloadUri = task.getResult();
-                            Glide.with(getActivity()).load(downloadUri).into(profileImageVIew);
+                            Glide.with(getActivity()).load(downloadUri).override(700).thumbnail(0.1f).into(profileImageVIew);
                             FirebaseFirestore db = FirebaseFirestore.getInstance();
                             db.collection("users").document(user.getUid()).update("photoUrl",downloadUri.toString())
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -327,7 +309,12 @@ public class myPageFragment extends Fragment {
     //화면 전환 함수
     private void myStartActivity(Class c) {
         Intent intent = new Intent(getActivity(), c);
-        startActivityForResult(intent, 0);
+        startActivityForResult(intent, 3);
+    }
+    private void myStartActivity2(Class c) {
+        Intent intent = new Intent(getActivity(), c);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
 
