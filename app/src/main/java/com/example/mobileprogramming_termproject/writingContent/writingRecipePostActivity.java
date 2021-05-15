@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 
 import com.example.mobileprogramming_termproject.Gallery.GalleryActivity;
+import com.example.mobileprogramming_termproject.MainActivity;
 import com.example.mobileprogramming_termproject.Member.MemberInfo;
 import com.example.mobileprogramming_termproject.R;
 import com.example.mobileprogramming_termproject.ui.home.HomeFragment;
@@ -152,6 +153,8 @@ public class writingRecipePostActivity extends AppCompatActivity {
                 if(resultCode == Activity.RESULT_OK){
                     //이미지 경로 string으로 저장.
                     String profilePath = data.getStringExtra("profilePath");
+                    titleImagePath=profilePath;
+                    Log.v("타이틀1",titleImagePath);
                     //설명 List에 추가
                     pathList.add(profilePath);
 
@@ -210,7 +213,7 @@ public class writingRecipePostActivity extends AppCompatActivity {
                     //타이틀 이미지 관련 코드
                     //타이틀 이미지를 이미지 버튼에 출력
                     String profilePath = data.getStringExtra("profilePath");
-                    titleImagePath = profilePath;
+
                     Glide.with(this).load(profilePath).override(1000).into(titleImage);
                 }
                 break;
@@ -231,7 +234,7 @@ public class writingRecipePostActivity extends AppCompatActivity {
             switch (v.getId()) {
                 //뒤로가기 버튼 -> 홈화면으로 돌아감.
                 case R.id.goBackBtn:
-                    myStartActivity(HomeFragment.class);
+                    myStartActivity(MainActivity.class);
                     break;
                 //작성 버튼 -> 파이어베이스에 업로드
                 case R.id.confirmBtn:
@@ -302,6 +305,9 @@ public class writingRecipePostActivity extends AppCompatActivity {
             //저장할 위치 선언
             final DocumentReference documentReference = firebaseFirestore.collection("recipePost").document();
 
+
+
+            Log.v("타이틀",titleImagePath);
             //타이틀이미지 경로 저장.
             String[] titleArray = titleImagePath.split("\\.");
 

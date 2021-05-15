@@ -9,14 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.mobileprogramming_termproject.R;
 import com.example.mobileprogramming_termproject.community.recipeInformationActivity;
 import com.example.mobileprogramming_termproject.writingContent.RecipePostInfo;
-
 
 import org.jetbrains.annotations.NotNull;
 
@@ -27,7 +25,7 @@ import java.util.Locale;
 import static com.example.mobileprogramming_termproject.Util.isStorageUrl;
 
 //레시피 게시판의 글을 카드뷰로 보여주기 위한 어댑터
-public class recipeAdapter extends RecyclerView.Adapter<recipeAdapter.recipeViewHolder> {
+public class myrecipeAdapter extends RecyclerView.Adapter<myrecipeAdapter.recipeViewHolder> {
     //레시피게시판 글 데이터
     private ArrayList<RecipePostInfo> mDataset;
     private Activity activity;
@@ -41,7 +39,7 @@ public class recipeAdapter extends RecyclerView.Adapter<recipeAdapter.recipeView
         }
     }
 
-    public recipeAdapter(Activity activity, ArrayList<RecipePostInfo> recipeDataset){
+    public myrecipeAdapter(Activity activity, ArrayList<RecipePostInfo> recipeDataset){
         mDataset = recipeDataset;
         this.activity = activity;
     }
@@ -54,7 +52,7 @@ public class recipeAdapter extends RecyclerView.Adapter<recipeAdapter.recipeView
     //카드뷰를 생성하여 그곳에 데이터를 집어넣어 완성시킴
     @NotNull
     @Override
-    public recipeAdapter.recipeViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType){
+    public myrecipeAdapter.recipeViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType){
         CardView cardView =(CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recipe_post, parent,false);
         final recipeViewHolder recipeViewHolder = new recipeViewHolder(activity, cardView, mDataset.get(viewType));
         //카드뷰를 클릭할경우, 그 게시글로 activity가 넘어감.

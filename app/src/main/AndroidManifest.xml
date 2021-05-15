@@ -38,6 +38,10 @@
         <activity android:name=".writingContent.writingFreePostActivity" />
         <activity android:name=".writingContent.writingRecipePostActivity" />
         <activity android:name=".Member.MemberInitActivity"/>
+        <activity android:name=".ui.myPage.myRecipeActivity"/>
+        <activity android:name=".ui.myPage.bookmarkActivity"/>
+        <activity android:name=".ui.myPage.myPostActivity"/>
+        <activity android:name=".ui.myPage.myCommentActivity"/>
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main" />
