@@ -54,7 +54,7 @@ public class between5000_10000Fragment extends Fragment {
         firebaseFirestore= FirebaseFirestore.getInstance();
 
         //리사이클러뷰 작성
-        price5to10Recipe = view.findViewById(R.id.price_5to10_recipe);
+        price5to10Recipe = view.findViewById(R.id.price_between_5_10);
         price5to10Recipe.setHasFixedSize(true);
         price5to10Recipe.setLayoutManager(new GridLayoutManager(getActivity(),numberOfColumns));
 
