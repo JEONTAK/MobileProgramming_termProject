@@ -18,9 +18,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import com.example.mobileprogramming_termproject.MainActivity;
 import com.example.mobileprogramming_termproject.Member.MemberInfo;
 import com.example.mobileprogramming_termproject.R;
 import com.example.mobileprogramming_termproject.adapter.recipeAdapter;
+import com.example.mobileprogramming_termproject.firebase.notificationData;
 import com.example.mobileprogramming_termproject.writingContent.FreePostInfo;
 import com.example.mobileprogramming_termproject.writingContent.RecipePostInfo;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -62,6 +64,7 @@ public class recipeInformationActivity extends AppCompatActivity {
     //
     private DocumentReference dr;
 
+    private notificationData data;
 
     //파이어베이스에서 유저 정보 가져오기위해 선언.
     FirebaseUser firebaseUser;
@@ -409,6 +412,8 @@ public class recipeInformationActivity extends AppCompatActivity {
                         public void onSuccess(Void aVoid) {
                             showToast(recipeInformationActivity.this ,"이 레시피을 추천했어요!");
                             Log.w(TAG,"Success writing document" + documentReference.getId());
+                            String meesage="hi";
+//                            ((MainActivity)MainActivity.mContext).sendPostToFCM(data,meesage);
                             onResume();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
