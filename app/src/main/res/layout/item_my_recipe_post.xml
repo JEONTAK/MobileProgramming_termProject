@@ -44,7 +44,7 @@
                     android:textSize="10sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/recipeRecom"
-                    app:layout_constraintEnd_toStartOf="@+id/menuBtn"
+                    app:layout_constraintEnd_toStartOf="@+id/menuBtn_recipe"
                     tools:text="작성자" />
 
                 <TextView
@@ -65,11 +65,11 @@
                     android:gravity="end"
                     android:textSize="8sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/menuBtn"
+                    app:layout_constraintEnd_toStartOf="@+id/menuBtn_recipe"
                     tools:text="추천수" />
 
                 <ImageButton
-                    android:id="@+id/menuBtn"
+                    android:id="@+id/menuBtn_recipe"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"

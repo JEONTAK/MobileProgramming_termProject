@@ -15,51 +15,58 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="73dp">
+            android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/commentPost"
-                android:layout_width="74dp"
-                android:layout_height="27dp"
-                android:layout_marginTop="5dp"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="글 제목" />
-
-            <TextView
-                android:id="@+id/commentPublisher"
+                android:id="@+id/freeTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="10sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="작성자" />
-
-            <TextView
-                android:id="@+id/commentContent"
-                android:layout_width="69dp"
-                android:layout_height="15dp"
-                android:layout_marginBottom="2dp"
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/commentPost"
-                tools:text="내용" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="타이틀" />
+
+            <TextView
+                android:id="@+id/freePublisher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/freeRecom"
+                app:layout_constraintEnd_toStartOf="@+id/menuBtn_recipe"
+                tools:text="작성자" />
+
+            <TextView
+                android:id="@+id/freeRecom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:textSize="8sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/menuBtn_recipe"
+                tools:text="추천수" />
+
+            <TextView
+                android:id="@+id/freeCreatedAt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:textSize="8sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/freeRecom"
+                tools:text="날짜" />
 
             <ImageButton
-                android:id="@+id/menuBtn_comment"
+                android:id="@+id/menuBtn_free"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/commentPublisher"
+                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_baseline_settings_24" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

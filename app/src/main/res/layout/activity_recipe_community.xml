@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/post2"
+        android:id="@+id/myPage_RecipePost_List"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

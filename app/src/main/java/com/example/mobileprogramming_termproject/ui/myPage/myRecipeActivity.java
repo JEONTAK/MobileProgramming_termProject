@@ -3,8 +3,6 @@ package com.example.mobileprogramming_termproject.ui.myPage;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobileprogramming_termproject.R;
 import com.example.mobileprogramming_termproject.adapter.myrecipeAdapter;
-import com.example.mobileprogramming_termproject.adapter.recipeAdapter;
 import com.example.mobileprogramming_termproject.listener.OnPostListener;
 import com.example.mobileprogramming_termproject.writingContent.RecipePostInfo;
 import com.example.mobileprogramming_termproject.writingContent.writingRecipePostActivity;
@@ -71,7 +68,7 @@ public class myRecipeActivity extends AppCompatActivity {
         myrecipeAdapter.setOnPostListener(onPostListener);
 
         //리사이클러뷰 작성
-        recipeRecyclerView = findViewById(R.id.post2);
+        recipeRecyclerView = findViewById(R.id.myPage_RecipePost_List);
         recipeRecyclerView.setHasFixedSize(true);
         recipeRecyclerView.setLayoutManager(new GridLayoutManager(myRecipeActivity.this,numberOfColumns));
 
@@ -79,6 +76,7 @@ public class myRecipeActivity extends AppCompatActivity {
     }
 
     OnPostListener onPostListener = new OnPostListener() {
+
         @Override
         public void onModify(int position) {
             String id = recipe_postList.get(position).getRecipeId();

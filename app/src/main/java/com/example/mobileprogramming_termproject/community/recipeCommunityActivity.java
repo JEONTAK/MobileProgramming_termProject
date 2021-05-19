@@ -43,7 +43,7 @@ public class recipeCommunityActivity extends AppCompatActivity {
         firebaseFirestore= FirebaseFirestore.getInstance();
         
         //리사이클러뷰 작성
-        recipeRecyclerView = findViewById(R.id.post2);
+        recipeRecyclerView = findViewById(R.id.myPage_RecipePost_List);
         recipeRecyclerView.setHasFixedSize(true);
         recipeRecyclerView.setLayoutManager(new GridLayoutManager(recipeCommunityActivity.this,numberOfColumns));
 

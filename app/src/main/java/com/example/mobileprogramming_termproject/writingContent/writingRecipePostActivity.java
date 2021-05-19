@@ -96,6 +96,8 @@ public class writingRecipePostActivity extends AppCompatActivity {
 
     private StorageReference storageRef;
 
+    private long recom;
+    private ArrayList<String> recomUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -352,13 +354,6 @@ public class writingRecipePostActivity extends AppCompatActivity {
         return true;
     }
 
-    private boolean isNumberPrice(){
-        String recipePrice = ((EditText)findViewById(R.id.recipePrice)).getText().toString();
-
-        return true;
-
-    }
-
     //파이어베이스에 데이터 업로드 하기 위함.
     private void bulletinUpload(){
         successCount = 0;
@@ -382,6 +377,17 @@ public class writingRecipePostActivity extends AppCompatActivity {
             //Storage 선언
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageRef = storage.getReference();
+
+
+            if(recipePostInfo != null){
+                recom = recipePostInfo.getRecom();
+                recomUser = recipePostInfo.getRecomUserId();
+
+            }
+            else{
+                recom = 0;
+                recomUser = new ArrayList<>();
+            }
 
 
             //저장할 위치 선언
@@ -495,7 +501,7 @@ public class writingRecipePostActivity extends AppCompatActivity {
                                                                                                 Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                                                                                                 //recipepostinfo 형식으로 저장.
                                                                                                 RecipePostInfo recipePostInfo = new RecipePostInfo(titleImagePath, title, recipe_ingredient ,contentsList,
-                                                                                                        user.getUid(), userInfo.getName(), new Date(), 0, documentReference.getId(), recomUser, Long.parseLong(recipePrice), foodCategory, tagCategory);
+                                                                                                        user.getUid(), userInfo.getName(), new Date(), recom, documentReference.getId(), recomUser, Long.parseLong(recipePrice), foodCategory, tagCategory);
                                                                                                 //업로드 실행
                                                                                                 dbUploader(documentReference, recipePostInfo);
                                                                                             } else {
@@ -552,7 +558,7 @@ public class writingRecipePostActivity extends AppCompatActivity {
                                                                 Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                                                                 //recipepostinfo 형식으로 저장.
                                                                 RecipePostInfo recipePostInfo = new RecipePostInfo(titleImagePath, title, recipe_ingredient ,contentsList,
-                                                                        user.getUid(), userInfo.getName(), new Date(), 0, documentReference.getId(), recomUser, Long.parseLong(recipePrice), foodCategory, tagCategory);
+                                                                        user.getUid(), userInfo.getName(), new Date(), recom, documentReference.getId(), recomUser, Long.parseLong(recipePrice), foodCategory, tagCategory);
                                                                 //업로드 실행
                                                                 dbUploader(documentReference, recipePostInfo);
                                                             } else {
@@ -652,7 +658,7 @@ public class writingRecipePostActivity extends AppCompatActivity {
                                                                             Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                                                                             //recipepostinfo 형식으로 저장.
                                                                             RecipePostInfo recipePostInfo = new RecipePostInfo(titleImagePath, title, recipe_ingredient ,contentsList,
-                                                                                    user.getUid(), userInfo.getName(), new Date(), 0, documentReference.getId(), recomUser, Long.parseLong(recipePrice), foodCategory, tagCategory);
+                                                                                    user.getUid(), userInfo.getName(), new Date(), recom, documentReference.getId(), recomUser, Long.parseLong(recipePrice), foodCategory, tagCategory);
                                                                             //업로드 실행
                                                                             dbUploader(documentReference, recipePostInfo);
                                                                         } else {
@@ -709,7 +715,7 @@ public class writingRecipePostActivity extends AppCompatActivity {
                                             Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                                             //recipepostinfo 형식으로 저장.
                                             RecipePostInfo recipePostInfo = new RecipePostInfo(titleImagePath, title, recipe_ingredient ,contentsList,
-                                                    user.getUid(), userInfo.getName(), new Date(), 0, documentReference.getId(), recomUser, Long.parseLong(recipePrice), foodCategory, tagCategory);
+                                                    user.getUid(), userInfo.getName(), new Date(), recom, documentReference.getId(), recomUser, Long.parseLong(recipePrice), foodCategory, tagCategory);
                                             //업로드 실행
                                             dbUploader(documentReference, recipePostInfo);
                                         } else {

@@ -3,31 +3,21 @@ package com.example.mobileprogramming_termproject.ui.myPage;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.mobileprogramming_termproject.Member.MemberInfo;
 import com.example.mobileprogramming_termproject.R;
 import com.example.mobileprogramming_termproject.adapter.myrecipeAdapter;
-import com.example.mobileprogramming_termproject.adapter.recipeAdapter;
 import com.example.mobileprogramming_termproject.writingContent.RecipePostInfo;
-import com.example.mobileprogramming_termproject.writingContent.writingRecipePostActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,7 +41,7 @@ public class bookmarkActivity extends AppCompatActivity {
         firebaseFirestore= FirebaseFirestore.getInstance();
 
         //리사이클러뷰 작성
-        recipeRecyclerView = findViewById(R.id.post2);
+        recipeRecyclerView = findViewById(R.id.myPage_RecipePost_List);
         recipeRecyclerView.setHasFixedSize(true);
         recipeRecyclerView.setLayoutManager(new GridLayoutManager(bookmarkActivity.this,numberOfColumns));
     }

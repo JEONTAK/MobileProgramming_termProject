@@ -1,6 +1,5 @@
 package com.example.mobileprogramming_termproject.listener;
 
-public interface OnPostListener {
+public interface OnCommentListener {
     void onDelete(int position);
-    void onModify(int position);
 }

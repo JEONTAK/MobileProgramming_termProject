@@ -39,7 +39,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Date;
-//ㅁㅁㅁㅁ
+
 public class HomeFragment extends Fragment   {
 
     MainActivity activity;
