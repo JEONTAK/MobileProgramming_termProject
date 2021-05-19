@@ -65,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="가격을 입력해주세요!"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:textSize="18sp" />
 
                 <TableLayout

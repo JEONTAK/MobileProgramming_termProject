@@ -20,14 +20,17 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class searchResultFragment extends Fragment {
 
+    private String TAG = "검색결과화면";
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -47,6 +50,7 @@ public class searchResultFragment extends Fragment {
 
         if (bundle != null) {
             search_content = bundle.getString("search_content");
+            Log.d(TAG,"" + search_content );
         }
 
         view = inflater.inflate(R.layout.fragment_search_result, container, false);
@@ -58,10 +62,10 @@ public class searchResultFragment extends Fragment {
 
         database = FirebaseFirestore.getInstance(); //데이터베이스 선언 // 파이어베이스 데이터베이스 연동
         collectionReference = database.collection("recipePost"); // DB 테이블 연결
+        Log.d(TAG,"검색 시작");
 
         collectionReference
-                .orderBy("title").startAt(search_content).endAt(search_content+"\uf8ff")
-                //.orderBy("createdAt", Query.Direction.DESCENDING)
+                .orderBy("createdAt", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -70,7 +74,7 @@ public class searchResultFragment extends Fragment {
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d("로그: ", document.getId() + " => " + document.getData());
-                                arrayList.add(new RecipePostInfo(
+                                RecipePostInfo recipePostInfo = new RecipePostInfo(
                                         document.getData().get("titleImage").toString(),
                                         document.getData().get("title").toString(),
                                         document.getData().get("ingredient").toString(),
@@ -83,9 +87,15 @@ public class searchResultFragment extends Fragment {
                                         (ArrayList<String>) document.getData().get("recomUserId"),
                                         (Long) document.getData().get("price"),
                                         document.getData().get("foodCategory").toString(),
-                                        document.getData().get("tagCategory").toString()
-                                ));
+                                        document.getData().get("tagCategory").toString());
+
+                                if(recipePostInfo.getTitle().contains(search_content)) {
+                                    arrayList.add(recipePostInfo);
+                                }
                             }
+                            Log.d(TAG,"검색 중");
+                            adapter = new CustomAdapter(getActivity(),arrayList);
+                            recyclerView.setAdapter(adapter); // 리사이클러뷰에 어댑터 연결
 
                         } else {
                             Log.d("로그: ", "Error getting documents: ", task.getException());
@@ -95,13 +105,7 @@ public class searchResultFragment extends Fragment {
                 });
 
 
-
-
-        adapter = new CustomAdapter(getActivity(),arrayList);
-        recyclerView.setAdapter(adapter); // 리사이클러뷰에 어댑터 연결
-
-
-
+        Log.d(TAG,"검색 끝");
         return view;
     }
 

@@ -63,9 +63,9 @@ public class RecipePostInfo implements Serializable {
     public long getRecom(){ return this.recom;}
     public void setRecom(long recom){this.recom = recom;}
     public String getRecipeId(){ return this.recipeId;}
-    public void setRecipeId(String title){this.recipeId = recipeId;}
+    public void setRecipeId(String recipeId){this.recipeId = recipeId;}
     public ArrayList<String> getRecomUserId(){ return  this.recomUserId;}
-    public void setRecomUserId(ArrayList<String> content){this.recomUserId = recomUserId;}
+    public void setRecomUserId(ArrayList<String> recomUserId){this.recomUserId = recomUserId;}
     public long getPrice(){ return this.price;}
     public void setPrice(long price){this.price = price;}
     public String getFoodCategory(){ return this.foodCategory;}

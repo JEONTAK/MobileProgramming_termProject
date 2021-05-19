@@ -5,10 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_margin="5dp"
         app:cardCornerRadius="10dp">
 
         <LinearLayout
@@ -42,11 +39,12 @@
                     android:id="@+id/recipePublisher"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
                     android:textColor="@color/black"
                     android:textSize="10sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/recipeRecom"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/menuBtn"
                     tools:text="작성자" />
 
                 <TextView
@@ -63,11 +61,21 @@
                     android:id="@+id/recipeRecom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
                     android:gravity="end"
                     android:textSize="8sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/menuBtn"
                     tools:text="추천수" />
+
+                <ImageButton
+                    android:id="@+id/menuBtn"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_baseline_settings_24" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
