@@ -73,7 +73,7 @@ public class recipeAdapter extends RecyclerView.Adapter<recipeAdapter.recipeView
     //레시피게시판 게시글 카드뷰에는 제목, 타이틀 이미지 , 작성자, 작성 날짜, 추천수가 저장되어 띄워짐.
     @Override
     public void onBindViewHolder(@NotNull final recipeViewHolder holder, int position){
-        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
 
         CardView cardView = holder.cardView;

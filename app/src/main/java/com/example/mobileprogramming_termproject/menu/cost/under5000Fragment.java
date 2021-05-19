@@ -72,7 +72,6 @@ public class under5000Fragment extends Fragment {
                 .orderBy("price", Query.Direction.DESCENDING)
                 //레시피 중 5000원 미만 레시피만 가져오기 위함.
                 .whereLessThan("price", 5000)
-
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
