@@ -11,8 +11,6 @@
         android:layout_width="208dp"
         android:layout_height="261dp"
         android:layout_marginTop="184dp"
-        android:layout_marginBottom="113dp"
-        app:layout_constraintBottom_toTopOf="@+id/first_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +31,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/first_join"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:strokeColor="@color/black"
         app:strokeWidth="2dp" />
 
@@ -41,7 +38,7 @@
         android:id="@+id/first_join"
         android:layout_width="176dp"
         android:layout_height="68dp"
-        android:layout_marginBottom="89dp"
+        android:layout_marginBottom="93dp"
         android:text="회원가입"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
@@ -50,7 +47,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/first_login"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.936"
         app:strokeColor="#FFFFFF" />
 </androidx.constraintlayout.widget.ConstraintLayout>

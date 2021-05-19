@@ -82,6 +82,7 @@ public class bookmarkActivity extends AppCompatActivity {
                     docRef2.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            Log.v("뭔데용", documentSnapshot.getData().get("titleImage").toString());
                             recipe_postList.add(new RecipePostInfo(
                                     documentSnapshot.getData().get("titleImage").toString(),
                                     documentSnapshot.getData().get("title").toString(),
