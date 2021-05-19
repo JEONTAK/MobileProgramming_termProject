@@ -60,7 +60,9 @@ public class searchResultFragment extends Fragment {
         collectionReference = database.collection("recipePost"); // DB 테이블 연결
 
         collectionReference
-                .orderBy("title").startAt(search_content).endAt(search_content+"\uf8ff")
+                .orderBy("title")
+                .startAt(search_content)
+                .endAt(search_content+"\uf8ff")
                 //.orderBy("createdAt", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -86,7 +88,8 @@ public class searchResultFragment extends Fragment {
                                         document.getData().get("tagCategory").toString()
                                 ));
                             }
-
+                            adapter = new CustomAdapter(getActivity(),arrayList);
+                            recyclerView.setAdapter(adapter); // 리사이클러뷰에 어댑터 연결
                         } else {
                             Log.d("로그: ", "Error getting documents: ", task.getException());
 
@@ -97,8 +100,6 @@ public class searchResultFragment extends Fragment {
 
 
 
-        adapter = new CustomAdapter(getActivity(),arrayList);
-        recyclerView.setAdapter(adapter); // 리사이클러뷰에 어댑터 연결
 
 
 

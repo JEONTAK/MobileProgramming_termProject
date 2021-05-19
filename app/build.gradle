@@ -65,4 +65,9 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     implementation 'com.google.firebase:firebase-messaging:22.0.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
+    implementation 'com.google.firebase:firebase-messaging'
+
+    //원형 이미지 추가
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
 }

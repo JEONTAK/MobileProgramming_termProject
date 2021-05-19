@@ -8,20 +8,40 @@
     android:nestedScrollingEnabled="false">
 
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/signup02_toolbar_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="내 정보"
+            android:textColor="#7B1FA2"
+            android:textSize="20sp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="18dp"></TextView>
+    </androidx.appcompat.widget.Toolbar>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
         android:layout_width="417dp"
         android:layout_height="150dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="111dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profileImageVIew"
-            android:layout_width="254dp"
-            android:layout_height="139dp"
+            android:layout_width="251dp"
+            android:layout_height="117dp"
             android:layout_gravity="center"
             android:src="@drawable/et_link_back2" />
 
@@ -34,23 +54,6 @@
             app:srcCompat="@drawable/ic_baseline_photo_camera_24" />
 
     </androidx.cardview.widget.CardView>
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="141dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="180dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="180dp"
-        android:fontFamily="sans-serif-light"
-        android:gravity="center"
-        android:text="내 정보"
-        android:textColor="#090909"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.51"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
@@ -100,8 +103,9 @@
         android:id="@+id/EditButton"
         android:layout_width="54dp"
         android:layout_height="34dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="380dp"
+        android:layout_marginStart="170dp"
+        android:layout_marginEnd="170dp"
+        android:layout_marginBottom="420dp"
         android:backgroundTint="@color/white"
         android:gravity="center"
         android:minWidth="0dp"
@@ -112,16 +116,13 @@
         app:layout_constraintBottom_toTopOf="@+id/nav_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nicknameEditText"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/completeButton"
         android:layout_width="54dp"
         android:layout_height="34dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="380dp"
+        android:layout_marginBottom="420dp"
         android:backgroundTint="@color/white"
         android:gravity="center"
         android:minWidth="0dp"
@@ -132,10 +133,8 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/nav_view"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nicknameEditText"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ListView
         android:id="@+id/ListView"
@@ -147,13 +146,13 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/EditButton"
-        app:layout_constraintVertical_bias="0.217" />
+        app:layout_constraintVertical_bias="0.213" />
 
     <TextView
         android:id="@+id/nicknameTextView"
         android:layout_width="109dp"
         android:layout_height="30dp"
-        android:layout_marginStart="169dp"
+        android:layout_marginStart="170dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="170dp"
         android:foregroundGravity="center"
@@ -163,16 +162,15 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/EditButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.486"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView2"
-        app:layout_constraintVertical_bias="0.084" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/nicknameEditText"
         android:layout_width="61dp"
         android:layout_height="33dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
         android:background="#FFFFFF"
         android:gravity="center"
         android:hint="닉네임"
@@ -180,7 +178,7 @@
         android:textSize="24sp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView2" />
 
