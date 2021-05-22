@@ -87,58 +87,76 @@ public class myRecipeActivity extends AppCompatActivity {
         @Override
         public void onDelete(int position) {
             String id = recipe_postList.get(position).getRecipeId();
-
-            String titleImageName = recipe_postList.get(position).getTitleImage();
-
-            String[] imageList = titleImageName.split("\\?");
-            String[] imageList2 = imageList[0].split("%2F");
-            String imageName = imageList2[imageList2.length - 1];
-            StorageReference titleImageRef = storageRef.child("recipePost/" + id + "/" + imageName);
-            // Delete the file
-            titleImageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    Log.d(TAG, "스토리지에서 타이틀 이미지 파일 삭제 성공");
-                    // File deleted successfully
-                    ArrayList<String> contentList = recipe_postList.get(position).getContent();
-                    for(int i = 0 ; i < contentList.size() ; i++){
-                        String contents = contentList.get(i);
-                        if(isStorageUrl(contents)){
-                            successCount++;
-                            String[] list = contents.split("\\?");
-                            String[] list2 = list[0].split("%2F");
-                            String name = list2[list2.length - 1];
-
-                            // Create a reference to the file to delete
-                            StorageReference imageRef = storageRef.child("recipePost/" + id + "/" + name);
-
-                            // Delete the file
-                            imageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d(TAG, "스토리지에서 이미지 파일 삭제 성공");
-                                    successCount--;
-                                    storeUploader(id);
-                                    // File deleted successfully
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception exception) {
-                                    Log.w(TAG, "스토리지에서 이미지 파일 삭제 실패");
-                                    // Uh-oh, an error occurred!
-                                }
-                            });
+            firebaseFirestore.collection("recipePost").document(id)
+                    .delete()
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            postUpdate();
+                            showToast(myRecipeActivity.this ,"게시글 삭제에 성공했어요!");
+                            Log.d(TAG, "DocumentSnapshot successfully deleted!");
                         }
-                    }
-                    storeUploader(id);
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    Log.w(TAG, "스토리지에서 타이틀 이미지 파일 삭제 실패");
-                    // Uh-oh, an error occurred!
-                }
-            });
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            showToast(myRecipeActivity.this ,"게시글 삭제에 실패했어요!");
+                            Log.w(TAG, "Error deleting document", e);
+                        }
+                    });
+//            String id = recipe_postList.get(position).getRecipeId();
+//
+//            String titleImageName = recipe_postList.get(position).getTitleImage();
+//
+//            String[] imageList = titleImageName.split("\\?");
+//            String[] imageList2 = imageList[0].split("%2F");
+//            String imageName = imageList2[imageList2.length - 1];
+//            StorageReference titleImageRef = storageRef.child("recipePost/" + id + "/" + imageName);
+//            // Delete the file
+//            titleImageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+//                @Override
+//                public void onSuccess(Void aVoid) {
+//                    Log.d(TAG, "스토리지에서 타이틀 이미지 파일 삭제 성공");
+//                    // File deleted successfully
+//                    ArrayList<String> contentList = recipe_postList.get(position).getContent();
+//                    for(int i = 0 ; i < contentList.size() ; i++){
+//                        String contents = contentList.get(i);
+//                        if(isStorageUrl(contents)){
+//                            successCount++;
+//                            String[] list = contents.split("\\?");
+//                            String[] list2 = list[0].split("%2F");
+//                            String name = list2[list2.length - 1];
+//
+//                            // Create a reference to the file to delete
+//                            StorageReference imageRef = storageRef.child("recipePost/" + id + "/" + name);
+//
+//                            // Delete the file
+//                            imageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                @Override
+//                                public void onSuccess(Void aVoid) {
+//                                    Log.d(TAG, "스토리지에서 이미지 파일 삭제 성공");
+//                                    successCount--;
+//                                    storeUploader(id);
+//                                    // File deleted successfully
+//                                }
+//                            }).addOnFailureListener(new OnFailureListener() {
+//                                @Override
+//                                public void onFailure(@NonNull Exception exception) {
+//                                    Log.w(TAG, "스토리지에서 이미지 파일 삭제 실패");
+//                                    // Uh-oh, an error occurred!
+//                                }
+//                            });
+//                        }
+//                    }
+//                    storeUploader(id);
+//                }
+//            }).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception exception) {
+//                    Log.w(TAG, "스토리지에서 타이틀 이미지 파일 삭제 실패");
+//                    // Uh-oh, an error occurred!
+//                }
+//            });
         }
     };
 

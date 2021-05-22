@@ -70,7 +70,15 @@ public class LoginActivity extends AppCompatActivity {
         mPasswordText = findViewById(R.id.passwordEdt);
         loaderLayout = findViewById(R.id.loaderLayout);
 
-        //가입 버튼이 눌리면
+        if (firebaseAuth.getCurrentUser() != null){
+//            setUserInfo();
+                Toast.makeText(getApplicationContext(), "자동 로그인", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+
+            finish();
+        }
+
+            //가입 버튼이 눌리면
         mResigettxt.setOnClickListener(new View.OnClickListener(){
 
             @Override
