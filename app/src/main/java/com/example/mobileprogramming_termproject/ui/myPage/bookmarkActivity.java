@@ -3,21 +3,28 @@ package com.example.mobileprogramming_termproject.ui.myPage;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mobileprogramming_termproject.MainActivity;
 import com.example.mobileprogramming_termproject.Member.MemberInfo;
+import com.example.mobileprogramming_termproject.Member.MemberInitActivity;
 import com.example.mobileprogramming_termproject.R;
 import com.example.mobileprogramming_termproject.adapter.myrecipeAdapter;
 import com.example.mobileprogramming_termproject.writingContent.RecipePostInfo;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -54,14 +61,22 @@ public class bookmarkActivity extends AppCompatActivity {
         Log.v("유저북마크",user.getUid());
 
         DocumentReference docRef = firebaseFirestore.collection("users").document(user.getUid());
+
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 MemberInfo memberInfo = documentSnapshot.toObject(MemberInfo.class);
                 bookmarkRecipe = memberInfo.getBookmarkRecipe();
-                Log.v("북마크레시피", "북마크는" + bookmarkRecipe.get(0));
-                int count = 0;
-                getBookmark(bookmarkRecipe);
+                if(bookmarkRecipe.size()==0)
+                {
+                    TextView textView=(TextView) findViewById(R.id.noBookmark);
+                    textView.setText("스크랩한 목록이 없습니다 ㅠㅠ");
+                }
+                else {
+                    Log.v("북마크레시피", "북마크는" + bookmarkRecipe.get(0));
+                    int count = 0;
+                    getBookmark(bookmarkRecipe,memberInfo);
+                }
             }
         });
 
@@ -75,35 +90,55 @@ public class bookmarkActivity extends AppCompatActivity {
     }
     //bookmark한 내용을 recipe_post에 저장하는 함수
 
-    public void getBookmark(ArrayList<String> bookmarkRecipe){
-        ArrayList<RecipePostInfo> recipe_postList=new ArrayList<RecipePostInfo>();
-        for(String a: bookmarkRecipe){
-                    DocumentReference docRef2 = firebaseFirestore.collection("recipePost").document(a);
-                    docRef2.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                        @Override
-                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            Log.v("뭔데용", documentSnapshot.getData().get("titleImage").toString());
-                            recipe_postList.add(new RecipePostInfo(
-                                    documentSnapshot.getData().get("titleImage").toString(),
-                                    documentSnapshot.getData().get("title").toString(),
-                                    documentSnapshot.getData().get("ingredient").toString(),
-                                    (ArrayList<String>) documentSnapshot.getData().get("content"),
-                                    documentSnapshot.getData().get("publisher").toString(),
-                                    documentSnapshot.getData().get("userName").toString(),
-                                    new Date(documentSnapshot.getDate("createdAt").getTime()),
-                                    (Long) documentSnapshot.getData().get("recom"),
-                                    documentSnapshot.getData().get("recipeId").toString(),
-                                    (ArrayList<String>) documentSnapshot.getData().get("recomUserId"),
-                                    (Long) documentSnapshot.getData().get("price"),
-                                    documentSnapshot.getData().get("foodCategory").toString(),
-                                    documentSnapshot.getData().get("tagCategory").toString()
-                            ));
-                            if(a.equals(bookmarkRecipe.get(bookmarkRecipe.size()-1))){
-                                adaptBookmark(recipe_postList);
-                            }
+    public void getBookmark(ArrayList<String> bookmarkRecipe,MemberInfo memberInfo) {
+
+        ArrayList<RecipePostInfo> recipe_postList = new ArrayList<RecipePostInfo>();
+        for (String a : bookmarkRecipe) {
+            DocumentReference docRef2 = firebaseFirestore.collection("recipePost").document(a);
+            docRef2.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    if (documentSnapshot.getData() == null) {
+                        bookmarkRecipe.remove(a);
+                        memberInfo.setBookmarkRecipe(bookmarkRecipe);
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                        db.collection("users").document(user.getUid()).set(memberInfo)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+
+                                    }
+                                });
+                    } else {
+                        recipe_postList.add(new RecipePostInfo(
+                                documentSnapshot.getData().get("titleImage").toString(),
+                                documentSnapshot.getData().get("title").toString(),
+                                documentSnapshot.getData().get("ingredient").toString(),
+                                (ArrayList<String>) documentSnapshot.getData().get("content"),
+                                documentSnapshot.getData().get("publisher").toString(),
+                                documentSnapshot.getData().get("userName").toString(),
+                                new Date(documentSnapshot.getDate("createdAt").getTime()),
+                                (Long) documentSnapshot.getData().get("recom"),
+                                documentSnapshot.getData().get("recipeId").toString(),
+                                (ArrayList<String>) documentSnapshot.getData().get("recomUserId"),
+                                (Long) documentSnapshot.getData().get("price"),
+                                documentSnapshot.getData().get("foodCategory").toString(),
+                                documentSnapshot.getData().get("tagCategory").toString()
+                        ));
+                        if (a.equals(bookmarkRecipe.get(bookmarkRecipe.size() - 1))) {
+                            adaptBookmark(recipe_postList);
                         }
-                    });
-          }
+                    }
+                }
+            });
+        }
     }
 
     //adapter에 붙이는 함수

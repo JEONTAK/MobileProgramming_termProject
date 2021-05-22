@@ -2,6 +2,7 @@ package com.example.mobileprogramming_termproject.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -129,6 +130,7 @@ public class myrecipeAdapter extends RecyclerView.Adapter<myrecipeAdapter.myreci
                         onPostListener.onModify(position);
                         return true;
                     case R.id.delete:
+                        Log.v("삭제 클릭함","삭제 클릭함");
                         onPostListener.onDelete(position);
                         return true;
                     default:

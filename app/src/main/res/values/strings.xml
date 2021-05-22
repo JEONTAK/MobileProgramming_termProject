@@ -27,12 +27,14 @@
     <string name="request_permission">This sample needs camera permission.</string>
     <string name="camera_error">This device doesn\'t support Camera2 API.</string>
     //
+
     //마이페이지 리스트뷰
     <string-array name="mypage_list">
         <item>스크랩</item>
         <item>내가 쓴 글</item>
         <item>내가 쓴 레시피</item>
         <item>내가 쓴 댓글</item>
+        <item>로그 아웃</item>
     </string-array>
 
     //카테고리 이름 저장

@@ -30,6 +30,7 @@ import com.bumptech.glide.Glide;
 import com.example.mobileprogramming_termproject.Gallery.GalleryActivity;
 import com.example.mobileprogramming_termproject.Member.MemberInfo;
 import com.example.mobileprogramming_termproject.R;
+import com.example.mobileprogramming_termproject.login.LoginActivity;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -60,6 +61,7 @@ public class myPageFragment extends Fragment {
     private DocumentReference document;
     private String original_nickname;
     private String orignal_url;
+    FirebaseAuth fAuth;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -96,6 +98,14 @@ public class myPageFragment extends Fragment {
                     case"내가 쓴 댓글": {
                         myStartActivity2(myCommentActivity.class);
                         break;
+                    }
+                    case"로그 아웃":{
+                        fAuth=FirebaseAuth.getInstance();
+                        fAuth.signOut();
+                        startToast("로그 아웃 되었습니다");
+                        Intent intent=new Intent(getActivity(), LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        getActivity().finish();
                     }
 
                 }
@@ -217,6 +227,7 @@ public class myPageFragment extends Fragment {
             user = FirebaseAuth.getInstance().getCurrentUser();
             final StorageReference mountainImagesRef = storageRef.child("users/" + user.getUid() + "/profileImage.jpg");
             try {
+                Log.v("사진경로",profilePath);
                 InputStream stream = new FileInputStream(new File(profilePath));
                 UploadTask uploadTask = mountainImagesRef.putStream(stream);
                 uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
