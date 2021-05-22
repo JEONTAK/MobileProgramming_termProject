@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.mobileprogramming_termproject.MainActivity;
 import com.example.mobileprogramming_termproject.R;
@@ -40,9 +41,15 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Date;
 
+import me.relex.circleindicator.CircleIndicator;
+
 public class HomeFragment extends Fragment   {
 
     MainActivity activity;
+    ImageSliderAdapter image_adapter;
+    ViewPager viewpager;
+    CircleIndicator indicator;
+    Context context;
 
     @Override
     public void onAttach(Context context){
@@ -78,6 +85,7 @@ public class HomeFragment extends Fragment   {
     }
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        //context=getContext();
         homeViewModel =
                 new ViewModelProvider(this).get(com.example.mobileprogramming_termproject.ui.home.HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
@@ -88,6 +96,13 @@ public class HomeFragment extends Fragment   {
         root.findViewById(R.id.imageViewTag).setOnClickListener(onClickListener);
         root.findViewById(R.id.imageViewCost).setOnClickListener(onClickListener);
         mSearchView=root.findViewById(R.id.searchView);
+
+        context=getContext();
+        viewpager=root.findViewById(R.id.ad_viewPager);
+        image_adapter=new ImageSliderAdapter(context);
+        viewpager.setAdapter(image_adapter);
+        indicator=root.findViewById(R.id.indicator);
+        indicator.setViewPager(viewpager);
 
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

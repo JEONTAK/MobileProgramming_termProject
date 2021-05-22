@@ -15,8 +15,10 @@
         android:layout_marginBottom="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -50,14 +52,27 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_baseline_turned_in_not_24" />
 
-            <ImageView
-                android:id="@+id/imageViewAd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/ad_viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/searchView"
-                app:srcCompat="@drawable/ex_ad" />
+                app:layout_constraintTop_toBottomOf="@+id/searchView" />
+
+            <me.relex.circleindicator.CircleIndicator
+                android:id="@+id/indicator"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                app:ci_drawable="@drawable/black_radius"
+                app:ci_height="7dp"
+                app:ci_margin="4dp"
+                app:ci_width="7dp"
+                app:layout_constraintBottom_toBottomOf="@id/ad_viewPager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
 
 
             <TextView
@@ -85,27 +100,32 @@
                 android:id="@+id/imageViewCost"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="55dp"
                 app:layout_constraintEnd_toStartOf="@+id/imageViewTag"
-                app:layout_constraintTop_toBottomOf="@+id/imageViewAd"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ad_viewPager"
                 app:srcCompat="@drawable/ic_payments_black_24dp" />
 
             <ImageView
                 android:id="@+id/imageViewTag"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
-                android:layout_marginEnd="55dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="52dp"
                 app:layout_constraintEnd_toStartOf="@+id/imageViewFood"
-                app:layout_constraintTop_toBottomOf="@+id/imageViewAd"
+                app:layout_constraintTop_toBottomOf="@+id/ad_viewPager"
                 app:srcCompat="@drawable/ic_volunteer_activism_black_24dp" />
 
             <ImageView
                 android:id="@+id/imageViewFood"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
-                android:layout_marginEnd="55dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="56dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageViewAd"
+                app:layout_constraintTop_toBottomOf="@+id/ad_viewPager"
                 app:srcCompat="@drawable/ic_fastfood_black_24dp" />
 
             <TextView
