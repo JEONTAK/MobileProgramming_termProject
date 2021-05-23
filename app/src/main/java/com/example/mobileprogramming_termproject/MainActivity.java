@@ -2,10 +2,13 @@ package com.example.mobileprogramming_termproject;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Toast;
+
 
 import com.example.mobileprogramming_termproject.menu.priceFragment;
 import com.example.mobileprogramming_termproject.menu.tagFragment;
@@ -15,17 +18,25 @@ import com.example.mobileprogramming_termproject.ui.map.mapFragment;
 import com.example.mobileprogramming_termproject.ui.myPage.myPageFragment;
 import com.example.mobileprogramming_termproject.ui.searchResult.searchResultFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import org.json.JSONObject;
+
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 
 public class MainActivity extends AppCompatActivity  {
@@ -50,8 +61,8 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //알림 관련 데이터베이스 설정
-//        initFirebaseDatabase();
-//        passPushTokenToServer();
+        initFirebaseDatabase();
+
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.nav_host_fragment, homeFragment).commitAllowingStateLoss();
 
@@ -67,8 +78,6 @@ public class MainActivity extends AppCompatActivity  {
         mContext=this;
 
     }
-
-
 //    알림 관련 데이터베이스 설정
     private void initFirebaseDatabase() {
 
@@ -153,7 +162,8 @@ public class MainActivity extends AppCompatActivity  {
             getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,myFragment).commit();
         }
     }
-//내일 하자
+
+
 
 
 }

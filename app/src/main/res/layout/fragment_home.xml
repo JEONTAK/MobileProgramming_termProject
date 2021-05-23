@@ -63,6 +63,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/searchView" />
 
+
+
             <me.relex.circleindicator.CircleIndicator
                 android:id="@+id/indicator"
                 android:layout_width="400dp"

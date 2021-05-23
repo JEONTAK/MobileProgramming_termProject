@@ -259,7 +259,7 @@ public class recipeInformationActivity extends AppCompatActivity {
                                         document.getData().get("nickname").toString(),
                                         (ArrayList<String>) document.getData().get("bookmarkRecipe"),
                                         document.getData().get("token").toString()
-
+//토큰을 받아야합니다
                                 );
                                 Log.d(TAG, "DocumentSnapshot data: " + document.getData());
 
