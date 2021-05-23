@@ -111,11 +111,6 @@ public class HomeFragment extends Fragment   {
             public boolean onQueryTextSubmit(String query) {
                 activity.onFragmentChange(1,query);
 
-
-               /* Bundle bundle = new Bundle();
-                bundle.putString("search_content", query);
-                Intent intent = new
-                SearchResultFragment.setArguments(bundle);*/
                 return true;
             }
 
@@ -126,18 +121,7 @@ public class HomeFragment extends Fragment   {
         });
 
 
-//        ImageView tag_but=(ImageView)root.findViewById(R.id.imageViewTag);
-//        ImageView food_but=(ImageView)root.findViewById(R.id.imageViewFood);
-//        ImageView cost_but=(ImageView)root.findViewById(R.id.imageViewCost);
 
-//        tag_but.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                ((MainActivity)getActivity()).replaceFragment(TagFragment.newInstance());
-//
-//
-//            }
-//        });
 
         firebaseFirestore= FirebaseFirestore.getInstance();//데이터베이스 선언
 
@@ -151,22 +135,7 @@ public class HomeFragment extends Fragment   {
         FreePost = (RecyclerView)root.findViewById(R.id.free_Post);
         FreePost.setHasFixedSize(true);
         FreePost.setLayoutManager(new GridLayoutManager(getActivity(),numberOfColumns));
-        //        final TextView textView = root.findViewById(R.id.);
-//        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
 
-//        View food_category_btn = root.findViewById(R.id.food_btn);
-//         food_category_btn.setOnClickListener(new View.OnClickListener() {
-//             @Override
-//             public void onClick(View v) {
-//                Intent intent =new Intent(getActivity(),food_category.class);
-//                startActivity(intent);
-//             }
-//         });
 
 
         return root;

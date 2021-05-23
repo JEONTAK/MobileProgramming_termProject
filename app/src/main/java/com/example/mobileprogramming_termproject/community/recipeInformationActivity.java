@@ -18,12 +18,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
-import com.example.mobileprogramming_termproject.MainActivity;
 import com.example.mobileprogramming_termproject.Member.MemberInfo;
 import com.example.mobileprogramming_termproject.R;
 import com.example.mobileprogramming_termproject.adapter.recipeAdapter;
-import com.example.mobileprogramming_termproject.firebase.notificationData;
-import com.example.mobileprogramming_termproject.writingContent.FreePostInfo;
+import com.example.mobileprogramming_termproject.service.fcm;
 import com.example.mobileprogramming_termproject.writingContent.RecipePostInfo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -39,7 +37,6 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.lang.reflect.Member;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -64,7 +61,8 @@ public class recipeInformationActivity extends AppCompatActivity {
     //
     private DocumentReference dr;
 
-    private notificationData data;
+ //fcm 전송
+    fcm fcm2 = new fcm();
 
     //파이어베이스에서 유저 정보 가져오기위해 선언.
     FirebaseUser firebaseUser;
@@ -79,7 +77,7 @@ public class recipeInformationActivity extends AppCompatActivity {
 
 
     }
-
+//레시피 추천기능
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -90,6 +88,8 @@ public class recipeInformationActivity extends AppCompatActivity {
                     firebaseUser = FirebaseAuth.getInstance().getCurrentUser(); //파이어베이스 유저 선언
                     user = firebaseUser.getUid();
                     id = recipePostInfo.getRecipeId();
+                    //                    이름이 이미 포함되어있는경우
+
                     if(recipePostInfo.getRecomUserId().contains(user))
                     {
                         recipePostInfo.setRecom(recipePostInfo.getRecom() - 1);
@@ -106,11 +106,16 @@ public class recipeInformationActivity extends AppCompatActivity {
                         dbUploader(dr, recipePostInfo, 0);
                         break;
                     }
+                    //                        새로운 아이디일 경우
+
                     else{
                         recipePostInfo.setRecom(recipePostInfo.getRecom() + 1);
                         newRecomUserId = recipePostInfo.getRecomUserId();
                         newRecomUserId.add(user);
                         recipePostInfo.setRecomUserId(newRecomUserId);
+
+                        fcm2.sendMessage(recipePostInfo.getPublisher(),recipePostInfo.getTitle()+" 레시파가 추천되었습니다.",firebaseUser.getEmail()+"님의 추천");
+
                         if(id == null){
                             dr = firebaseFirestore.collection("recipePost").document();
 
@@ -141,7 +146,8 @@ public class recipeInformationActivity extends AppCompatActivity {
                                                     document.getData().get("date").toString(),
                                                     document.getData().get("photoUrl").toString(),
                                                     document.getData().get("nickname").toString(),
-                                                    (ArrayList<String>) document.getData().get("bookmarkRecipe")
+                                                    (ArrayList<String>) document.getData().get("bookmarkRecipe"),
+                                                    document.getData().get("token").toString()
                                             );
                                             Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                                             if(userInfo.getBookmarkRecipe()==null){
@@ -251,10 +257,12 @@ public class recipeInformationActivity extends AppCompatActivity {
                                         document.getData().get("date").toString(),
                                         document.getData().get("photoUrl").toString(),
                                         document.getData().get("nickname").toString(),
-                                        (ArrayList<String>) document.getData().get("bookmarkRecipe")
+                                        (ArrayList<String>) document.getData().get("bookmarkRecipe"),
+                                        document.getData().get("token").toString()
 
                                 );
                                 Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+
                                 if(userInfo.getBookmarkRecipe()==null)
                                 {
 

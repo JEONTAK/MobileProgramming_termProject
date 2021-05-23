@@ -143,7 +143,8 @@ public class writingFreePostActivity extends AppCompatActivity {
                                             document.getData().get("date").toString(),
                                             document.getData().get("photoUrl").toString(),
                                             document.getData().get("nickname").toString(),
-                                            (ArrayList<String>) document.getData().get("bookmarkRecipe")
+                                            (ArrayList<String>) document.getData().get("bookmarkRecipe"),
+                                            document.getData().get("token").toString()
                                     );
                                     Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                                     //검색하여 얻은 유저 이름을 이용하여 freePost 데이터 베이스에 게시글 저장.

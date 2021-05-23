@@ -28,6 +28,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -35,6 +36,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
+import com.example.mobileprogramming_termproject.service.fcm;
 
 import static com.example.mobileprogramming_termproject.Util.showToast;
 
@@ -43,6 +45,7 @@ public class freeInformationActivity extends AppCompatActivity {
 
     private final String TAG = "자유게시글 정보";
     private FirebaseFirestore firebaseFirestore;
+    private FirebaseDatabase mFirebaseDatabase;
     private FreePostInfo freePostInfo;
     private FirebaseUser firebaseUser;
     private String user;
@@ -51,8 +54,10 @@ public class freeInformationActivity extends AppCompatActivity {
     private RecyclerView comment_view;
     private RelativeLayout loaderLayout;
     private DocumentReference dr;
+
     String name;
     DocumentReference docRef;
+    fcm fcm1 = new fcm();
 
 
     @Override
@@ -66,7 +71,7 @@ public class freeInformationActivity extends AppCompatActivity {
         user = firebaseUser.getUid();
         Log.d(TAG, "유저 아이디 " + firebaseUser.getUid() + " aa " + user);
     }
-
+//    댓글 추천기능
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -74,11 +79,13 @@ public class freeInformationActivity extends AppCompatActivity {
                 case R.id.freeRecomBtn:
                     id = freePostInfo.getPostId();
                     ArrayList<String> newRecomUserId = new ArrayList<>();
+//                    이름이 이미 포함되어있는경우
                     if (freePostInfo.getRecomUserId().contains(user)) {
                         freePostInfo.setRecom(freePostInfo.getRecom() - 1);
                         newRecomUserId = freePostInfo.getRecomUserId();
                         newRecomUserId.remove(user);
                         freePostInfo.setRecomUserId(newRecomUserId);
+
                         if (id == null) {
                             dr = firebaseFirestore.collection("freePost").document();
 
@@ -88,11 +95,17 @@ public class freeInformationActivity extends AppCompatActivity {
                         }
                         dbUploader(dr, freePostInfo, 0);
                         break;
+//                        새로운 아이디일 경우
                     } else {
                         freePostInfo.setRecom(freePostInfo.getRecom() + 1);
                         newRecomUserId = freePostInfo.getRecomUserId();
                         newRecomUserId.add(user);
                         freePostInfo.setRecomUserId(newRecomUserId);
+//                        fcm 알림 날리기
+
+                        fcm1.sendMessage(freePostInfo.getPublisher(),freePostInfo.getTitle()+" 댓글이 추천되었습니다.",firebaseUser.getEmail()+"님의 추천");
+
+
                         if (id == null) {
                             dr = firebaseFirestore.collection("freePost").document();
 
@@ -119,8 +132,12 @@ public class freeInformationActivity extends AppCompatActivity {
                                             document.getData().get("date").toString(),
                                             document.getData().get("photoUrl").toString(),
                                             document.getData().get("nickname").toString(),
-                                            (ArrayList<String>) document.getData().get("bookmarkRecipe")
+                                            (ArrayList<String>) document.getData().get("bookmarkRecipe"),
+                                            document.getData().get("token").toString()
+
                                     );
+//                fcm 알림날리기
+                                    fcm1.sendMessage(freePostInfo.getPublisher(),freePostInfo.getTitle()+"에 댓글이 작성되었습니다.",firebaseUser.getEmail()+"님의 댓글");
                                     Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                                     name = memberInfo.getName();
                                     loaderLayout.setVisibility(View.VISIBLE);
@@ -163,6 +180,7 @@ public class freeInformationActivity extends AppCompatActivity {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser(); //파이어베이스 유저 선언
         String user = firebaseUser.getUid();
         freePostInfo = (FreePostInfo) getIntent().getSerializableExtra("freePostInfo");
+
 
         ArrayList<String> recomUser = freePostInfo.getRecomUserId();
         if(recomUser.contains(user))
@@ -219,6 +237,7 @@ public class freeInformationActivity extends AppCompatActivity {
                             showToast(freeInformationActivity.this ,"추천을 취소했어요!");
                             Log.w(TAG,"Success writing document" + documentReference.getId());
                             onResume();
+
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -235,6 +254,7 @@ public class freeInformationActivity extends AppCompatActivity {
                             showToast(freeInformationActivity.this ,"이 게시글을 추천했어요!");
                             Log.w(TAG,"Success writing document" + documentReference.getId());
                             onResume();
+
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -263,6 +283,7 @@ public class freeInformationActivity extends AppCompatActivity {
         }
 
     }
+
 
 
 }

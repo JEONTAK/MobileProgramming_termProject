@@ -11,11 +11,12 @@ public class MemberInfo {
     private String adress;
     private String photoUrl;
     private String nickname;
+    private String token;
     private ArrayList<String> bookmarkRecipe;
 
     public MemberInfo() {}
 
-    public MemberInfo(String name, String phoneNumber, String adress, String Date, String photoUrl,String nickname,ArrayList<String> bookmarkRecipe)
+    public MemberInfo(String name, String phoneNumber, String adress, String Date, String photoUrl,String nickname,ArrayList<String> bookmarkRecipe,String token)
     {
         this.name=name;
         this.phoneNumber=phoneNumber;
@@ -24,6 +25,7 @@ public class MemberInfo {
         this.photoUrl = photoUrl;
         this.nickname=nickname;
         this.bookmarkRecipe = bookmarkRecipe;
+        this.token=token;
     }
     public MemberInfo(String name, String phoneNumber, String adress, String Date)
     {
@@ -77,5 +79,7 @@ public class MemberInfo {
     public ArrayList<String> getBookmarkRecipe(){return this.bookmarkRecipe;}
 
     public void setBookmarkRecipe(ArrayList<String> bookmarkRecipe){this.bookmarkRecipe = bookmarkRecipe;}
+
+    public String getToken(){return token;}
 
 }

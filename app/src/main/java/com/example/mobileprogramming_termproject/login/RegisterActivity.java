@@ -72,8 +72,9 @@ public class RegisterActivity extends AppCompatActivity {
                                 //가입 성공시
                                 if (task.isSuccessful()) {
                                     //가입이 이루어져을시 가입 화면을 빠져나감.
-                                    FirebaseUser user = firebaseAuth.getCurrentUser();
+
                                     Toast.makeText(RegisterActivity.this, "회원가입에 성공하셨습니다.", Toast.LENGTH_SHORT).show();
+
                                     myStartActivity(MemberInitActivity.class);
 
 

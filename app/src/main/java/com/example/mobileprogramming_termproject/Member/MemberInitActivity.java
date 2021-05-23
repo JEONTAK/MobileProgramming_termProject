@@ -64,10 +64,11 @@ public class MemberInitActivity extends AppCompatActivity {
         ArrayList<String> bookmarkRecipe=new ArrayList<>();
 
 
+
         if(name.length() > 0 && phoneNumber.length() > 9 && birthDay.length() > 5 && address.length() > 0){
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             FirebaseFirestore db = FirebaseFirestore.getInstance();
-            MemberInfo memberInfo = new MemberInfo(name,phoneNumber,address, birthDay,null,nickname,bookmarkRecipe);
+            MemberInfo memberInfo = new MemberInfo(name,phoneNumber,address, birthDay,null,nickname,bookmarkRecipe,null);
             if(user != null){
                 db.collection("users").document(user.getUid()).set(memberInfo)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
