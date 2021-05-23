@@ -27,7 +27,6 @@
         <activity android:name=".login.PasswordResetActivity" />
         <activity android:name=".ui.recipe_category.recipe_categoryFragment" />
         <activity android:name=".ui.convenience_category.convenience_categoryFragment" />
-        <activity android:name=".ui.bookmark.bookmarkFragment" />
         <activity android:name=".ui.recipe.recipePagerFragment" />
         <activity android:name=".Camera.CameraActivity" />
         <activity android:name=".Gallery.GalleryActivity" />

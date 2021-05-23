@@ -112,9 +112,7 @@ public class myPageFragment extends Fragment {
             }
         });
 
-
-
-         return root;
+        return root;
     }
     @Override
     public void onStart() {

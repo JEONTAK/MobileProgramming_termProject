@@ -27,6 +27,7 @@ import com.example.mobileprogramming_termproject.menu.food.category_food_activit
 import com.example.mobileprogramming_termproject.menu.priceFragment;
 import com.example.mobileprogramming_termproject.menu.tag.category_tag_activity;
 import com.example.mobileprogramming_termproject.menu.tagFragment;
+import com.example.mobileprogramming_termproject.ui.myPage.bookmarkActivity;
 import com.example.mobileprogramming_termproject.ui.searchResult.searchResultFragment;
 import com.example.mobileprogramming_termproject.writingContent.FreePostInfo;
 import com.example.mobileprogramming_termproject.writingContent.RecipePostInfo;
@@ -95,6 +96,7 @@ public class HomeFragment extends Fragment   {
         root.findViewById(R.id.imageViewFood).setOnClickListener(onClickListener);
         root.findViewById(R.id.imageViewTag).setOnClickListener(onClickListener);
         root.findViewById(R.id.imageViewCost).setOnClickListener(onClickListener);
+        root.findViewById(R.id.bookMarkBtn_home).setOnClickListener(onClickListener);
         mSearchView=root.findViewById(R.id.searchView);
 
         context=getContext();
@@ -277,7 +279,8 @@ public class HomeFragment extends Fragment   {
 //                case R.id.imageViewCost:
 //                    ((MainActivity)getActivity()).replaceFragment(PriceFragment.newInstance());
 //                    break;
-
+                case R.id.bookMarkBtn_home:
+                    myStartActivity(bookmarkActivity.class);
             }
         }
     };

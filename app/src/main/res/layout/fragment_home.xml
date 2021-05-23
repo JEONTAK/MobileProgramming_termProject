@@ -42,10 +42,11 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/imageView8"
+            <ImageButton
+                android:id="@+id/bookMarkBtn_home"
                 android:layout_width="31dp"
                 android:layout_height="46dp"
+                android:backgroundTint="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.466"
                 app:layout_constraintStart_toEndOf="@+id/searchView"
