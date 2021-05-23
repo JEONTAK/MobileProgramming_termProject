@@ -24,9 +24,8 @@
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/freePublisher"
                 tools:text="타이틀" />
 
             <TextView
@@ -36,8 +35,8 @@
                 android:textColor="@color/black"
                 android:textSize="10sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/freeRecom"
-                app:layout_constraintEnd_toStartOf="@+id/menuBtn_recipe"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="작성자" />
 
             <TextView
@@ -47,7 +46,8 @@
                 android:gravity="end"
                 android:textSize="8sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/menuBtn_recipe"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/freeTitle"
                 tools:text="추천수" />
 
             <TextView
