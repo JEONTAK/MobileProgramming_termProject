@@ -22,6 +22,7 @@ import com.example.mobileprogramming_termproject.Member.MemberInfo;
 import com.example.mobileprogramming_termproject.R;
 import com.example.mobileprogramming_termproject.adapter.recipeAdapter;
 import com.example.mobileprogramming_termproject.service.fcm;
+import com.example.mobileprogramming_termproject.ui.alarm.DBHelper;
 import com.example.mobileprogramming_termproject.writingContent.RecipePostInfo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -63,6 +64,9 @@ public class recipeInformationActivity extends AppCompatActivity {
 
  //fcm 전송
     fcm fcm2 = new fcm();
+//DB 설정
+    private DBHelper mDBHelper;
+
 
     //파이어베이스에서 유저 정보 가져오기위해 선언.
     FirebaseUser firebaseUser;
@@ -74,6 +78,8 @@ public class recipeInformationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_information);
+
+        mDBHelper=new DBHelper(this);
 
 
     }
@@ -114,7 +120,11 @@ public class recipeInformationActivity extends AppCompatActivity {
                         newRecomUserId.add(user);
                         recipePostInfo.setRecomUserId(newRecomUserId);
 
-                        fcm2.sendMessage(recipePostInfo.getPublisher(),recipePostInfo.getTitle()+" 레시파가 추천되었습니다.",firebaseUser.getEmail()+"님의 추천");
+                        fcm2.sendMessage(recipePostInfo.getPublisher(),recipePostInfo.getTitle()+" 레시피가 추천되었습니다.",firebaseUser.getEmail()+"님의 추천");
+                        String sendTitle=recipePostInfo.getTitle()+" 레시피가 추천되었습니다.";
+                        String sendText=firebaseUser.getEmail()+"님의 추천";
+//                                    DB 정버
+                        mDBHelper.InsertAlarm(sendTitle,sendText,recipePostInfo.getPublisher());
 
                         if(id == null){
                             dr = firebaseFirestore.collection("recipePost").document();

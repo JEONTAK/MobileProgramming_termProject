@@ -8,4 +8,5 @@ public class NotificationModel {
         public String title;
         public String message;
     }
+//
 }

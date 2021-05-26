@@ -1,17 +1,31 @@
 package com.example.mobileprogramming_termproject.service;
 
 import android.util.Log;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mobileprogramming_termproject.R;
+import com.example.mobileprogramming_termproject.adapter.noticeAdapter;
+import com.example.mobileprogramming_termproject.ui.alarm.AlarmItem;
+import com.example.mobileprogramming_termproject.ui.alarm.DBHelper;
+import com.example.mobileprogramming_termproject.ui.searchResult.CustomAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -30,6 +44,14 @@ private static final String serverKey = "AAAAWUUtQPo:APA91bFgT7PJ24--WfXai6HCGtC
     private OkHttpClient httpClient;
     private Gson gson;
     private FirebaseFirestore firebaseFirestore;
+    private FirebaseUser user;
+    private RecyclerView mRv_alarm;
+     private ArrayList<AlarmItem> mAlarmItems;
+    private DBHelper mDBHelper;
+    private noticeAdapter mAdapter;
+
+
+
 
     DocumentReference docRef;
 
@@ -66,14 +88,26 @@ private static final String serverKey = "AAAAWUUtQPo:APA91bFgT7PJ24--WfXai6HCGtC
                 notificationModel.notification.title = title;
                 notificationModel.notification.message = message;
                 notificationModel.to = getToken;
+                        String currentTime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+
+//                         insert UI
+
+//                        AlarmItem item =new AlarmItem() ;
+//                        item.setTitle(title.getText().toString());
+//                        item.setContent(content.getText().toString());
+//                        item.setWriteDate(currentTime);
+//
+//                        mAdapter.addItem(item);
+//
+//                        mRv_alarm.smoothScrollToPosition(0);
 
 
                 Log.d("noti.toToken",notificationModel.to);
                 Log.d("noti.title",notificationModel.notification.title);
                 Log.d("noti.message",notificationModel.notification.message);
 
-
-                RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), gson.toJson(notificationModel));
+//            오류나면 순서 바꾸기
+                RequestBody requestBody = RequestBody.create(gson.toJson(notificationModel),MediaType.parse("application/json; charset=utf-8"));
 
                 Request request = new Request.Builder().
                         addHeader("Content-Type", "application/json")
@@ -88,6 +122,7 @@ private static final String serverKey = "AAAAWUUtQPo:APA91bFgT7PJ24--WfXai6HCGtC
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
+//                        passMessage(title,message);
                         Log.e("DD",response.body().string());
                     }
                 });
@@ -97,4 +132,24 @@ private static final String serverKey = "AAAAWUUtQPo:APA91bFgT7PJ24--WfXai6HCGtC
             }
         });
     }
+
+//    public void passMessage(String title,String text) {
+//
+//        firebaseFirestore = FirebaseFirestore.getInstance();
+//
+//        FirebaseMessaging.getInstance().getToken()
+//                .addOnCompleteListener(new OnCompleteListener<String>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<String> token) {
+//
+//                        firebaseFirestore.collection("Alarm").document().update("tokenTo", token.getResult());
+//                        firebaseFirestore.collection("Alarm").document().update("text", text);
+//                        firebaseFirestore.collection("Alarm").document().update("title", title);
+//
+//                    }
+//                }
+//                );
+//
+//
+//    }
 }
