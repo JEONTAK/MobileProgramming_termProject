@@ -122,6 +122,7 @@ public class myPageFragment extends Fragment {
         user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference docRef = db.collection("users").document(user.getUid());
+        Log.v("내아이디",user.getUid());
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -193,7 +194,6 @@ public class myPageFragment extends Fragment {
                         requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
                     }else{//이미 권한을 허용해 주었다면
                         myStartActivity(GalleryActivity.class);
-
                     }
                     break;
             }

@@ -67,7 +67,7 @@ public class MemberInitActivity extends AppCompatActivity {
         if(name.length() > 0 && phoneNumber.length() > 9 && birthDay.length() > 5 && address.length() > 0){
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             FirebaseFirestore db = FirebaseFirestore.getInstance();
-            MemberInfo memberInfo = new MemberInfo(name,phoneNumber,address, birthDay,null,nickname,bookmarkRecipe);
+            MemberInfo memberInfo = new MemberInfo(name,phoneNumber,address, birthDay,"https://e7.pngegg.com/pngimages/867/694/png-clipart-user-profile-default-computer-icons-network-video-recorder-avatar-cartoon-maker-blue-text.png",nickname,bookmarkRecipe);
             if(user != null){
                 db.collection("users").document(user.getUid()).set(memberInfo)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
