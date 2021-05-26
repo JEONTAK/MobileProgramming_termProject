@@ -24,9 +24,7 @@ import com.example.mobileprogramming_termproject.adapter.recipeAdapter;
 import com.example.mobileprogramming_termproject.community.recipeCommunityActivity;
 import com.example.mobileprogramming_termproject.menu.cost.category_cost_activity;
 import com.example.mobileprogramming_termproject.menu.food.category_food_activity;
-import com.example.mobileprogramming_termproject.menu.priceFragment;
 import com.example.mobileprogramming_termproject.menu.tag.category_tag_activity;
-import com.example.mobileprogramming_termproject.menu.tagFragment;
 import com.example.mobileprogramming_termproject.ui.myPage.bookmarkActivity;
 import com.example.mobileprogramming_termproject.ui.searchResult.searchResultFragment;
 import com.example.mobileprogramming_termproject.writingContent.FreePostInfo;
@@ -63,9 +61,6 @@ public class HomeFragment extends Fragment   {
         super.onDetach();
         activity=null;
     }
-//    private com.example.mobileprogramming_termproject.menu.foodFragment FoodFragment=new foodFragment();
-     private com.example.mobileprogramming_termproject.menu.tagFragment TagFragment=new tagFragment();
-     private com.example.mobileprogramming_termproject.menu.priceFragment PriceFragment=new priceFragment();
     private FirebaseFirestore firebaseFirestore;
     private RecyclerView HotPost;
     private RecyclerView FreePost;

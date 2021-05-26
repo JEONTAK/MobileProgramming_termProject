@@ -64,7 +64,6 @@ public class MemberInitActivity extends AppCompatActivity {
         ArrayList<String> bookmarkRecipe=new ArrayList<>();
 
 
-
         if(name.length() > 0 && phoneNumber.length() > 9 && birthDay.length() > 5 && address.length() > 0){
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             FirebaseFirestore db = FirebaseFirestore.getInstance();
