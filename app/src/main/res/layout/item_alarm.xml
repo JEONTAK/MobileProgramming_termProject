@@ -10,15 +10,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="80dp"
         android:orientation="horizontal"
         android:padding="10dp">
 
-        <ImageView
-            android:id="@+id/noti_profile"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_notifications_black_24dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,18 +23,25 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/noti_title"
+                android:id="@+id/alarm_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="제목" />
 
             <TextView
-                android:id="@+id/noti_content"
+                android:id="@+id/alarm_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="내용" />
+
+            <TextView
+                android:id="@+id/alarm_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="시간" />
 
         </LinearLayout>
 

@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mobileprogramming_termproject.Member.MemberInfo;
 import com.example.mobileprogramming_termproject.R;
 import com.example.mobileprogramming_termproject.adapter.commentAdapter;
+import com.example.mobileprogramming_termproject.ui.alarm.DBHelper;
 import com.example.mobileprogramming_termproject.writingContent.FreePostInfo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -54,6 +55,8 @@ public class freeInformationActivity extends AppCompatActivity {
     private RecyclerView comment_view;
     private RelativeLayout loaderLayout;
     private DocumentReference dr;
+    private DBHelper mDBHelper;
+
 
     String name;
     DocumentReference docRef;
@@ -65,6 +68,9 @@ public class freeInformationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_free_information);
         loaderLayout = findViewById(R.id.loaderLayout);
+//        DB 선언
+        mDBHelper=new DBHelper(this);
+
 
         firebaseFirestore= FirebaseFirestore.getInstance();//데이터베이스 선언
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser(); //파이어베이스 유저 선언
@@ -104,7 +110,15 @@ public class freeInformationActivity extends AppCompatActivity {
 //                        fcm 알림 날리기
 
                         fcm1.sendMessage(freePostInfo.getPublisher(),freePostInfo.getTitle()+" 댓글이 추천되었습니다.",firebaseUser.getEmail()+"님의 추천");
+                        String sendTitle=freePostInfo.getTitle()+" 댓글이 추천되었습니다.";
+                        String sendText=firebaseUser.getEmail()+"님의 추천";
+                        mDBHelper.InsertAlarm(sendTitle,sendText,freePostInfo.getPublisher());
 
+
+
+
+
+//
 
                         if (id == null) {
                             dr = firebaseFirestore.collection("freePost").document();
@@ -138,6 +152,11 @@ public class freeInformationActivity extends AppCompatActivity {
                                     );
 //                fcm 알림날리기
                                     fcm1.sendMessage(freePostInfo.getPublisher(),freePostInfo.getTitle()+"에 댓글이 작성되었습니다.",firebaseUser.getEmail()+"님의 댓글");
+                                    String sendTitle=freePostInfo.getTitle()+"에 댓글이 작성되었습니다.";
+                                    String sendText=firebaseUser.getEmail()+"님의 댓글";
+//                                    DB 정버
+                                    mDBHelper.InsertAlarm(sendTitle,sendText,freePostInfo.getPublisher());
+
                                     Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                                     name = memberInfo.getName();
                                     loaderLayout.setVisibility(View.VISIBLE);
