@@ -2,24 +2,19 @@ package com.example.mobileprogramming_termproject;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.mobileprogramming_termproject.firebase.UserData;
 import com.example.mobileprogramming_termproject.firebase.notificationData;
-import com.example.mobileprogramming_termproject.menu.priceFragment;
-import com.example.mobileprogramming_termproject.menu.tagFragment;
 import  com.example.mobileprogramming_termproject.ui.alarm.alarmFragment;
 import com.example.mobileprogramming_termproject.ui.home.HomeFragment;
 import com.example.mobileprogramming_termproject.ui.map.mapFragment;
 import com.example.mobileprogramming_termproject.ui.myPage.myPageFragment;
 import com.example.mobileprogramming_termproject.ui.searchResult.searchResultFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -47,8 +42,6 @@ public class MainActivity extends AppCompatActivity  {
     private myPageFragment MyPageFragment = new myPageFragment();
     private alarmFragment AlarmFragment=new alarmFragment();
     private searchResultFragment SearchResultFragment=new searchResultFragment();
-    Fragment PriceFragment;
-    Fragment TagFragment;
 //알림 관련 데이터베이스 설정
     private static FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
@@ -67,8 +60,7 @@ public class MainActivity extends AppCompatActivity  {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.nav_host_fragment, homeFragment).commitAllowingStateLoss();
 
-        PriceFragment=new priceFragment();
-        TagFragment=new tagFragment();
+
 
 
         BottomNavigationView bottomNavigationView  = findViewById(R.id.nav_view);
