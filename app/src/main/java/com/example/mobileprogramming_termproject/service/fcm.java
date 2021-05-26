@@ -1,25 +1,19 @@
 package com.example.mobileprogramming_termproject.service;
 
 import android.util.Log;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mobileprogramming_termproject.R;
 import com.example.mobileprogramming_termproject.adapter.noticeAdapter;
 import com.example.mobileprogramming_termproject.ui.alarm.AlarmItem;
 import com.example.mobileprogramming_termproject.ui.alarm.DBHelper;
-import com.example.mobileprogramming_termproject.ui.searchResult.CustomAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -107,7 +101,8 @@ private static final String serverKey = "AAAAWUUtQPo:APA91bFgT7PJ24--WfXai6HCGtC
                 Log.d("noti.message",notificationModel.notification.message);
 
 //            오류나면 순서 바꾸기
-                RequestBody requestBody = RequestBody.create(gson.toJson(notificationModel),MediaType.parse("application/json; charset=utf-8"));
+                RequestBody requestBody = RequestBody.create(gson.toJson(notificationModel),
+                        MediaType.parse("application/json; charset=utf-8"));
 
                 Request request = new Request.Builder().
                         addHeader("Content-Type", "application/json")
