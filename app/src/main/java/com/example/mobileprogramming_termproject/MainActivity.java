@@ -2,27 +2,10 @@ package com.example.mobileprogramming_termproject;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Toast;
-
-
- import  com.example.mobileprogramming_termproject.ui.alarm.alarmFragment;
-import com.example.mobileprogramming_termproject.ui.home.HomeFragment;
-import com.example.mobileprogramming_termproject.ui.map.mapFragment;
-import com.example.mobileprogramming_termproject.ui.myPage.myPageFragment;
-import com.example.mobileprogramming_termproject.ui.searchResult.searchResultFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,11 +13,17 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import org.json.JSONObject;
-
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import com.example.mobileprogramming_termproject.ui.alarm.alarmFragment;
+import com.example.mobileprogramming_termproject.ui.home.HomeFragment;
+import com.example.mobileprogramming_termproject.ui.map.mapFragment;
+import com.example.mobileprogramming_termproject.ui.myPage.myPageFragment;
+import com.example.mobileprogramming_termproject.ui.searchResult.searchResultFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 public class MainActivity extends AppCompatActivity  {
@@ -144,7 +133,6 @@ public class MainActivity extends AppCompatActivity  {
     }
     public void onFragmentChange(int index,String query){
         if(index==0){
-
         }
         else if(index==1){
 
@@ -154,12 +142,38 @@ public class MainActivity extends AppCompatActivity  {
             Bundle bundle = new Bundle(1); // 파라미터의 숫자는 전달하려는 값의 갯수
             bundle.putString("search_content", query);
             myFragment.setArguments(bundle);
-
             getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,myFragment).commit();
         }
     }
 
+//    f
+    // 마지막으로 뒤로 가기 버튼을 눌렀던 시간 저장
+    private long backKeyPressedTime = 0;
+    // 첫 번째 뒤로 가기 버튼을 누를 때 표시
+    private Toast toast;
 
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        // 기존 뒤로 가기 버튼의 기능을 막기 위해 주석 처리 또는 삭제
 
+        // 마지막으로 뒤로 가기 버튼을 눌렀던 시간에 2.5초를 더해 현재 시간과 비교 후
+        // 마지막으로 뒤로 가기 버튼을 눌렀던 시간이 2.5초가 지났으면 Toast 출력
+        // 2500 milliseconds = 2.5 seconds
+        if (System.currentTimeMillis() > backKeyPressedTime + 2500) {
+            backKeyPressedTime = System.currentTimeMillis();
+            toast = Toast.makeText(this, "뒤로 가기 버튼을 한 번 더 누르시면 종료됩니다.", Toast.LENGTH_LONG);
+            toast.show();
+            return;
+        }
+        // 마지막으로 뒤로 가기 버튼을 눌렀던 시간에 2.5초를 더해 현재 시간과 비교 후
+        // 마지막으로 뒤로 가기 버튼을 눌렀던 시간이 2.5초가 지나지 않았으면 종료
+        if (System.currentTimeMillis() <= backKeyPressedTime + 2500) {
+            finish();
+            toast.cancel();
+            toast = Toast.makeText(this,"이용해 주셔서 감사합니다.",Toast.LENGTH_LONG);
+            toast.show();
+        }
+    }
 
 }

@@ -1,19 +1,25 @@
 package com.example.mobileprogramming_termproject.service;
 
 import android.util.Log;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mobileprogramming_termproject.R;
 import com.example.mobileprogramming_termproject.adapter.CustomAdapter;
+import com.example.mobileprogramming_termproject.adapter.noticeAdapter;
 import com.example.mobileprogramming_termproject.ui.alarm.AlarmItem;
 import com.example.mobileprogramming_termproject.ui.alarm.DBHelper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -82,8 +88,18 @@ private static final String serverKey = "AAAAWUUtQPo:APA91bFgT7PJ24--WfXai6HCGtC
                 notificationModel.notification.title = title;
                 notificationModel.notification.message = message;
                 notificationModel.to = getToken;
+                        String currentTime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 
+//                         insert UI
 
+//                        AlarmItem item =new AlarmItem() ;
+//                        item.setTitle(title.getText().toString());
+//                        item.setContent(content.getText().toString());
+//                        item.setWriteDate(currentTime);
+//
+//                        mAdapter.addItem(item);
+//
+//                        mRv_alarm.smoothScrollToPosition(0);
 
 
                 Log.d("noti.toToken",notificationModel.to);
@@ -115,18 +131,25 @@ private static final String serverKey = "AAAAWUUtQPo:APA91bFgT7PJ24--WfXai6HCGtC
                 }
             }
         });
-
-
-
-
-
-
-
-
-
-
-
     }
 
-
+//    public void passMessage(String title,String text) {
+//
+//        firebaseFirestore = FirebaseFirestore.getInstance();
+//
+//        FirebaseMessaging.getInstance().getToken()
+//                .addOnCompleteListener(new OnCompleteListener<String>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<String> token) {
+//
+//                        firebaseFirestore.collection("Alarm").document().update("tokenTo", token.getResult());
+//                        firebaseFirestore.collection("Alarm").document().update("text", text);
+//                        firebaseFirestore.collection("Alarm").document().update("title", title);
+//
+//                    }
+//                }
+//                );
+//
+//
+//    }
 }
