@@ -1,25 +1,19 @@
 package com.example.mobileprogramming_termproject.service;
 
 import android.util.Log;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mobileprogramming_termproject.R;
-import com.example.mobileprogramming_termproject.adapter.CustomAdapter;
-import com.example.mobileprogramming_termproject.adapter.noticeAdapter;
-import com.example.mobileprogramming_termproject.ui.alarm.AlarmItem;
+import com.example.mobileprogramming_termproject.adapter.alarmAdapter;
+ import com.example.mobileprogramming_termproject.ui.alarm.AlarmItem;
 import com.example.mobileprogramming_termproject.ui.alarm.DBHelper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -48,7 +42,7 @@ private static final String serverKey = "AAAAWUUtQPo:APA91bFgT7PJ24--WfXai6HCGtC
     private RecyclerView mRv_alarm;
      private ArrayList<AlarmItem> mAlarmItems;
     private DBHelper mDBHelper;
-    private CustomAdapter mAdapter;
+    private alarmAdapter mAdapter;
 
 
 

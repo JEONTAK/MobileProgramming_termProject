@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mobileprogramming_termproject.Member.MemberInfo;
 import com.example.mobileprogramming_termproject.R;
 import com.example.mobileprogramming_termproject.adapter.commentAdapter;
-import com.example.mobileprogramming_termproject.adapter.CustomAdapter;
+import com.example.mobileprogramming_termproject.adapter.alarmAdapter;
 import com.example.mobileprogramming_termproject.ui.alarm.DBHelper;
 import com.example.mobileprogramming_termproject.writingContent.FreePostInfo;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -62,7 +62,7 @@ public class freeInformationActivity extends AppCompatActivity {
     private RelativeLayout loaderLayout;
     private DocumentReference dr;
     private DBHelper mDBHelper;
-    private CustomAdapter mAdapter;
+    private alarmAdapter mAdapter;
 
 
 

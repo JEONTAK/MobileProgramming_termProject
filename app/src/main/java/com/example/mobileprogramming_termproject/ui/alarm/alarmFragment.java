@@ -15,23 +15,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobileprogramming_termproject.R;
-import com.example.mobileprogramming_termproject.adapter.CustomAdapter;
+import com.example.mobileprogramming_termproject.adapter.alarmAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.messaging.FirebaseMessaging;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
 public class alarmFragment extends Fragment {
     private RecyclerView mRecyclerView;
-    private CustomAdapter customAdapter;
+    private alarmAdapter customAdapter;
     private ArrayList<AlarmItem> mAlarmItems;
     private DBHelper mDBHelper;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -59,7 +55,7 @@ public class alarmFragment extends Fragment {
 
 
 
-        customAdapter=new CustomAdapter(getActivity(),alarm_id,alarm_title,alarm_content,
+        customAdapter=new alarmAdapter(getActivity(),alarm_id,alarm_title,alarm_content,
                 alarm_date);
         mRecyclerView.setAdapter(customAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

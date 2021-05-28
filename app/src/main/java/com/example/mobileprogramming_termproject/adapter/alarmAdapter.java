@@ -10,8 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobileprogramming_termproject.R;
-import com.example.mobileprogramming_termproject.ui.alarm.AlarmItem;
-import com.example.mobileprogramming_termproject.ui.alarm.DBHelper;
 
 
 import org.jetbrains.annotations.NotNull;
@@ -20,17 +18,17 @@ import java.util.ArrayList;
 
 
 //자유게시판에서 댓글을 가져오기 위한 어댑터
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewholder> {
+public class alarmAdapter extends RecyclerView.Adapter<alarmAdapter.MyViewholder> {
 
 
     private Context context;
     private ArrayList alarm_title,alarm_content,alarm_id,alarm_date;
 
-    public CustomAdapter(Context context,
-                         ArrayList alarm_id,
-                         ArrayList alarm_title,
-                         ArrayList alarm_content,
-                         ArrayList alarm_date){
+    public alarmAdapter(Context context,
+                        ArrayList alarm_id,
+                        ArrayList alarm_title,
+                        ArrayList alarm_content,
+                        ArrayList alarm_date){
         this.context=context;
         this.alarm_id=alarm_id;
         this.alarm_title=alarm_title;
