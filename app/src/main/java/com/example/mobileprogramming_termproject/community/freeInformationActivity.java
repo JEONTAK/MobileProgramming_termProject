@@ -51,8 +51,10 @@ public class freeInformationActivity extends AppCompatActivity {
 
     private final String TAG = "자유게시글 정보";
     private FirebaseFirestore firebaseFirestore;
+    private FirebaseAuth firebaseAuth;
     private FirebaseDatabase mFirebaseDatabase;
     private FreePostInfo freePostInfo;
+    private MemberInfo memberInfo;
     private FirebaseUser firebaseUser;
 
     private String user;
@@ -125,7 +127,7 @@ public class freeInformationActivity extends AppCompatActivity {
                         String sendText=freePostInfo.getUserName()+"의 게시글";
                         String currentTime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 
-                        mDBHelper.InsertAlarm(sendTitle,sendText,currentTime);
+                        mDBHelper.InsertAlarm(sendTitle,sendText,user,currentTime);
                         passAlarm(sendTitle,sendText,currentTime,freePostInfo.getPublisher());
 
 
@@ -173,9 +175,14 @@ public class freeInformationActivity extends AppCompatActivity {
                                     String sendTitle=freePostInfo.getTitle()+"에 댓글이 작성되었습니다.";
                                     String sendText=freePostInfo.getUserName()+"의 게시글에 댓글 ";
                                     String currentTime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+                                    String uid=firebaseAuth.getCurrentUser().getUid();
+
+                                    mDBHelper.InsertAlarm(sendTitle,sendText,user,currentTime);
+
+
 //                                    sqlite insert
 
-                                    mDBHelper.InsertAlarm(sendTitle,sendText,currentTime);
+
 
 
                                     Log.d(TAG, "DocumentSnapshot data: " + document.getData());

@@ -20,18 +20,22 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/alarm_recycle"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:layout_centerVertical="true"
-        android:layout_marginStart="-1dp"
-        android:layout_marginTop="83dp"
+        android:layout_marginStart="-2dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="42dp"
         android:layout_weight="1"
+
         android:scrollbarFadeDuration="0"
         android:scrollbarSize="5dp"
         android:scrollbarThumbHorizontal="@android:color/background_dark"
         android:scrollbars="vertical"
-
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_alarm" />
 

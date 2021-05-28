@@ -23,7 +23,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String COLUMN_ID = "_id";
     private static final String COLUMN_TITLE = "alarm_title";
     private static final String COLUMN_CONTENT = "alarm_content";
-    private static final String COLUMN_TOKEN = "alarm_token";
+    private static final String COLUMN_NAME = "alarm_name";
     private static final String COLUMN_DATE = "alarm_date";
 
 
@@ -47,6 +47,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                  COLUMN_TITLE +" TEXT, " +
                 COLUMN_CONTENT +" TEXT, " +
+                COLUMN_NAME +" TEXT, " +
                 COLUMN_DATE + " TEXT);";
         db.execSQL(query);
 
@@ -66,14 +67,17 @@ public class DBHelper extends SQLiteOpenHelper {
 
 //    insert 문 할일 목록 DB 만든다
 
-    public void InsertAlarm(String _title,String _content ,String _date ){
+    public void InsertAlarm(String _title,String _content ,String _name,String _date ){
         SQLiteDatabase db=getWritableDatabase();
         ContentValues cv=new ContentValues();
 
 
         cv.put(COLUMN_TITLE,_title);
         cv.put(COLUMN_CONTENT,_content);
+        cv.put (COLUMN_NAME,_name) ;
         cv.put(COLUMN_DATE,_date);
+
+
         long result = db.insert("alarm", null, cv);
         if (result == -1)
         {
@@ -95,35 +99,40 @@ public class DBHelper extends SQLiteOpenHelper {
           }
           return  cursor;
     }
-    public ArrayList<AlarmItem> getAlarmList(){
-        ArrayList<AlarmItem>alarmItems=new ArrayList<>();
 
+
+
+//사용 안함
+
+//    public ArrayList<AlarmItem> getAlarmList(){
+//        ArrayList<AlarmItem>alarmItems=new ArrayList<>();
 //
-        SQLiteDatabase db=getWritableDatabase();
-        Cursor cursor=db.rawQuery("SELECT*FROM TodoList ORDER BY id DESC",null);
-
-        if(cursor.getCount()!=0){
-//            조회된 데이터가 무조건 있다.
-//            데이터를 하나씩 이동
-            while(cursor.moveToNext()){
-                int id=cursor.getInt(cursor.getColumnIndex("id"));
-                String title=cursor.getString(cursor.getColumnIndex("title"));
-                String content=cursor.getString(cursor.getColumnIndex("content"));
-                String token=cursor.getString(cursor.getColumnIndex("token"));
-
-                AlarmItem alarmItem=new AlarmItem();
-                alarmItem.setId(id);
-                alarmItem.setTitle(title);
-                alarmItem.setContent(content);
-                alarmItem.setToken(token);
-                alarmItems.add(alarmItem);
-
-            }
-            cursor.close();
-
-        }
-        return alarmItems;
-    }
+////
+//        SQLiteDatabase db=getWritableDatabase();
+//        Cursor cursor=db.rawQuery("SELECT*FROM TodoList ORDER BY id DESC",null);
+//
+//        if(cursor.getCount()!=0){
+////            조회된 데이터가 무조건 있다.
+////            데이터를 하나씩 이동
+//            while(cursor.moveToNext()){
+//                int id=cursor.getInt(cursor.getColumnIndex("id"));
+//                String title=cursor.getString(cursor.getColumnIndex("title"));
+//                String content=cursor.getString(cursor.getColumnIndex("content"));
+//                String token=cursor.getString(cursor.getColumnIndex("token"));
+//
+//                AlarmItem alarmItem=new AlarmItem();
+//                alarmItem.setId(id);
+//                alarmItem.setTitle(title);
+//                alarmItem.setContent(content);
+//                alarmItem.setToken(token);
+//                alarmItems.add(alarmItem);
+//
+//            }
+//            cursor.close();
+//
+//        }
+//        return alarmItems;
+//    }
 
 
 //    //     UPDATE 문 (할일 목록을 수정한다).

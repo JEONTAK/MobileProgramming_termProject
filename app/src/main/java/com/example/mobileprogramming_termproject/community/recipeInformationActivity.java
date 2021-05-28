@@ -30,6 +30,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -55,12 +56,16 @@ public class recipeInformationActivity extends AppCompatActivity {
     private RecyclerView recom_recipe;
     //게시글 정보 가져오기 위함
     private RecipePostInfo recipePostInfo;
+    //유저 정보 가져오기
+    private MemberInfo memberInfo;
     //추천 버튼
     private ImageButton RecomBtn;
     //북마크 버튼
     private ImageButton BookmarkBtn;
     //
     private DocumentReference dr;
+
+    private FirebaseAuth firebaseAuth;
 
  //fcm 전송
     fcm fcm2 = new fcm();
@@ -80,6 +85,8 @@ public class recipeInformationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recipe_information);
 
         mDBHelper=new DBHelper(this);
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser(); //파이어베이스 유저 선언
+        user = firebaseUser.getUid();
 
 
     }
@@ -124,9 +131,11 @@ public class recipeInformationActivity extends AppCompatActivity {
                         String sendTitle=recipePostInfo.getTitle()+" 레시피를 추천하였습니다 .";
                         String sendText=recipePostInfo.getUserName()+"의 레시피";
                         String currentTime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+                        String uid= FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+                        mDBHelper.InsertAlarm(sendTitle,sendText,user,currentTime);
 //                                    DB 정버
-                        mDBHelper.InsertAlarm(sendTitle,sendText,currentTime);
+
 
                         if(id == null){
                             dr = firebaseFirestore.collection("recipePost").document();
@@ -446,6 +455,7 @@ public class recipeInformationActivity extends AppCompatActivity {
         }
 
     }
+
 
     //즐겨찾기, 즐겨찾기 취소시 바로바로 데이터베이스에 업로드하여 반영해줌.
     private void dbUploader(DocumentReference documentReference , ArrayList<String> bookmarkReceipe, int requestCode){

@@ -31,10 +31,12 @@ public class alarmFragment extends Fragment {
     private ArrayList<AlarmItem> mAlarmItems;
     private DBHelper mDBHelper;
     private RecyclerView.LayoutManager mLayoutManager;
-    private FirebaseUser user;
+    private FirebaseUser firebaseUser;
     private FirebaseFirestore db;
+    String user;
 
-    ArrayList<String> alarm_id,alarm_title,alarm_content,alarm_date;
+
+    ArrayList<String> alarm_id,alarm_title,alarm_content,alarm_date,alarm_name;
 
 
 
@@ -48,7 +50,11 @@ public class alarmFragment extends Fragment {
         alarm_id=new ArrayList<>();
         alarm_title=new ArrayList<>();
         alarm_content=new ArrayList<>();
+        alarm_name=new ArrayList<>();
         alarm_date=new ArrayList<>();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser(); //파이어베이스 유저 선언
+        user = firebaseUser.getUid();
+
 
 
         storeDataInArrays();
@@ -56,9 +62,13 @@ public class alarmFragment extends Fragment {
 
 
         customAdapter=new alarmAdapter(getActivity(),alarm_id,alarm_title,alarm_content,
-                alarm_date);
+                alarm_name,alarm_date );
         mRecyclerView.setAdapter(customAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
+//        거꾸로 채우기
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
 
 
         return view;
@@ -87,40 +97,38 @@ public class alarmFragment extends Fragment {
              Toast.makeText(getActivity(), "no data", Toast.LENGTH_SHORT).show();
         }else {
             while(cursor.moveToNext()){
-//                String  compare=getToken();
-//                if(cursor.getString(3).equals(compare)) {
-//                    alarm_id.add(cursor.getString(0));
-//                    alarm_title.add(cursor.getString(1));
-//                    alarm_content.add(cursor.getString(2));
-//                    alarm_token.add(cursor.getString(3));
-//                }
-                alarm_id.add(cursor.getString(0));
-                alarm_title.add(cursor.getString(1));
-                alarm_content.add(cursor.getString(2));
-                alarm_date.add(cursor.getString(3));
+
+                if(user.equals(cursor.getString(3))) {
+//
+                    alarm_id.add(cursor.getString(0));
+                    alarm_title.add(cursor.getString(1));
+                    alarm_content.add(cursor.getString(2));
+                    alarm_name.add(cursor.getString(3));
+                    alarm_date.add(cursor.getString(4));
+                }
 
 
             }
         }
     }
 
-    String  getToken(){
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        db = FirebaseFirestore.getInstance();
-        final String[] myToken = new String[1];
-        FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(new OnCompleteListener<String>() {
-                                           @Override
-                                           public void onComplete(@NonNull Task<String> token) {
-
-                                                Log.d("token",token.getResult());
-                                                myToken[0] =token.getResult();
-                                           }
-                                       }
-                );
-
-        return myToken.toString();
-    }
+//    String  getToken(){
+//        user = FirebaseAuth.getInstance().getCurrentUser();
+//        db = FirebaseFirestore.getInstance();
+//        final String[] myToken = new String[1];
+//        FirebaseMessaging.getInstance().getToken()
+//                .addOnCompleteListener(new OnCompleteListener<String>() {
+//                                           @Override
+//                                           public void onComplete(@NonNull Task<String> token) {
+//
+//                                                Log.d("token",token.getResult());
+//                                                myToken[0] =token.getResult();
+//                                           }
+//                                       }
+//                );
+//
+//        return myToken.toString();
+//    }
 
 
 
