@@ -65,6 +65,7 @@ public class freeCommunityActivity extends AppCompatActivity {
                                 //각 게시글의 정보를 가져와 arrayList에 저장.
                                 Log.d("로그: ", document.getId() + " => " + document.getData());
                                 free_postList.add(new FreePostInfo(
+
                                         document.getData().get("title").toString(),
                                         document.getData().get("content").toString(),
                                         document.getData().get("publisher").toString(),

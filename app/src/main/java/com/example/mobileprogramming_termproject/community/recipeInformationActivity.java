@@ -121,10 +121,12 @@ public class recipeInformationActivity extends AppCompatActivity {
                         recipePostInfo.setRecomUserId(newRecomUserId);
 
                         fcm2.sendMessage(recipePostInfo.getPublisher(),recipePostInfo.getTitle()+" 레시피가 추천되었습니다.",firebaseUser.getEmail()+"님의 추천");
-                        String sendTitle=recipePostInfo.getTitle()+" 레시피가 추천되었습니다.";
-                        String sendText=firebaseUser.getEmail()+"님의 추천";
+                        String sendTitle=recipePostInfo.getTitle()+" 레시피를 추천하였습니다 .";
+                        String sendText=recipePostInfo.getUserName()+"의 레시피";
+                        String currentTime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+
 //                                    DB 정버
-                        mDBHelper.InsertAlarm(sendTitle,sendText,recipePostInfo.getPublisher());
+                        mDBHelper.InsertAlarm(sendTitle,sendText,currentTime);
 
                         if(id == null){
                             dr = firebaseFirestore.collection("recipePost").document();

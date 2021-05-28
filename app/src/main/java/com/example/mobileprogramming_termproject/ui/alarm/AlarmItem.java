@@ -10,6 +10,13 @@ public class AlarmItem {
     public AlarmItem() {
 
     }
+    public AlarmItem(int id ,String title,String content,String token) {
+            this.id=id;
+            this.title=title;
+            this.content=content;
+            this.token=token;
+
+    }
 
     public int getId() {
         return id;

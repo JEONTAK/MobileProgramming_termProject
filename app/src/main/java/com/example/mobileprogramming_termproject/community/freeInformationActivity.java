@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mobileprogramming_termproject.Member.MemberInfo;
 import com.example.mobileprogramming_termproject.R;
 import com.example.mobileprogramming_termproject.adapter.commentAdapter;
+import com.example.mobileprogramming_termproject.adapter.CustomAdapter;
 import com.example.mobileprogramming_termproject.ui.alarm.DBHelper;
 import com.example.mobileprogramming_termproject.writingContent.FreePostInfo;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,7 +37,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
+
 import com.example.mobileprogramming_termproject.service.fcm;
 
 import static com.example.mobileprogramming_termproject.Util.showToast;
@@ -49,6 +54,7 @@ public class freeInformationActivity extends AppCompatActivity {
     private FirebaseDatabase mFirebaseDatabase;
     private FreePostInfo freePostInfo;
     private FirebaseUser firebaseUser;
+
     private String user;
     private ImageButton RecomBtn;
     private String id;
@@ -56,11 +62,14 @@ public class freeInformationActivity extends AppCompatActivity {
     private RelativeLayout loaderLayout;
     private DocumentReference dr;
     private DBHelper mDBHelper;
+    private CustomAdapter mAdapter;
+
 
 
     String name;
     DocumentReference docRef;
     fcm fcm1 = new fcm();
+
 
 
     @Override
@@ -110,9 +119,16 @@ public class freeInformationActivity extends AppCompatActivity {
 //                        fcm 알림 날리기
 
                         fcm1.sendMessage(freePostInfo.getPublisher(),freePostInfo.getTitle()+" 댓글이 추천되었습니다.",firebaseUser.getEmail()+"님의 추천");
+//                        sqlite insert
+
                         String sendTitle=freePostInfo.getTitle()+" 댓글이 추천되었습니다.";
-                        String sendText=firebaseUser.getEmail()+"님의 추천";
-                        mDBHelper.InsertAlarm(sendTitle,sendText,freePostInfo.getPublisher());
+                        String sendText=freePostInfo.getUserName()+"의 게시글";
+                        String currentTime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+
+                        mDBHelper.InsertAlarm(sendTitle,sendText,currentTime);
+                        passAlarm(sendTitle,sendText,currentTime,freePostInfo.getPublisher());
+
+
 
 
 
@@ -150,12 +166,17 @@ public class freeInformationActivity extends AppCompatActivity {
                                             document.getData().get("token").toString()
 
                                     );
-//                fcm 알림날리기
+
+//                           fcm 알림날리기
                                     fcm1.sendMessage(freePostInfo.getPublisher(),freePostInfo.getTitle()+"에 댓글이 작성되었습니다.",firebaseUser.getEmail()+"님의 댓글");
+
                                     String sendTitle=freePostInfo.getTitle()+"에 댓글이 작성되었습니다.";
-                                    String sendText=firebaseUser.getEmail()+"님의 댓글";
-//                                    DB 정버
-                                    mDBHelper.InsertAlarm(sendTitle,sendText,freePostInfo.getPublisher());
+                                    String sendText=freePostInfo.getUserName()+"의 게시글에 댓글 ";
+                                    String currentTime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+//                                    sqlite insert
+
+                                    mDBHelper.InsertAlarm(sendTitle,sendText,currentTime);
+
 
                                     Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                                     name = memberInfo.getName();
@@ -302,6 +323,23 @@ public class freeInformationActivity extends AppCompatActivity {
         }
 
     }
+
+    void passAlarm(String title,String content,String date,String uid) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("content", content);
+        data.put("title", title);
+        data.put("date", date);
+        data.put("uid",uid);
+
+
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseFirestore.collection("alarm").document(firebaseUser.getUid()).set(data);
+
+
+
+    }
+
 
 
 

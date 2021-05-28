@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import com.example.mobileprogramming_termproject.MainActivity;
+import com.example.mobileprogramming_termproject.ui.searchResult.CustomAdapter;
 
 import java.util.ArrayList;
 
@@ -19,16 +20,18 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "alarm.db";
     private static final int DATABASE_VERSION = 1;
     private static final String TABLE_NAME = "alarm";
-    private static final String COLUMN_ID = "id";
+    private static final String COLUMN_ID = "_id";
     private static final String COLUMN_TITLE = "alarm_title";
     private static final String COLUMN_CONTENT = "alarm_content";
     private static final String COLUMN_TOKEN = "alarm_token";
-    private static final int DB_VERSION=1;
+    private static final String COLUMN_DATE = "alarm_date";
+
+
 
 
     public DBHelper(@Nullable Context context ) {
 
-        super(context, DATABASE_NAME, null, DB_VERSION);
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context=context;
     }
 
@@ -40,14 +43,18 @@ public class DBHelper extends SQLiteOpenHelper {
 //        데이터 베이스가 생성이 될떄 호출
 //        데이터베이스 -> 테이블 ->컬럼 -> 값
 //        AUTOINCREMENT 는 자동 업로드
-        db.execSQL("CREATE TABLE IF NOT EXISTS alarm(id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT NOT NULL," +
-                "content TEXT NOT NULL,token TEXT NOT NULL )");
+        String query= "CREATE TABLE " + TABLE_NAME +
+                " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                 COLUMN_TITLE +" TEXT, " +
+                COLUMN_CONTENT +" TEXT, " +
+                COLUMN_DATE + " TEXT);";
+        db.execSQL(query);
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-//        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
 
     }
@@ -59,13 +66,15 @@ public class DBHelper extends SQLiteOpenHelper {
 
 //    insert 문 할일 목록 DB 만든다
 
-    public void InsertAlarm(String _title,String _content ,String _token ){
+    public void InsertAlarm(String _title,String _content ,String _date ){
         SQLiteDatabase db=getWritableDatabase();
         ContentValues cv=new ContentValues();
+
+
         cv.put(COLUMN_TITLE,_title);
         cv.put(COLUMN_CONTENT,_content);
-        cv.put(COLUMN_TOKEN,_token);
-        long result = db.insert(TABLE_NAME, null, cv);
+        cv.put(COLUMN_DATE,_date);
+        long result = db.insert("alarm", null, cv);
         if (result == -1)
         {
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
@@ -76,48 +85,23 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Cursor readRecordAlarm(){
-        SQLiteDatabase db=getReadableDatabase();
-        String[]projection={
-                COLUMN_ID,
-                COLUMN_TITLE,
-                COLUMN_CONTENT,
-                COLUMN_TOKEN
-        };
+      Cursor readRecordAlarm(){
+        String query="SELECT * FROM " +TABLE_NAME;
+          SQLiteDatabase db=this.getWritableDatabase();
 
-        Cursor cursor=db.query(
-            TABLE_NAME,
-                projection,
-                null,
-                null,
-                null,
-                null,
-                null
-
-        );
-        return cursor;
+          Cursor cursor=null;
+          if(db!=null){
+              cursor=db.rawQuery(query,null);
+          }
+          return  cursor;
     }
-    public ArrayList<AlarmItem> getTodoList(){
+    public ArrayList<AlarmItem> getAlarmList(){
         ArrayList<AlarmItem>alarmItems=new ArrayList<>();
 
-        SQLiteDatabase db=getReadableDatabase();
-        String[]projection={
-                COLUMN_ID,
-                COLUMN_TITLE,
-                COLUMN_CONTENT,
-                COLUMN_TOKEN
-        };
+//
+        SQLiteDatabase db=getWritableDatabase();
+        Cursor cursor=db.rawQuery("SELECT*FROM TodoList ORDER BY id DESC",null);
 
-        Cursor cursor=db.query(
-                TABLE_NAME,
-                projection,
-                null,
-                null,
-                null,
-                null,
-                null
-
-        );
         if(cursor.getCount()!=0){
 //            조회된 데이터가 무조건 있다.
 //            데이터를 하나씩 이동
@@ -131,8 +115,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 alarmItem.setId(id);
                 alarmItem.setTitle(title);
                 alarmItem.setContent(content);
-                alarmItem.setWriteDate(token);
+                alarmItem.setToken(token);
                 alarmItems.add(alarmItem);
+
             }
             cursor.close();
 

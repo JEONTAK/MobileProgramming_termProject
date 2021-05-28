@@ -32,22 +32,8 @@
         android:scrollbarThumbHorizontal="@android:color/background_dark"
         android:scrollbars="vertical"
 
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_alarm" />
-
-    <TextView
-        android:id="@+id/getSqlDB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/alarm_recycle"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="171dp"
-        android:layout_marginTop="127dp"
-        android:layout_marginEnd="182dp"
-        android:layout_marginBottom="202dp"
-        android:text="TextView" />
 
 
 </RelativeLayout>
