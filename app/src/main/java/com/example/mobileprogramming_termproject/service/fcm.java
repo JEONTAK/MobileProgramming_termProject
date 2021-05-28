@@ -5,8 +5,8 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mobileprogramming_termproject.adapter.alarmAdapter;
- import com.example.mobileprogramming_termproject.ui.alarm.AlarmItem;
+import com.example.mobileprogramming_termproject.adapter.CustomAdapter;
+import com.example.mobileprogramming_termproject.ui.alarm.AlarmItem;
 import com.example.mobileprogramming_termproject.ui.alarm.DBHelper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -42,8 +42,7 @@ private static final String serverKey = "AAAAWUUtQPo:APA91bFgT7PJ24--WfXai6HCGtC
     private RecyclerView mRv_alarm;
      private ArrayList<AlarmItem> mAlarmItems;
     private DBHelper mDBHelper;
-    private alarmAdapter mAdapter;
-
+    private CustomAdapter mAdapter;
 
 
 
@@ -84,16 +83,6 @@ private static final String serverKey = "AAAAWUUtQPo:APA91bFgT7PJ24--WfXai6HCGtC
                 notificationModel.to = getToken;
                         String currentTime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 
-//                         insert UI
-
-//                        AlarmItem item =new AlarmItem() ;
-//                        item.setTitle(title.getText().toString());
-//                        item.setContent(content.getText().toString());
-//                        item.setWriteDate(currentTime);
-//
-//                        mAdapter.addItem(item);
-//
-//                        mRv_alarm.smoothScrollToPosition(0);
 
 
                 Log.d("noti.toToken",notificationModel.to);
@@ -127,23 +116,4 @@ private static final String serverKey = "AAAAWUUtQPo:APA91bFgT7PJ24--WfXai6HCGtC
         });
     }
 
-//    public void passMessage(String title,String text) {
-//
-//        firebaseFirestore = FirebaseFirestore.getInstance();
-//
-//        FirebaseMessaging.getInstance().getToken()
-//                .addOnCompleteListener(new OnCompleteListener<String>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<String> token) {
-//
-//                        firebaseFirestore.collection("Alarm").document().update("tokenTo", token.getResult());
-//                        firebaseFirestore.collection("Alarm").document().update("text", text);
-//                        firebaseFirestore.collection("Alarm").document().update("title", title);
-//
-//                    }
-//                }
-//                );
-//
-//
-//    }
 }

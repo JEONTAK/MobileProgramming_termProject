@@ -9,11 +9,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import com.example.mobileprogramming_termproject.MainActivity;
-import com.example.mobileprogramming_termproject.ui.searchResult.CustomAdapter;
-
-import java.util.ArrayList;
-
 
 public class DBHelper extends SQLiteOpenHelper {
     private Context context;
@@ -45,7 +40,7 @@ public class DBHelper extends SQLiteOpenHelper {
 //        AUTOINCREMENT 는 자동 업로드
         String query= "CREATE TABLE " + TABLE_NAME +
                 " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                 COLUMN_TITLE +" TEXT, " +
+                COLUMN_TITLE +" TEXT, " +
                 COLUMN_CONTENT +" TEXT, " +
                 COLUMN_NAME +" TEXT, " +
                 COLUMN_DATE + " TEXT);";
@@ -89,15 +84,15 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-      Cursor readRecordAlarm(){
+    Cursor readRecordAlarm(){
         String query="SELECT * FROM " +TABLE_NAME;
-          SQLiteDatabase db=this.getWritableDatabase();
+        SQLiteDatabase db=this.getWritableDatabase();
 
-          Cursor cursor=null;
-          if(db!=null){
-              cursor=db.rawQuery(query,null);
-          }
-          return  cursor;
+        Cursor cursor=null;
+        if(db!=null){
+            cursor=db.rawQuery(query,null);
+        }
+        return  cursor;
     }
 
 

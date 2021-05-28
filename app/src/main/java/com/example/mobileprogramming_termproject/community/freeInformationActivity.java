@@ -17,11 +17,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.example.mobileprogramming_termproject.Member.MemberInfo;
 import com.example.mobileprogramming_termproject.R;
+import com.example.mobileprogramming_termproject.adapter.CustomAdapter;
 import com.example.mobileprogramming_termproject.adapter.commentAdapter;
-import com.example.mobileprogramming_termproject.adapter.alarmAdapter;
+import com.example.mobileprogramming_termproject.service.fcm;
 import com.example.mobileprogramming_termproject.ui.alarm.DBHelper;
 import com.example.mobileprogramming_termproject.writingContent.FreePostInfo;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -41,8 +41,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-
-import com.example.mobileprogramming_termproject.service.fcm;
 
 import static com.example.mobileprogramming_termproject.Util.showToast;
 
@@ -64,7 +62,7 @@ public class freeInformationActivity extends AppCompatActivity {
     private RelativeLayout loaderLayout;
     private DocumentReference dr;
     private DBHelper mDBHelper;
-    private alarmAdapter mAdapter;
+    private CustomAdapter mAdapter;
 
 
 
