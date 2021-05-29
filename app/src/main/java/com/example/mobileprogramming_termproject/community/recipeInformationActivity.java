@@ -351,10 +351,10 @@ public class recipeInformationActivity extends AppCompatActivity {
                 if(isStorageUrl(recipeContent)){
                     ImageView imageView = new ImageView(this);
                     imageView.setLayoutParams(layoutParams);
-                    //imageView.setAdjustViewBounds(true);
-                    //imageView.setScaleType(ImageView.ScaleType.FIT_XY); //이미지 꽉차게함
+                    imageView.setAdjustViewBounds(true);
+                    imageView.setScaleType(ImageView.ScaleType.FIT_XY); //이미지 꽉차게함
                     recipeContentLayout.addView(imageView);
-                    Glide.with(this).load(recipeContent).centerCrop().into(imageView);
+                    Glide.with(this).load(recipeContent).override(1000).thumbnail(0.1f).into(imageView);
                 }else{
                     TextView textView = new TextView(this);
                     textView.setLayoutParams(layoutParams);
