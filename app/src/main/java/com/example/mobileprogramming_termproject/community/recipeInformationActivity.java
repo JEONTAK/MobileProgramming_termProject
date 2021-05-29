@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-
 import com.example.mobileprogramming_termproject.Member.MemberInfo;
 import com.example.mobileprogramming_termproject.R;
 import com.example.mobileprogramming_termproject.adapter.recipeAdapter;
@@ -30,7 +29,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserInfo;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -356,7 +354,7 @@ public class recipeInformationActivity extends AppCompatActivity {
                     //imageView.setAdjustViewBounds(true);
                     //imageView.setScaleType(ImageView.ScaleType.FIT_XY); //이미지 꽉차게함
                     recipeContentLayout.addView(imageView);
-                    Glide.with(this).load(recipeContent).override(1000).thumbnail(0.1f).into(imageView);
+                    Glide.with(this).load(recipeContent).centerCrop().into(imageView);
                 }else{
                     TextView textView = new TextView(this);
                     textView.setLayoutParams(layoutParams);
