@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:backgroundTint="@color/white"
-                android:tint="@color/black"
+
                 app:srcCompat="@drawable/ic_baseline_turned_in_not_24" />
 
             <ImageView
@@ -52,7 +52,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:backgroundTint="@color/white"
-                    android:tint="@color/black"
+                    android:tint="@color/main_green"
                     app:srcCompat="@drawable/ic_baseline_thumb_up_24" />
 
                 <TextView
@@ -61,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="추천 수"
-                    android:textColor="#000000"
+                    android:textColor="@color/main_green"
                     android:textSize="18sp" />
 
                 <TextView
@@ -70,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:textColor="@color/black"
+                    android:textColor="@color/main_green"
                     android:textSize="18sp" />
 
             </LinearLayout>
@@ -82,7 +82,8 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="마크정식"
-                android:textColor="#070707"
+                android:textColor="@color/main_pink"
+                android:textStyle="bold"
                 android:textSize="30sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -161,6 +162,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="재료\n"
+                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
@@ -175,6 +177,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="\n레시피설명\n"
+                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
@@ -189,6 +192,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="\n다른 추천 레시피"
+                android:textStyle="bold"
                 android:textColor="#040404"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"

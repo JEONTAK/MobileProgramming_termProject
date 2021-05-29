@@ -129,7 +129,7 @@ public class HomeFragment extends Fragment   {
 
         FreePost = (RecyclerView)root.findViewById(R.id.free_Post);
         FreePost.setHasFixedSize(true);
-        FreePost.setLayoutManager(new GridLayoutManager(getActivity(),numberOfColumns));
+        FreePost.setLayoutManager(new GridLayoutManager(getActivity(),1));
 
 
 

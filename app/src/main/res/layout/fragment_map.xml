@@ -22,9 +22,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.08"
-        android:backgroundTint="#020202"
+        android:backgroundTint="@color/main_green"
         android:text="내 주위 편의점 찾기"
-        android:textColor="#F8F7F7"
+        android:textColor="@color/black"
         android:textSize="18sp" />
     <!-- Activity에서는 fragment로 구현해야되지만
     Fragment로 구현하기위해서는 MapView를 사용해야함-->

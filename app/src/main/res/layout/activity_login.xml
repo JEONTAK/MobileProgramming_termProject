@@ -5,7 +5,7 @@
     android:id="@+id/linearLayout6"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ff4769"
+    android:background="@color/main_green"
     tools:context=".MainActivity">
 
 
@@ -25,10 +25,10 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="290dp"
+        android:layout_width="150dp"
         android:layout_height="240dp"
         android:layout_marginTop="48dp"
-        android:src="@drawable/store"
+        android:src="@drawable/login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -71,9 +71,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:backgroundTint="#040404"
+        android:backgroundTint="@color/main_pink"
         android:background="@drawable/rounded_background"
         android:text="login"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

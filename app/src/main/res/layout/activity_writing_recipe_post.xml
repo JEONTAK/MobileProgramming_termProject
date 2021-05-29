@@ -100,9 +100,11 @@
                         android:id="@+id/addImageBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="300dp"
                         android:layout_weight="1"
-                        android:backgroundTint="#000000"
+                        android:backgroundTint="@color/main_pink"
                         android:text="이미지첨부"
+                        android:textColor="@color/white"
                         android:textSize="18sp" />
 
                     <Button
@@ -111,20 +113,24 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
                         android:layout_marginRight="3dp"
+                        android:layout_marginTop="300dp"
                         android:layout_weight="1"
                         android:text="레시피 작성"
                         android:textSize="18sp"
-                        app:backgroundTint="#000000" />
+                        android:backgroundTint="@color/main_pink"
+                        android:textColor="@color/white"/>
 
                     <Button
                         android:id="@+id/goBackBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
+                        android:layout_marginTop="300dp"
                         android:layout_weight="1"
                         android:text="뒤로가기"
                         android:textSize="18sp"
-                        app:backgroundTint="#000000" />
+                        android:backgroundTint="@color/main_pink"
+                        android:textColor="@color/white" />
                 </LinearLayout>
 
 

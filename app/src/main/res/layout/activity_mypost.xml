@@ -9,9 +9,11 @@
         android:id="@+id/textView8"
         android:layout_width="match_parent"
         android:layout_height="49dp"
-        android:text="내가 쓴 글"
-        android:textColor="@color/purple_500"
-        android:textSize="30sp" />
+        android:text="  내가 쓴 글"
+        android:gravity="fill"
+        android:textStyle="bold"
+        android:textColor="@color/main_green"
+        android:textSize="25sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/myPage_freePost_List"

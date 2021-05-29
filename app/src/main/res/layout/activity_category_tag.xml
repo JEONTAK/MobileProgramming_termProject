@@ -12,8 +12,9 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="248dp"
         android:text="태그별"
-        android:textColor="@color/black"
-        android:textSize="30sp"
+        android:textColor="@color/main_green"
+        android:textStyle="bold"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.142"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,6 +24,9 @@
         android:id="@+id/tab_tag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:tabIconTint="@color/main_green"
+        app:tabIndicatorColor="@color/main_green"
+        app:tabTextColor="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
         tools:layout_editor_absoluteX="0dp">
 
