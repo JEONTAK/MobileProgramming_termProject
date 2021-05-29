@@ -294,23 +294,25 @@ public class writingRecipePostActivity extends AppCompatActivity {
                     String[] imageList2 = imageList[0].split("%2F");
                     String imageName = imageList2[imageList2.length - 1];
 
-                    // Create a reference to the file to delete
-                    StorageReference imageRef = storageRef.child("recipePost/" + recipePostInfo.getRecipeId() + "/" + imageName);
+                    if(recipePostInfo != null){
+                        // Create a reference to the file to delete
+                        StorageReference imageRef = storageRef.child("recipePost/" + recipePostInfo.getRecipeId() + "/" + imageName);
 
-                    // Delete the file
-                    imageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Log.d(TAG, "스토리지에서 이미지 파일 삭제 성공");
-                            // File deleted successfully
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-                            Log.w(TAG, "스토리지에서 이미지 파일 삭제 실패");
-                            // Uh-oh, an error occurred!
-                        }
-                    });
+                        // Delete the file
+                        imageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "스토리지에서 이미지 파일 삭제 성공");
+                                // File deleted successfully
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                Log.w(TAG, "스토리지에서 이미지 파일 삭제 실패");
+                                // Uh-oh, an error occurred!
+                            }
+                        });
+                    }
 
                     pathList.remove(parent.indexOfChild(selectedView));
                     parent.removeView(selectedView);

@@ -21,7 +21,7 @@
                 android:id="@+id/addTitleImageBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:srcCompat="@tools:sample/avatars" />
+                tools:srcCompat="@drawable/ic_baseline_image_24" />
 
             <EditText
                 android:id="@+id/editTitle_Recipe"
@@ -166,6 +166,7 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/black"
                     android:text="이미지 수정"
+                    android:textColor="@color/white"
                     android:textSize="18sp" />
 
                 <Button
@@ -174,6 +175,7 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/black"
                     android:text="이미지 삭제"
+                    android:textColor="@color/white"
                     android:textSize="18sp" />
 
             </LinearLayout>
