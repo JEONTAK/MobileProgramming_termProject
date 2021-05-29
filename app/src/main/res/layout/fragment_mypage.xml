@@ -32,16 +32,16 @@
         android:id="@+id/cardView2"
         android:layout_width="417dp"
         android:layout_height="150dp"
-        android:layout_marginTop="111dp"
+        android:layout_marginTop="108dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profileImageVIew"
-            android:layout_width="251dp"
-            android:layout_height="117dp"
+            android:id="@+id/profileImageVIew2"
+            android:layout_width="300dp"
+            android:layout_height="150dp"
             android:layout_gravity="center"
             android:src="@drawable/et_link_back2" />
 

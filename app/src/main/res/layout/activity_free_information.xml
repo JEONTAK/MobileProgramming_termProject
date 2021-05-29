@@ -7,184 +7,194 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
+    <View
+        android:id="@+id/view4"
+        android:layout_width="0dp"
+        android:layout_height="5dp"
+        android:layout_marginTop="40dp"
+        android:background="#e9e9e9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textContent_Free"></View>
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="0dp"
+        android:layout_height="5dp"
+        android:background="#e9e9e9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textContent_Free"></View>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profileImageVIew5"
+        android:layout_width="61dp"
+        android:layout_height="55dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/et_link_back2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/freePublisher1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="12dp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/profileImageVIew5"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="작성자" />
+
+    <TextView
+        android:id="@+id/freeIntoTitle"
+        android:layout_width="151dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="5dp"
+        android:text="자유글 제목"
+        android:textColor="#070707"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileImageVIew5" />
+
     <LinearLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_marginEnd="8dp"
+        android:gravity="center"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/textContent_Free">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="683dp">
+        <ImageButton
+            android:id="@+id/freeRecomBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:backgroundTint="@color/white"
+            android:tint="@color/black"
+            app:srcCompat="@drawable/ic_baseline_thumb_up_24" />
 
-            <LinearLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+        <TextView
+            android:id="@+id/recomText_Free"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="추천 수"
+            android:textColor="#000000"
+            android:textSize="18sp" />
 
-
-                <TextView
-                    android:id="@+id/freeIntoTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="20dp"
-                    android:text="자유글 제목"
-                    android:textColor="#070707"
-                    android:textSize="30sp" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <ImageButton
-                        android:id="@+id/freeRecomBtn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:backgroundTint="@color/white"
-                        android:tint="@color/black"
-                        app:srcCompat="@drawable/ic_baseline_thumb_up_24" />
-
-                    <TextView
-                        android:id="@+id/recomText_Free"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:text="추천 수"
-                        android:textColor="#000000"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/recomNumber_Free"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="1"
-                        android:textColor="@color/black"
-                        android:textSize="18sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:gravity="right"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textCreatedAt_Free"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="5dp"
-                        android:text="작성일"
-                        android:textColor="@color/black"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/freeInfoCreatedAt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="5dp"
-                        android:text="작성일"
-                        android:textColor="#070707"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/freeIntoTitle" />
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/isRecomText_Free"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center" />
-
-                <TextView
-                    android:id="@+id/textContent_Free"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="\n내용\n"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/textComment_Free"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="\n댓글\n"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-
-                <LinearLayout
-                    android:id="@+id/freeCommentLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="bottom"
-                    android:orientation="vertical">
-
-                    <ScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="200">
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/freePostRecyclerView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="200" />
-                    </ScrollView>
-
-                </LinearLayout>
-
-
-            </LinearLayout>
-        </ScrollView>
-
+        <TextView
+            android:id="@+id/recomNumber_Free"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
 
     </LinearLayout>
+
 
     <LinearLayout
-        android:id="@+id/linearLayout4"
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:gravity="right"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toEndOf="@+id/profileImageVIew5"
+        app:layout_constraintTop_toBottomOf="@+id/freePublisher1">
+
+        <TextView
+            android:id="@+id/textCreatedAt_Free"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="5dp"
+            android:text="작성일"
+            android:textColor="@color/black"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/freeInfoCreatedAt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:text="작성일"
+            android:textColor="#070707"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/freeIntoTitle" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/isRecomText_Free"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginEnd="55dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/freePostRecyclerView"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
+        app:layout_constraintTop_toBottomOf="@+id/textContent_Free" />
+
+    <TextView
+        android:id="@+id/textContent_Free"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:text="내용\n"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/freeIntoTitle" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/freePostRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginTop="45dp"
+        android:layout_weight="200"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textContent_Free" />
+
+    <EditText
+        android:id="@+id/editComment"
+        android:layout_width="315dp"
+        android:layout_height="47dp"
+        android:layout_gravity="bottom"
+        android:layout_weight="200"
+        android:ems="10"
+        android:gravity="bottom"
+        android:hint="댓글을 작성해주세요!"
+        android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <EditText
-            android:id="@+id/editComment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_weight="200"
-            android:ems="10"
-            android:gravity="bottom"
-            android:hint="댓글을 작성해주세요!"
-            android:inputType="text" />
+    <Button
+        android:id="@+id/writingFreePost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:backgroundTint="@color/black"
+        android:text="작성"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        <Button
-            android:id="@+id/writingFreePost"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@color/black"
-            android:text="작성" />
-    </LinearLayout>
 
     <include
         layout="@layout/view_loader"

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.mobileprogramming_termproject.Member.MemberInfo;
 import com.example.mobileprogramming_termproject.R;
 import com.example.mobileprogramming_termproject.adapter.CustomAdapter;
@@ -173,7 +175,7 @@ public class freeInformationActivity extends AppCompatActivity {
                                     String sendTitle=freePostInfo.getTitle()+"에 댓글이 작성되었습니다.";
                                     String sendText=freePostInfo.getUserName()+"의 게시글에 댓글 ";
                                     String currentTime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-                                    String uid=firebaseAuth.getCurrentUser().getUid();
+
 
                                     mDBHelper.InsertAlarm(sendTitle,sendText,user,currentTime);
 
@@ -244,7 +246,7 @@ public class freeInformationActivity extends AppCompatActivity {
         Log.d("로그: ", "" + getIntent().getStringExtra("id"));
 
         TextView freeInfoTitle = findViewById(R.id.freeIntoTitle);
-        freeInfoTitle.setText(freePostInfo.getTitle());
+        freeInfoTitle.setText("제목: "+ freePostInfo.getTitle());
         Log.d("로그","" + freePostInfo.getTitle());
 
         TextView freeRecomNum = findViewById(R.id.recomNumber_Free);
@@ -258,8 +260,26 @@ public class freeInformationActivity extends AppCompatActivity {
         TextView freeContent = findViewById(R.id.textContent_Free);
         freeContent.setText(freePostInfo.getContent());
 
+        ImageView profileImage=findViewById(R.id.profileImageVIew5);
+        firebaseFirestore= FirebaseFirestore.getInstance();
+        DocumentReference dr = firebaseFirestore.collection("users").document(freePostInfo.getPublisher());
+        dr.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        String photoURL=document.getData().get("photoUrl").toString();
+                        Glide.with(freeInformationActivity.this).load(photoURL).centerCrop().into(profileImage);
+                        Log.v("자유게시판","자유게시판");
+                    }
+                }
+            }
+        });
 
-        LinearLayout freeCommentLayout = findViewById(R.id.freeCommentLayout);
+        TextView freepublisher1=findViewById(R.id.freePublisher1);
+        freepublisher1.setText(freePostInfo.getUserName());
+
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         ArrayList<String> freeContentList = freePostInfo.getComment();

@@ -70,9 +70,9 @@ public class LoginActivity extends AppCompatActivity {
         loaderLayout = findViewById(R.id.loaderLayout);
 
 //        if (firebaseAuth.getCurrentUser() != null){
-////            setUserInfo();
+//            setUserInfo();
 //                Toast.makeText(getApplicationContext(), "자동 로그인", Toast.LENGTH_SHORT).show();
-////                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+//                startActivity(new Intent(getApplicationContext(), MainActivity.class));
 //
 //            finish();
 //        }

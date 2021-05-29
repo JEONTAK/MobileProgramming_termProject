@@ -7,7 +7,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobileprogramming_termproject.R;
@@ -31,7 +31,7 @@ public class recipeCommunityActivity extends AppCompatActivity {
     //레시피 글을 카드뷰로 띄워주기 위한 리사이클러 뷰 선언
     private RecyclerView recipeRecyclerView;
     //카드뷰를 행마다 2개씩 나오게 하기위함.
-    final int numberOfColumns = 2;
+    final int numberOfColumns = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +45,17 @@ public class recipeCommunityActivity extends AppCompatActivity {
         //리사이클러뷰 작성
         recipeRecyclerView = findViewById(R.id.myPage_RecipePost_List);
         recipeRecyclerView.setHasFixedSize(true);
-        recipeRecyclerView.setLayoutManager(new GridLayoutManager(recipeCommunityActivity.this,numberOfColumns));
+        recipeRecyclerView.setLayoutManager(new LinearLayoutManager(recipeCommunityActivity.this));
+
 
     }
 
     //레시피게시판에 내용이 추가가 될 경우 바로바로 업데이트 해주기 위해 resume함수에 넣어 관리.
     @Override
-    protected void onResume(){
+    public void onResume(){
         super.onResume();
+
+
 
         //recipePost에 있는 data를 가져오기 위함.
         CollectionReference collectionReference = firebaseFirestore.collection("recipePost");
@@ -88,6 +91,9 @@ public class recipeCommunityActivity extends AppCompatActivity {
                             //recipeAdapter를 이용하여 리사이클러 뷰로 내용 띄움.
                             RecyclerView.Adapter mAdapter = new recipeAdapter(recipeCommunityActivity.this, recipe_postList);
                             recipeRecyclerView.setAdapter(mAdapter);
+                            mAdapter.notifyDataSetChanged();
+
+
                         } else {
                             Log.d("로그: ", "Error getting documents: ", task.getException());
 
@@ -114,4 +120,7 @@ public class recipeCommunityActivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
+
+
+
 }

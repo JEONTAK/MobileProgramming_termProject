@@ -5,14 +5,23 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.mobileprogramming_termproject.R;
 import com.example.mobileprogramming_termproject.community.freeInformationActivity;
 import com.example.mobileprogramming_termproject.writingContent.FreePostInfo;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -25,7 +34,9 @@ public class freeAdapter extends RecyclerView.Adapter<freeAdapter.freeViewHolder
     //자유게시판 글 데이터
     private ArrayList<FreePostInfo> mDataset;
     private Activity activity;
-
+    private FirebaseFirestore firebaseFirestore;
+    //파이어베이스에서 유저 정보 가져오기위해 선언.
+    FirebaseUser firebaseUser;
     static class freeViewHolder extends RecyclerView.ViewHolder{
         public CardView cardView;
         freeViewHolder(Activity activity, CardView v, FreePostInfo freePostInfo){
@@ -72,11 +83,29 @@ public class freeAdapter extends RecyclerView.Adapter<freeAdapter.freeViewHolder
         TextView createdAt = cardView.findViewById(R.id.freeCreatedAt);
         createdAt.setText(new SimpleDateFormat("MM-dd hh:mm", Locale.KOREA).format(mDataset.get(position).getCreatedAt()));
 
-        TextView freePublisher = cardView.findViewById(R.id.freePublisher);
+        TextView freePublisher = cardView.findViewById(R.id.freePublisher1);
         freePublisher.setText(mDataset.get(position).getUserName());
 
         TextView recom = cardView.findViewById(R.id.freeRecom);
         recom.setText("추천수 : " + (int) mDataset.get(position).getRecom());
+        ImageView profileImage=cardView.findViewById(R.id.profileImageVIew3);
+        String publisher=mDataset.get(position).getPublisher();
+
+        firebaseFirestore= FirebaseFirestore.getInstance();
+        DocumentReference dr = firebaseFirestore.collection("users").document(publisher);
+        dr.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        String photoURL=document.getData().get("photoUrl").toString();
+                        Glide.with(activity).load(photoURL).centerCrop().into(profileImage);
+                    }
+                }
+            }
+        });
+
 
     }
 

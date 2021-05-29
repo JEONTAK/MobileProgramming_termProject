@@ -4,13 +4,22 @@ import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.bumptech.glide.Glide;
 import com.example.mobileprogramming_termproject.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -21,6 +30,9 @@ public class commentAdapter extends RecyclerView.Adapter<commentAdapter.commentV
     //게시글의 댓글을 저장하기 위한 arraylist
     private ArrayList<String> mDataset;
     private Activity activity;
+    private FirebaseFirestore firebaseFirestore;
+    //파이어베이스에서 유저 정보 가져오기위해 선언.
+    FirebaseUser firebaseUser;
 
 
     static class commentViewHolder extends RecyclerView.ViewHolder{
@@ -63,6 +75,24 @@ public class commentAdapter extends RecyclerView.Adapter<commentAdapter.commentV
 
         TextView publisher = cardView.findViewById(R.id.commentPublisher);
         publisher.setText(all[2]);
+
+        ImageView profileImage=cardView.findViewById(R.id.profileImageVIew4);
+        String publisherId=all[1];
+
+        firebaseFirestore= FirebaseFirestore.getInstance();
+        DocumentReference dr = firebaseFirestore.collection("users").document(publisherId);
+        dr.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        String photoURL=document.getData().get("photoUrl").toString();
+                        Glide.with(activity).load(photoURL).centerCrop().into(profileImage);
+                    }
+                }
+            }
+        });
 
     }
 

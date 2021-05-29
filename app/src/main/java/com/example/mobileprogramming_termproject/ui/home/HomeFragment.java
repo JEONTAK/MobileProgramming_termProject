@@ -69,7 +69,7 @@ public class HomeFragment extends Fragment   {
 
 
 
-    final int numberOfColumns = 2;
+    final int numberOfColumns = 1;
 
     private final int priceFragment = 1;
     private final int tagFragment = 2;

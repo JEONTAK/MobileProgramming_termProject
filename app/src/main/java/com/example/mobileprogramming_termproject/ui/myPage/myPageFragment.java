@@ -27,6 +27,9 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.mobileprogramming_termproject.Gallery.GalleryActivity;
 import com.example.mobileprogramming_termproject.Member.MemberInfo;
 import com.example.mobileprogramming_termproject.R;
@@ -118,7 +121,7 @@ public class myPageFragment extends Fragment {
     public void onStart() {
         super.onStart();
         nickname=getActivity().findViewById(R.id.nicknameTextView);
-        profileImageVIew= getActivity().findViewById(R.id.profileImageVIew);
+        profileImageVIew= getActivity().findViewById(R.id.profileImageVIew2);
         user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference docRef = db.collection("users").document(user.getUid());
@@ -127,10 +130,14 @@ public class myPageFragment extends Fragment {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
 
+                RequestOptions options = new RequestOptions()
+                        .centerCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                        .priority(Priority.HIGH);
                 MemberInfo memberInfo = documentSnapshot.toObject(MemberInfo.class);
                 original_nickname=memberInfo.getNickname();
                 orignal_url=memberInfo.getPhotoUrl();
-                Glide.with(getActivity()).load(orignal_url).override(1000).thumbnail(0.1f).into(profileImageVIew);
+                Glide.with(getActivity()).load(orignal_url).override(500).thumbnail(1f).apply(options).into(profileImageVIew);
                 nickname.setText(original_nickname);
                 Log.v("이런",orignal_url+original_nickname);
 
@@ -138,7 +145,7 @@ public class myPageFragment extends Fragment {
 
         });
 
-        getActivity().findViewById((R.id.profileImageVIew)).setOnClickListener((onClickListener));
+        getActivity().findViewById((R.id.profileImageVIew2)).setOnClickListener((onClickListener));
         getActivity().findViewById((R.id.completeButton)).setOnClickListener((onClickListener));
         getActivity().findViewById((R.id.EditButton)).setOnClickListener((onClickListener));
         getActivity().findViewById(R.id.getProfileButton).setOnClickListener(onClickListener);
@@ -187,7 +194,7 @@ public class myPageFragment extends Fragment {
                     nicknameTextView.setVisibility(View.VISIBLE);
                     profile_nickname_Update();
                     break;
-                case R.id.profileImageVIew:
+                case R.id.profileImageVIew2:
                     if (ContextCompat.checkSelfPermission(getContext(),
                             Manifest.permission.READ_EXTERNAL_STORAGE)
                             != PackageManager.PERMISSION_GRANTED) {//권한 설정을 아직 완료하지않았다면,
@@ -241,7 +248,7 @@ public class myPageFragment extends Fragment {
                     public void onComplete(@NonNull Task<Uri> task) {
                         if (task.isSuccessful()) {
                             Uri downloadUri = task.getResult();
-                            Glide.with(getActivity()).load(downloadUri).override(700).thumbnail(0.1f).into(profileImageVIew);
+                            Glide.with(getActivity()).load(downloadUri).override(5000).into(profileImageVIew);
                             FirebaseFirestore db = FirebaseFirestore.getInstance();
                             db.collection("users").document(user.getUid()).update("photoUrl",downloadUri.toString())
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
