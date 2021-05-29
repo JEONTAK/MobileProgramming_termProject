@@ -19,8 +19,8 @@
 
             <TextView
                 android:id="@+id/commentPost"
-                android:layout_width="74dp"
-                android:layout_height="27dp"
+                android:layout_width="322dp"
+                android:layout_height="30dp"
                 android:layout_marginTop="5dp"
                 android:textColor="@color/black"
                 android:textSize="18sp"
@@ -43,8 +43,8 @@
 
             <TextView
                 android:id="@+id/commentContent"
-                android:layout_width="69dp"
-                android:layout_height="15dp"
+                android:layout_width="316dp"
+                android:layout_height="22dp"
                 android:layout_marginBottom="2dp"
                 android:textColor="@color/black"
                 android:textSize="12sp"
