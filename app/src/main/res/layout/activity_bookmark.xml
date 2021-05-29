@@ -2,15 +2,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="match_parent"
         android:layout_height="49dp"
-        android:text="스크랩한 목록"
-        android:textColor="@color/purple_500"
-        android:textSize="30sp" />
+        android:gravity="fill"
+        android:text="  내 스크랩"
+        android:textColor="@color/main_green"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="18dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/myPage_RecipePost_List"

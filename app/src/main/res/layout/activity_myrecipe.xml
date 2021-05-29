@@ -8,9 +8,11 @@
         android:id="@+id/textView10"
         android:layout_width="match_parent"
         android:layout_height="49dp"
-        android:text="나의 레시피"
-        android:textColor="@color/purple_500"
-        android:textSize="30sp" />
+        android:text="  나의 레시피"
+        android:gravity="fill"
+        android:textStyle="bold"
+        android:textColor="@color/main_green"
+        android:textSize="25sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/myPage_RecipePost_List"

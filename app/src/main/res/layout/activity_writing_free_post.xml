@@ -22,6 +22,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="제목"
+                android:backgroundTint="@color/main_green"
                 android:inputType="textPersonName" />
 
             <EditText
@@ -30,7 +31,8 @@
                 android:layout_height="match_parent"
                 android:ems="10"
                 android:gravity="top"
-                android:hint="내용을 입력하세요!"
+                android:hint="내용을 입력하세요"
+                android:backgroundTint="@color/main_green"
                 android:inputType="text"
                 android:lines="10" />
 
@@ -59,8 +61,9 @@
                 android:layout_marginRight="3dp"
                 android:layout_weight="1"
                 android:text="게시글 작성"
+                android:textColor="@color/white"
                 android:textSize="18sp"
-                app:backgroundTint="#000000" />
+                app:backgroundTint="@color/main_pink" />
 
             <Button
                 android:id="@+id/goBackBtn"
@@ -69,8 +72,9 @@
                 android:layout_marginLeft="3dp"
                 android:layout_weight="1"
                 android:text="뒤로가기"
+                android:textColor="@color/white"
                 android:textSize="18sp"
-                app:backgroundTint="#000000" />
+                app:backgroundTint="@color/main_pink" />
 
         </LinearLayout>
 
